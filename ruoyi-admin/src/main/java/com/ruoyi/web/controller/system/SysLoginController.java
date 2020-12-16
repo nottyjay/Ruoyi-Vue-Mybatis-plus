@@ -14,9 +14,9 @@ import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.domain.model.LoginBody;
 import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.common.utils.ServletUtils;
-import com.ruoyi.framework.web.service.SysLoginService;
-import com.ruoyi.framework.web.service.SysPermissionService;
-import com.ruoyi.framework.web.service.TokenService;
+import com.ruoyi.web.service.SysLoginService;
+import com.ruoyi.web.service.SysPermissionService;
+import com.ruoyi.web.service.TokenService;
 import com.ruoyi.system.service.ISysMenuService;
 
 /**

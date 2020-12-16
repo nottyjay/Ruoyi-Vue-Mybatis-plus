@@ -20,7 +20,7 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.ServletUtils;
 import com.ruoyi.common.utils.file.FileUploadUtils;
-import com.ruoyi.framework.web.service.TokenService;
+import com.ruoyi.web.service.TokenService;
 import com.ruoyi.system.service.ISysUserService;
 
 /**
