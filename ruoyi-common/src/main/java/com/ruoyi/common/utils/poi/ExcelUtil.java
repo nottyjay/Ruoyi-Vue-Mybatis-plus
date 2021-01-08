@@ -1,45 +1,5 @@
 package com.ruoyi.common.utils.poi;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Field;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DataValidation;
-import org.apache.poi.ss.usermodel.DataValidationConstraint;
-import org.apache.poi.ss.usermodel.DataValidationHelper;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFDataValidation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.annotation.Excel.ColumnType;
 import com.ruoyi.common.annotation.Excel.Type;
@@ -51,11 +11,27 @@ import com.ruoyi.common.exception.CustomException;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.DictUtils;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.file.FileTypeUtils;
+import com.ruoyi.common.utils.file.ImageUtils;
 import com.ruoyi.common.utils.reflect.ReflectUtils;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFDataValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Excel相关处理
- * 
+ *
  * @author ruoyi
  */
 public class ExcelUtil<T>
@@ -103,6 +79,11 @@ public class ExcelUtil<T>
     private List<Object[]> fields;
 
     /**
+     * 最大高度
+     */
+    private short maxHeight;
+
+    /**
      * 统计列表
      */
     private Map<Integer, Double> statistics = new HashMap<Integer, Double>();
@@ -137,7 +118,7 @@ public class ExcelUtil<T>
 
     /**
      * 对excel表单默认第一个索引名转换成list
-     * 
+     *
      * @param is 输入流
      * @return 转换后集合
      */
@@ -148,7 +129,7 @@ public class ExcelUtil<T>
 
     /**
      * 对excel表单指定表格索引名转换成list
-     * 
+     *
      * @param sheetName 表格索引名
      * @param is 输入流
      * @return 转换后集合
@@ -239,7 +220,15 @@ public class ExcelUtil<T>
                         }
                         else
                         {
-                            val = Convert.toStr(val);
+                            String dateFormat = field.getAnnotation(Excel.class).dateFormat();
+                            if (StringUtils.isNotEmpty(dateFormat))
+                            {
+                                val = DateUtils.parseDateToStr(dateFormat, (Date) val);
+                            }
+                            else
+                            {
+                                val = Convert.toStr(val);
+                            }
                         }
                     }
                     else if ((Integer.TYPE == fieldType || Integer.class == fieldType) && StringUtils.isNumeric(Convert.toStr(val)))
@@ -304,7 +293,7 @@ public class ExcelUtil<T>
 
     /**
      * 对list数据源将其里面的数据导入到excel表单
-     * 
+     *
      * @param list 导出数据集合
      * @param sheetName 工作表的名称
      * @return 结果
@@ -317,7 +306,7 @@ public class ExcelUtil<T>
 
     /**
      * 对list数据源将其里面的数据导入到excel表单
-     * 
+     *
      * @param sheetName 工作表的名称
      * @return 结果
      */
@@ -329,7 +318,7 @@ public class ExcelUtil<T>
 
     /**
      * 对list数据源将其里面的数据导入到excel表单
-     * 
+     *
      * @return 结果
      */
     public AjaxResult exportExcel()
@@ -397,7 +386,7 @@ public class ExcelUtil<T>
 
     /**
      * 填充excel数据
-     * 
+     *
      * @param index 序号
      * @param row 单元格行
      */
@@ -424,7 +413,7 @@ public class ExcelUtil<T>
 
     /**
      * 创建表格样式
-     * 
+     *
      * @param wb 工作薄对象
      * @return 样式列表
      */
@@ -462,7 +451,7 @@ public class ExcelUtil<T>
         headerFont.setColor(IndexedColors.WHITE.getIndex());
         style.setFont(headerFont);
         styles.put("header", style);
-        
+
         style = wb.createCellStyle();
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -506,7 +495,7 @@ public class ExcelUtil<T>
 
     /**
      * 设置单元格信息
-     * 
+     *
      * @param value 单元格值
      * @param attr 注解相关
      * @param cell 单元格信息
@@ -521,6 +510,47 @@ public class ExcelUtil<T>
         {
             cell.setCellValue(StringUtils.contains(Convert.toStr(value), ".") ? Convert.toDouble(value) : Convert.toInt(value));
         }
+        else if (ColumnType.IMAGE == attr.cellType())
+        {
+            ClientAnchor anchor = new XSSFClientAnchor(0, 0, 0, 0, (short) cell.getColumnIndex(), cell.getRow().getRowNum(), (short) (cell.getColumnIndex() + 1),
+                    cell.getRow().getRowNum() + 1);
+            String imagePath = Convert.toStr(value);
+            if (StringUtils.isNotEmpty(imagePath))
+            {
+                byte[] data = ImageUtils.getImage(imagePath);
+                getDrawingPatriarch(cell.getSheet()).createPicture(anchor,
+                        cell.getSheet().getWorkbook().addPicture(data, getImageType(data)));
+            }
+        }
+    }
+
+    /**
+     * 获取画布
+     */
+    public static Drawing<?> getDrawingPatriarch(Sheet sheet)
+    {
+        if (sheet.getDrawingPatriarch() == null)
+        {
+            sheet.createDrawingPatriarch();
+        }
+        return sheet.getDrawingPatriarch();
+    }
+
+    /**
+     * 获取图片类型,设置图片插入类型
+     */
+    public int getImageType(byte[] value)
+    {
+        String type = FileTypeUtils.getFileExtendName(value);
+        if ("JPG".equalsIgnoreCase(type))
+        {
+            return Workbook.PICTURE_TYPE_JPEG;
+        }
+        else if ("PNG".equalsIgnoreCase(type))
+        {
+            return Workbook.PICTURE_TYPE_PNG;
+        }
+        return Workbook.PICTURE_TYPE_JPEG;
     }
 
     /**
@@ -536,7 +566,6 @@ public class ExcelUtil<T>
         {
             // 设置列宽
             sheet.setColumnWidth(column, (int) ((attr.width() + 0.72) * 256));
-            row.setHeight((short) (attr.height() * 20));
         }
         // 如果设置了提示信息则鼠标放上去提示.
         if (StringUtils.isNotEmpty(attr.prompt()))
@@ -561,7 +590,7 @@ public class ExcelUtil<T>
         try
         {
             // 设置行高
-            row.setHeight((short) (attr.height() * 20));
+            row.setHeight(maxHeight);
             // 根据Excel中设置情况决定是否导出,有些情况需要保持为空,希望用户填写这一列.
             if (attr.isExport())
             {
@@ -609,7 +638,7 @@ public class ExcelUtil<T>
 
     /**
      * 设置 POI XSSFSheet 单元格提示
-     * 
+     *
      * @param sheet 表单
      * @param promptTitle 提示标题
      * @param promptContent 提示内容
@@ -619,7 +648,7 @@ public class ExcelUtil<T>
      * @param endCol 结束列
      */
     public void setXSSFPrompt(Sheet sheet, String promptTitle, String promptContent, int firstRow, int endRow,
-            int firstCol, int endCol)
+                              int firstCol, int endCol)
     {
         DataValidationHelper helper = sheet.getDataValidationHelper();
         DataValidationConstraint constraint = helper.createCustomConstraint("DD1");
@@ -632,7 +661,7 @@ public class ExcelUtil<T>
 
     /**
      * 设置某些列的值只能输入预制的数据,显示下拉框.
-     * 
+     *
      * @param sheet 要设置的sheet.
      * @param textlist 下拉框显示的内容
      * @param firstRow 开始行
@@ -666,7 +695,7 @@ public class ExcelUtil<T>
 
     /**
      * 解析导出值 0=男,1=女,2=未知
-     * 
+     *
      * @param propertyValue 参数值
      * @param converterExp 翻译注解
      * @param separator 分隔符
@@ -703,7 +732,7 @@ public class ExcelUtil<T>
 
     /**
      * 反向解析值 男=0,女=1,未知=2
-     * 
+     *
      * @param propertyValue 参数值
      * @param converterExp 翻译注解
      * @param separator 分隔符
@@ -740,7 +769,7 @@ public class ExcelUtil<T>
 
     /**
      * 解析字典值
-     * 
+     *
      * @param dictValue 字典值
      * @param dictType 字典类型
      * @param separator 分隔符
@@ -753,7 +782,7 @@ public class ExcelUtil<T>
 
     /**
      * 反向解析值字典值
-     * 
+     *
      * @param dictLabel 字典标签
      * @param dictType 字典类型
      * @param separator 分隔符
@@ -822,7 +851,7 @@ public class ExcelUtil<T>
 
     /**
      * 获取下载路径
-     * 
+     *
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename)
@@ -838,7 +867,7 @@ public class ExcelUtil<T>
 
     /**
      * 获取bean中的属性值
-     * 
+     *
      * @param vo 实体对象
      * @param field 字段
      * @param excel 注解
@@ -869,7 +898,7 @@ public class ExcelUtil<T>
 
     /**
      * 以类的属性的get方法方法形式获取值
-     * 
+     *
      * @param o
      * @param name
      * @return value
@@ -916,6 +945,21 @@ public class ExcelUtil<T>
             }
         }
         this.fields = this.fields.stream().sorted(Comparator.comparing(objects -> ((Excel) objects[1]).sort())).collect(Collectors.toList());
+        this.maxHeight = getRowHeight();
+    }
+
+    /**
+     * 根据注解获取最大行高
+     */
+    public short getRowHeight()
+    {
+        double maxHeight = 0;
+        for (Object[] os : this.fields)
+        {
+            Excel excel = (Excel) os[1];
+            maxHeight = maxHeight > excel.height() ? maxHeight : excel.height();
+        }
+        return (short) (maxHeight * 20);
     }
 
     /**
@@ -939,7 +983,7 @@ public class ExcelUtil<T>
 
     /**
      * 创建工作表
-     * 
+     *
      * @param sheetNo sheet数量
      * @param index 序号
      */
@@ -960,7 +1004,7 @@ public class ExcelUtil<T>
 
     /**
      * 获取单元格值
-     * 
+     *
      * @param row 获取的行
      * @param column 获取单元格列号
      * @return 单元格值

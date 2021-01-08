@@ -13,7 +13,7 @@
                 mode="vertical"
             >
                 <sidebar-item
-                    v-for="(route, index) in permission_routes"
+                    v-for="(route, index) in sidebarRouters"
                     :key="route.path  + index"
                     :item="route"
                     :base-path="route.path"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import {mapGetters, mapState} from "vuex";
 import Logo from "./Logo";
 import SidebarItem from "./SidebarItem";
 import variables from "@/assets/styles/variables.scss";
@@ -33,7 +33,7 @@ export default {
     components: { SidebarItem, Logo },
     computed: {
         ...mapState(["settings"]),
-        ...mapGetters(["permission_routes", "sidebar"]),
+        ...mapGetters(["sidebarRouters", "sidebar"]),
         activeMenu() {
             const route = this.$route;
             const { meta, path } = route;

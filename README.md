@@ -1,5 +1,10 @@
+## 更新说明
+-----2021/01/08-----
+代码同步至2021-01-04日版本。详细更新说明请自行查阅
+修复保存数据时BaseEntity类params属性映射失败的问题
+
 ## 变化说明
-1.  代码在Ruoyi-Vue（2020/12/14）版本变化而来
+1.  代码在[Ruoyi-Vue](https://gitee.com/y_project/RuoYi-Vue)（2020/12/14）版本变化而来
 2.  将Mybatis替换为Mybatis-plus
 3.  添加RedisUtils工具类方便直接操作redis
 4.  将登录、权限验证等代码整体迁移至ruoyi-admin模块中，现在可以在开发前端接口时直接接入ruoyi-framework模块使用
@@ -15,9 +20,8 @@
 * 权限认证使用Jwt，支持多终端认证系统。
 * 支持加载动态权限菜单，多方式轻松权限控制。
 * 高效率开发，使用代码生成器可以一键生成前后端代码。
-* 提供了一个Oracle版本[RuoYi-Vue-Oracle](https://github.com/yangzongzhuan/RuoYi-Vue-Oracle)，保持同步更新。
-* 不分离版本，请移步[RuoYi](https://gitee.com/y_project/RuoYi)，微服务版本，请移步[RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud)
-* 感谢[Vue-Element-Admin](https://github.com/PanJiaChen/vue-element-admin)，[eladmin-web](https://gitee.com/elunez/eladmin-web?_from=gitee_search)。
+* 提供了单应用版本[RuoYi-Vue-fast](https://github.com/yangzongzhuan/RuoYi-Vue-fast)，Oracle版本[RuoYi-Vue-Oracle](https://github.com/yangzongzhuan/RuoYi-Vue-Oracle)，保持同步更新。* 不分离版本，请移步[RuoYi](https://gitee.com/y_project/RuoYi)，微服务版本，请移步[RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud)
+  12	* 特别鸣谢：[element](https://github.com/ElemeFE/element)，[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)，[eladmin-web](https://github.com/elunez/eladmin-web)。
 * 阿里云折扣场：[点我进入](http://aly.ruoyi.vip)，腾讯云秒杀场：[点我进入](http://txy.ruoyi.vip)&nbsp;&nbsp;
 * 阿里云优惠券：[点我领取](https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link)，腾讯云优惠券：[点我领取](https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console)&nbsp;&nbsp;
 

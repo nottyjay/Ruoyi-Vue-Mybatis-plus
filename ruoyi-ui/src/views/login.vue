@@ -48,15 +48,15 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2020 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2018-2021 ruoyi.vip All Rights Reserved.</span>
     </div>
   </div>
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
+import {getCodeImg} from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import {decrypt, encrypt} from '@/utils/jsencrypt'
 
 export default {
   name: "Login",

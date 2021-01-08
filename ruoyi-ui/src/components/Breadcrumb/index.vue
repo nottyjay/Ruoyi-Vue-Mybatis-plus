@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import pathToRegexp from 'path-to-regexp'
 
 export default {
   data() {
@@ -49,18 +48,13 @@ export default {
       }
       return name.trim() === '首页'
     },
-    pathCompile(path) {
-      const { params } = this.$route
-      var toPath = pathToRegexp.compile(path)
-      return toPath(params)
-    },
     handleLink(item) {
       const { redirect, path } = item
       if (redirect) {
         this.$router.push(redirect)
         return
       }
-      this.$router.push(this.pathCompile(path))
+      this.$router.push(path)
     }
   }
 }

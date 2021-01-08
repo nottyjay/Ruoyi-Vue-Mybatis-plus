@@ -32,7 +32,7 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="cyan" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -41,6 +41,7 @@
       <el-col :span="1.5">
         <el-button
           type="primary"
+          plain
           icon="el-icon-download"
           size="mini"
           @click="handleGenTable"
@@ -50,6 +51,7 @@
       <el-col :span="1.5">
         <el-button
           type="info"
+          plain
           icon="el-icon-upload"
           size="mini"
           @click="openImportTable"
@@ -59,6 +61,7 @@
       <el-col :span="1.5">
         <el-button
           type="success"
+          plain
           icon="el-icon-edit"
           size="mini"
           :disabled="single"
@@ -69,6 +72,7 @@
       <el-col :span="1.5">
         <el-button
           type="danger"
+          plain
           icon="el-icon-delete"
           size="mini"
           :disabled="multiple"
@@ -174,9 +178,9 @@
 </template>
 
 <script>
-import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
+import {delTable, genCode, listTable, previewTable, synchDb} from "@/api/tool/gen";
 import importTable from "./importTable";
-import { downLoadZip } from "@/utils/zipdownload";
+import {downLoadZip} from "@/utils/zipdownload";
 
 export default {
   name: "Gen",

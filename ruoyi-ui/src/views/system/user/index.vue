@@ -77,7 +77,7 @@
             ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="cyan" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
             <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
           </el-form-item>
         </el-form>
@@ -86,6 +86,7 @@
           <el-col :span="1.5">
             <el-button
               type="primary"
+              plain
               icon="el-icon-plus"
               size="mini"
               @click="handleAdd"
@@ -95,6 +96,7 @@
           <el-col :span="1.5">
             <el-button
               type="success"
+              plain
               icon="el-icon-edit"
               size="mini"
               :disabled="single"
@@ -105,6 +107,7 @@
           <el-col :span="1.5">
             <el-button
               type="danger"
+              plain
               icon="el-icon-delete"
               size="mini"
               :disabled="multiple"
@@ -115,6 +118,7 @@
           <el-col :span="1.5">
             <el-button
               type="info"
+              plain
               icon="el-icon-upload2"
               size="mini"
               @click="handleImport"
@@ -124,6 +128,7 @@
           <el-col :span="1.5">
             <el-button
               type="warning"
+              plain
               icon="el-icon-download"
               size="mini"
               @click="handleExport"
@@ -338,9 +343,19 @@
 </template>
 
 <script>
-import { listUser, getUser, delUser, addUser, updateUser, exportUser, resetUserPwd, changeUserStatus, importTemplate } from "@/api/system/user";
-import { getToken } from "@/utils/auth";
-import { treeselect } from "@/api/system/dept";
+import {
+  addUser,
+  changeUserStatus,
+  delUser,
+  exportUser,
+  getUser,
+  importTemplate,
+  listUser,
+  resetUserPwd,
+  updateUser
+} from "@/api/system/user";
+import {getToken} from "@/utils/auth";
+import {treeselect} from "@/api/system/dept";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 

@@ -50,7 +50,7 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="cyan" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -59,6 +59,7 @@
       <el-col :span="1.5">
         <el-button
           type="primary"
+          plain
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
@@ -68,6 +69,7 @@
       <el-col :span="1.5">
         <el-button
           type="success"
+          plain
           icon="el-icon-edit"
           size="mini"
           :disabled="single"
@@ -78,6 +80,7 @@
       <el-col :span="1.5">
         <el-button
           type="danger"
+          plain
           icon="el-icon-delete"
           size="mini"
           :disabled="multiple"
@@ -88,6 +91,7 @@
       <el-col :span="1.5">
         <el-button
           type="warning"
+          plain
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
@@ -244,9 +248,18 @@
 </template>
 
 <script>
-import { listRole, getRole, delRole, addRole, updateRole, exportRole, dataScope, changeRoleStatus } from "@/api/system/role";
-import { treeselect as menuTreeselect, roleMenuTreeselect } from "@/api/system/menu";
-import { treeselect as deptTreeselect, roleDeptTreeselect } from "@/api/system/dept";
+import {
+  addRole,
+  changeRoleStatus,
+  dataScope,
+  delRole,
+  exportRole,
+  getRole,
+  listRole,
+  updateRole
+} from "@/api/system/role";
+import {roleMenuTreeselect, treeselect as menuTreeselect} from "@/api/system/menu";
+import {roleDeptTreeselect, treeselect as deptTreeselect} from "@/api/system/dept";
 
 export default {
   name: "Role",

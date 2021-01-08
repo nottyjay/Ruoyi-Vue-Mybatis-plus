@@ -1,14 +1,14 @@
 package com.ruoyi.common.core.domain;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Entity基类
@@ -45,6 +45,7 @@ public class BaseEntity implements Serializable
     private String remark;
 
     /** 请求参数 */
+    @TableField(exist = false)
     private Map<String, Object> params;
 
     public String getSearchValue()
