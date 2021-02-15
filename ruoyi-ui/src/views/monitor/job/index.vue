@@ -266,7 +266,7 @@
 </template>
 
 <script>
-import {addJob, changeJobStatus, delJob, exportJob, getJob, listJob, runJob, updateJob} from "@/api/monitor/job";
+import { listJob, getJob, delJob, addJob, updateJob, exportJob, runJob, changeJobStatus } from "@/api/monitor/job";
 
 export default {
   name: "Job",

@@ -160,8 +160,8 @@
 </template>
 
 <script>
-import {addData, delData, exportData, getData, listData, updateData} from "@/api/system/dict/data";
-import {getType, listType} from "@/api/system/dict/type";
+import { listData, getData, delData, addData, updateData, exportData } from "@/api/system/dict/data";
+import { listType, getType } from "@/api/system/dict/type";
 
 export default {
   name: "Data",

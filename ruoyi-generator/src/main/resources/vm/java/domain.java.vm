@@ -34,9 +34,8 @@ import com.ruoyi.common.core.domain.TreeEntity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ${ClassName} extends ${Entity}
-        {
-private static final long serialVersionUID = 1L;
+public class ${ClassName} extends ${Entity} {
+    private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
     #if(!$table.isSuperColumn($column.javaField))
@@ -49,30 +48,29 @@ private static final long serialVersionUID = 1L;
                 #set($comment=$column.columnComment)
             #end
             #if($parentheseIndex != -1)
-            @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
+    @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
             #elseif($column.javaType == 'Date')
-            @JsonFormat(pattern = "yyyy-MM-dd")
-            @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd")
             #else
-            @Excel(name = "${comment}")
+    @Excel(name = "${comment}")
             #end
         #end
         #if($column.javaField == "id")
-        @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.AUTO)
         #end
     private $column.javaType $column.javaField;
 
     #end
 #end
 #if($table.sub)
-/** $table.subTable.functionName信息 */
-@TableField(exist = false)
-private List<${subClassName}> ${subclassName}List;
-
+    /** $table.subTable.functionName信息 */
+    @TableField(exist = false)
+    private List<${subClassName}> ${subclassName}List;
 #end
 
-@Override
-public String toString() {
+    @Override
+    public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
     #foreach ($column in $columns)
         #if($column.javaField.length() > 2 && $column.javaField.substring(1,2).matches("[A-Z]"))
@@ -86,5 +84,5 @@ public String toString() {
             .append("${subclassName}List", get${subClassName}List())
     #end
         .toString();
-        }
-        }
+    }
+}

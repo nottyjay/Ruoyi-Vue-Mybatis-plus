@@ -9,7 +9,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'AppMain',
   computed: {
@@ -17,7 +16,7 @@ export default {
       return this.$store.state.tagsView.cachedViews
     },
     key() {
-      return this.$route.path;
+      return this.$route.path
     }
   }
 }
@@ -32,7 +31,7 @@ export default {
   overflow: hidden;
 }
 
-.fixed-header + .app-main {
+.fixed-header+.app-main {
   padding-top: 50px;
 }
 
@@ -42,7 +41,7 @@ export default {
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header + .app-main {
+  .fixed-header+.app-main {
     padding-top: 84px;
   }
 }

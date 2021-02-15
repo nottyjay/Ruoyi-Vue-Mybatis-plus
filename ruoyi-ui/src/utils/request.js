@@ -1,7 +1,7 @@
 import axios from 'axios'
-import {Message, MessageBox, Notification} from 'element-ui'
+import { Notification, MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import {getToken} from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
@@ -43,8 +43,8 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error)
-  Promise.reject(error)
+    console.log(error)
+    Promise.reject(error)
 })
 
 // 响应拦截器

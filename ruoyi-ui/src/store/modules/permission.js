@@ -1,5 +1,5 @@
-import {constantRoutes} from '@/router'
-import {getRouters} from '@/api/menu'
+import { constantRoutes } from '@/router'
+import { getRouters } from '@/api/menu'
 import Layout from '@/layout/index'
 import ParentView from '@/components/ParentView';
 
@@ -16,7 +16,7 @@ const permission = {
     },
     SET_SIDEBAR_ROUTERS: (state, routers) => {
       state.sidebarRouters = constantRoutes.concat(routers)
-    }
+    },
   },
   actions: {
     // 生成路由
@@ -41,7 +41,7 @@ const permission = {
 // 遍历后台传来的路由字符串，转换为组件对象
 function filterAsyncRouter(asyncRouterMap, isRewrite = false) {
   return asyncRouterMap.filter(route => {
-    if(isRewrite && route.children) {
+    if (isRewrite && route.children) {
       route.children = filterChildren(route.children)
     }
     if (route.component) {
@@ -83,7 +83,7 @@ function filterChildren(childrenMap) {
 }
 
 export const loadView = (view) => { // 路由懒加载
-  return (resolve) =>  require([`@/views/${view}`], resolve)
+  return (resolve) => require([`@/views/${view}`], resolve)
 }
 
 export default permission

@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import {getCodeImg} from "@/api/login";
+import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import {decrypt, encrypt} from '@/utils/jsencrypt'
+import { encrypt, decrypt } from '@/utils/jsencrypt'
 
 export default {
   name: "Login",

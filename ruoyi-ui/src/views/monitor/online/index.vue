@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {forceLogout, list} from "@/api/monitor/online";
+import { list, forceLogout } from "@/api/monitor/online";
 
 export default {
   name: "Online",

@@ -180,7 +180,7 @@
 </template>
 
 <script>
-import {addConfig, clearCache, delConfig, exportConfig, getConfig, listConfig, updateConfig} from "@/api/system/config";
+import { listConfig, getConfig, delConfig, addConfig, updateConfig, exportConfig, clearCache } from "@/api/system/config";
 
 export default {
   name: "Config",
