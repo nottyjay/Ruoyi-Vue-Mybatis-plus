@@ -2,21 +2,27 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-#foreach ($column in $columns)
-#if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
+    #foreach ($column in $columns)
+        #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
 import com.ruoyi.common.utils.DateUtils;
-#break
-#end
-#end
+            #break
+        #end
+    #end
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+    #if($table.sub)
+    import java.util.ArrayList;
+    import com.ruoyi.common.utils.StringUtils;
+    import org.springframework.transaction.annotation.Transactional;
+    import ${packageName}.domain.${subClassName};
+    #end
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
 
 /**
  * ${functionName}Service业务层处理
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -27,6 +33,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
     /**
      * 查询${functionName}列表
      *
+     *
      * @param ${className} ${functionName}
      * @return ${functionName}
      */
@@ -36,4 +43,94 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
         return baseMapper.select${ClassName}List(${className});
     }
 
+#if($table.sub)
+    /**
+     * 查询${functionName}
+     *
+     * @param ${pkColumn.javaField} ${functionName}ID
+     * @return ${functionName}
+     */
+    public ${ClassName} getById(${pkColumn.javaType} ${pkColumn.javaField}){
+        ${ClassName} ${className} = super.getById(${pkColumn.javaField});
+        List<${subClassName}> ${subclassName}s = baseMapper.select${subClassName}By${subTableFkClassName}(${pkColumn.javaField});
+        ${className}.set${subClassName}List(${subclassName}s);
+        return ${className};
+    }
+
+    /**
+     * 新增${functionName}
+     *
+     * @param ${className} ${functionName}
+     * @return 结果
+     */
+    @Transactional
+    @Override
+    public boolean save(${ClassName} ${className}){
+        boolean result = super.save(${className});
+        insert${subClassName}(${className});
+        return result;
+    }
+
+    /**
+     * 修改${functionName}
+     *
+     * @param ${className} ${functionName}
+     * @return 结果
+     */
+    @Transactional
+    @Override
+    public boolean updateById(${ClassName} ${className}) {
+        baseMapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
+        insert${subClassName}(${className});
+        return super.updateById(${className});
+    }
+
+    /**
+     * 删除${functionName}
+     *
+     * @param ${pkColumn.javaField} 需要删除的${functionName}ID
+     * @return 结果
+     */
+    @Transactional
+    public boolean removeById(${pkColumn.javaType} ${pkColumn.javaField}){
+        baseMapper.delete${subClassName}By${subTableFkClassName}(${pkColumn.javaField});
+        return super.removeById(${pkColumn.javaField});
+    }
+
+    /**
+     * 批量删除${functionName}
+     *
+     * @param ${pkColumn.javaField}s 需要删除的${functionName}ID
+     * @return 结果
+     */
+    @Transactional
+    public boolean removeByIds(List<${pkColumn.javaType}> ${pkColumn.javaField}s){
+        baseMapper.delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaField}s);
+        return super.removeByIds(${pkColumn.javaField}s);
+    }
+
+    /**
+     * 新增${subTable.functionName}信息
+     *
+     * @param ${className} ${functionName}对象
+     */
+    public void insert${subClassName}(${ClassName} ${className})
+    {
+        List<${subClassName}> ${subclassName}List = ${className}.get${subClassName}List();
+        Long ${pkColumn.javaField} = ${className}.get${pkColumn.capJavaField}();
+        if (StringUtils.isNotNull(${subclassName}List))
+        {
+            List<${subClassName}> list = new ArrayList<${subClassName}>();
+            for (${subClassName} ${subclassName} : ${subclassName}List)
+            {
+                ${subclassName}.set${subTableFkClassName}(${pkColumn.javaField});
+                list.add(${subclassName});
+            }
+            if (list.size() > 0)
+            {
+                baseMapper.batch${subClassName}(list);
+            }
+        }
+    }
+#end
 }

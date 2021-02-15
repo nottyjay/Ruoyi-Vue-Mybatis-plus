@@ -1,8 +1,7 @@
-<!-- @author ruoyi 20201128 支持三级以上菜单缓存 -->
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cacheViews">
+      <keep-alive :include="cachedViews">
         <router-view :key="key" />
       </keep-alive>
     </transition>

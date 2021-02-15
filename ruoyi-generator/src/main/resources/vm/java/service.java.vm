@@ -6,7 +6,7 @@ import ${packageName}.domain.${ClassName};
 
 /**
  * ${functionName}Service接口
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -15,7 +15,7 @@ public interface I${ClassName}Service extends IService<${ClassName}>
 
     /**
      * 查询${functionName}列表
-     * 
+     *
      * @param ${className} ${functionName}
      * @return ${functionName}集合
      */

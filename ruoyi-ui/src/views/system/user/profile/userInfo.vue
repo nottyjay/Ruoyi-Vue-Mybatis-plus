@@ -2,7 +2,7 @@
   <el-form ref="form" :model="user" :rules="rules" label-width="80px">
     <el-form-item label="用户昵称" prop="nickName">
       <el-input v-model="user.nickName" />
-    </el-form-item> 
+    </el-form-item>
     <el-form-item label="手机号码" prop="phonenumber">
       <el-input v-model="user.phonenumber" maxlength="11" />
     </el-form-item>
@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { updateUserProfile } from "@/api/system/user";
-import Global from "@/layout/components/global.js";
+import {updateUserProfile} from "@/api/system/user";
 
 export default {
   props: {
@@ -69,7 +68,6 @@ export default {
       });
     },
     close() {
-      Global.$emit("removeCache", "closeSelectedTag", this.$route);
       this.$store.dispatch("tagsView/delView", this.$route);
       this.$router.push({ path: "/index" });
     }

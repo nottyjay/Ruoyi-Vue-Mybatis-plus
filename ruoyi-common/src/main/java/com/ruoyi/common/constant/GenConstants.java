@@ -2,7 +2,7 @@ package com.ruoyi.common.constant;
 
 /**
  * 代码生成通用常量
- * 
+ *
  * @author ruoyi
  */
 public class GenConstants
@@ -12,6 +12,9 @@ public class GenConstants
 
     /** 树表（增删改查） */
     public static final String TPL_TREE = "tree";
+
+    /** 主子表（增删改查） */
+    public static final String TPL_SUB = "sub";
 
     /** 树编码字段 */
     public static final String TREE_CODE = "treeCode";
@@ -76,8 +79,11 @@ public class GenConstants
     /** 日期控件 */
     public static final String HTML_DATETIME = "datetime";
 
-    /** 上传控件 */
-    public static final String HTML_UPLOAD_IMAGE = "uploadImage";
+    /** 图片上传控件 */
+    public static final String HTML_IMAGE_UPLOAD = "imageUpload";
+
+    /** 文件上传控件 */
+    public static final String HTML_FILE_UPLOAD = "fileUpload";
 
     /** 富文本控件 */
     public static final String HTML_EDITOR = "editor";

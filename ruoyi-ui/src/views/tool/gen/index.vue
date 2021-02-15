@@ -84,7 +84,7 @@
     </el-row>
 
     <el-table v-loading="loading" :data="tableList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" align="center" width="55"></el-table-column>
       <el-table-column label="序号" type="index" width="50" align="center">
         <template slot-scope="scope">
           <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
@@ -169,7 +169,7 @@
           :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
           :key="key"
         >
-        <highlightjs autodetect :code="value" />
+        <pre><code class="hljs" v-html="highlightedCode(value, key)"></code></pre>
         </el-tab-pane>
       </el-tabs>
     </el-dialog>
@@ -181,6 +181,15 @@
 import {delTable, genCode, listTable, previewTable, synchDb} from "@/api/tool/gen";
 import importTable from "./importTable";
 import {downLoadZip} from "@/utils/zipdownload";
+import hljs from "highlight.js/lib/highlight";
+import "highlight.js/styles/github-gist.css";
+
+hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
+hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+hljs.registerLanguage("html", require("highlight.js/lib/languages/xml"));
+hljs.registerLanguage("vue", require("highlight.js/lib/languages/xml"));
+hljs.registerLanguage("javascript", require("highlight.js/lib/languages/javascript"));
+hljs.registerLanguage("sql", require("highlight.js/lib/languages/sql"));
 
 export default {
   name: "Gen",
@@ -293,6 +302,13 @@ export default {
         this.preview.data = response.data;
         this.preview.open = true;
       });
+    },
+    /** 高亮显示 */
+    highlightedCode(code, key) {
+      const vmName = key.substring(key.lastIndexOf("/") + 1, key.indexOf(".vm"));
+      var language = vmName.substring(vmName.indexOf(".") + 1, vmName.length);
+      const result = hljs.highlight(language, code || "", true);
+      return result.value || '&nbsp;';
     },
     // 多选框选中数据
     handleSelectionChange(selection) {

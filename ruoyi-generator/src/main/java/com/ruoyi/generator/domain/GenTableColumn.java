@@ -1,12 +1,13 @@
 package com.ruoyi.generator.domain;
 
-import javax.validation.constraints.NotBlank;
 import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.utils.StringUtils;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * 代码生成业务字段表 gen_table_column
- * 
+ *
  * @author ruoyi
  */
 public class GenTableColumn extends BaseEntity
@@ -59,7 +60,7 @@ public class GenTableColumn extends BaseEntity
     /** 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围） */
     private String queryType;
 
-    /** 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、upload上传控件、editor富文本控件） */
+    /** 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件） */
     private String htmlType;
 
     /** 字典类型 */
@@ -136,6 +137,11 @@ public class GenTableColumn extends BaseEntity
     public String getJavaField()
     {
         return javaField;
+    }
+
+    public String getCapJavaField()
+    {
+        return StringUtils.capitalize(javaField);
     }
 
     public void setIsPk(String isPk)
