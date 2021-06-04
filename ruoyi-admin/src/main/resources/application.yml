@@ -12,6 +12,12 @@ ruoyi:
   addressEnabled: false
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math
+  # 扫描的mapper
+  # auto-scan-mapper: com.ruoyi.**.mapper,;com.d3code.**.mapper
+  auto-scan-mapper: com.ruoyi.**.mapper
+  # 扫描的目录
+  # auto-scan-package: com.ruoyi,;com.d3code
+  auto-scan-package: com.ruoyi
 
 # 开发环境配置
 server:
@@ -55,7 +61,7 @@ token:
   # 令牌自定义标识
   header: Authorization
   # 令牌密钥
-  secret: abcdefghijklmnopqrstuvwxyz
+  secret: tldzqjysvduqsdybnnldbkksfgpbglcqfhujbqbxbcbgdtabfophxxtdpzmuanqjlqwkqihpujdlsfqbztxwmzrdpglmreshlfkyljizkrvbthwewgpqoendfloxxhclyzdilcepdafzofizibjyslguddpynoahwkszqkggxqyxpggsdcmtufnvbipmrzoakcnyygzdqnpdlzjhgbhihnlbwlbvzjlmfazvnfpdmdesnxqthgedqrcrbdonqxukbyytioprcafttuvpwrpucfmxulvalvkcwfnjmavqgrvzaxqeuthltoxkwiziwadjpihyzwpyotttiyrmmbochmtvjdahnwtovmnqzvsvvtroyjqyefqrqgohrlfrmdivpfgktgzxqvoucejsxbretmqbjspdkgxaviqgkkdhecdvltuxanijbneqmglnlrlhwoyifswczglftjcbaydpfcklqpgtbavhvatwrfrcnftpeqcnokoitvgmrogkxnvo
   # 令牌有效期（默认30分钟）
   expireTime: 30
 

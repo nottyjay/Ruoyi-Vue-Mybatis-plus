@@ -21,7 +21,7 @@
         <druid.version>1.2.4</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>2.9.2</swagger.version>
-		<kaptcha.version>2.3.2</kaptcha.version>
+        <easy-captcha.version>1.6.2</easy-captcha.version>
         <pagehelper.boot.version>1.3.0</pagehelper.boot.version>
         <mybatis-plus.boot.version>3.4.0</mybatis-plus.boot.version>
         <fastjson.version>1.2.75</fastjson.version>
@@ -31,10 +31,11 @@
         <commons.fileupload.version>1.3.3</commons.fileupload.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>1.7</velocity.version>
-        <jwt.version>0.9.1</jwt.version>
+        <jwt.version>0.11.2</jwt.version>
         <lombok.version>1.18.14</lombok.version>
         <hutool.version>5.2.5</hutool.version>
         <jedis.version>3.3.0</jedis.version>
+        <spring-el.version>5.2.12.RELEASE</spring-el.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -159,15 +160,35 @@
             <!--Token生成与解析-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId> <!-- or jjwt-gson if Gson is preferred -->
                 <version>${jwt.version}</version>
             </dependency>
 
             <!--验证码 -->
             <dependency>
-                <groupId>com.github.penggle</groupId>
-                <artifactId>kaptcha</artifactId>
-                <version>${kaptcha.version}</version>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${easy-captcha.version}</version>
+            </dependency>
+
+            <!-- 算数验证码使用 -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                <version>${spring-el.version}</version>
+                <optional>true</optional>
             </dependency>
 
             <!-- 定时任务-->

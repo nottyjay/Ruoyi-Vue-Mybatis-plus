@@ -21,6 +21,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
     public void insertFill(MetaObject metaObject) {
         Timestamp time=new Timestamp(System.currentTimeMillis());
         this.setFieldValByName("createTime", time, metaObject);
+        // 若deleted值不存在时进行填充
+        if (metaObject.getValue("deleted") == null) {
+            this.setFieldValByName("deleted", 0, metaObject);
+        }
     }
 
     @Override

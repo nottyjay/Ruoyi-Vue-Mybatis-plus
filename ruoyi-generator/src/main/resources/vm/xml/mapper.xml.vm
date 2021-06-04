@@ -10,18 +10,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #end
     </resultMap>
 
-    #if($table.sub)
+#if($table.sub)
 
-        <resultMap id="${ClassName}${subClassName}Result" type="${ClassName}" extends="${ClassName}Result">
-            <collection property="${subclassName}List" notNullColumn="${subTable.pkColumn.columnName}" javaType="java.util.List" resultMap="${subClassName}Result" />
-        </resultMap>
+    <resultMap id="${ClassName}${subClassName}Result" type="${ClassName}" extends="${ClassName}Result">
+        <collection property="${subclassName}List" notNullColumn="${subTable.pkColumn.columnName}" javaType="java.util.List" resultMap="${subClassName}Result" />
+    </resultMap>
 
-        <resultMap type="${subClassName}" id="${subClassName}Result">
-            #foreach ($column in $subTable.columns)
-                <result property="${column.javaField}"    column="${column.columnName}"    />
-            #end
-        </resultMap>
-    #end
+    <resultMap type="${subClassName}" id="${subClassName}Result">
+#foreach ($column in $subTable.columns)
+        <result property="${column.javaField}"    column="${column.columnName}"    />
+#end
+    </resultMap>
+#end
 
     <sql id="select${ClassName}Vo">
         select#foreach($column in $columns) $column.columnName#if($velocityCount != $columns.size()),#end#end from ${tableName}
@@ -54,35 +54,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #elseif($queryType == "BETWEEN")
             <if test="params.begin$AttrName != null and params.begin$AttrName != '' and params.end$AttrName != null and params.end$AttrName != ''"> and $columnName between #{params.begin$AttrName} and #{params.end$AttrName}</if>
 #end
+            <if test="deleted != null">and deleted = #{deleted}</if>
+            <if test="deleted == null">and deleted = 0</if>
 #end
 #end
         </where>
     </select>
 
-    #if($table.sub)
-        <select id="select${subClassName}By${subTableFkClassName}" parameterType="${pkColumn.javaType}" resultMap="${subClassName}Result">
-            select#foreach($column in $subTable.columns) $column.columnName#if($velocityCount != $subTable.columns.size()),#end#end
+#if($table.sub)
+    <select id="select${subClassName}By${subTableFkClassName}" parameterType="${pkColumn.javaType}" resultMap="${subClassName}Result">
+        select#foreach($column in $subTable.columns) $column.columnName#if($velocityCount != $subTable.columns.size()),#end#end
 
-            from ${subTableName}
-                where ${subTableFkName} = #{${pkColumn.javaField}}
-        </select>
+        from ${subTableName}
+            where ${subTableFkName} = #{${pkColumn.javaField}}
+    </select>
 
-        <delete id="delete${subClassName}By${subTableFkClassName}s" parameterType="String">
-            delete from ${subTableName} where ${subTableFkName} in
-            <foreach item="${subTableFkclassName}" collection="array" open="(" separator="," close=")">
-                #{${subTableFkclassName}}
-            </foreach>
-        </delete>
+    <delete id="delete${subClassName}By${subTableFkClassName}s" parameterType="String">
+        delete from ${subTableName} where ${subTableFkName} in
+        <foreach item="${subTableFkclassName}" collection="array" open="(" separator="," close=")">
+            #{${subTableFkclassName}}
+        </foreach>
+    </delete>
 
-        <delete id="delete${subClassName}By${subTableFkClassName}" parameterType="Long">
-            delete from ${subTableName} where ${subTableFkName} = #{${subTableFkclassName}}
-        </delete>
+    <delete id="delete${subClassName}By${subTableFkClassName}" parameterType="Long">
+        delete from ${subTableName} where ${subTableFkName} = #{${subTableFkclassName}}
+    </delete>
 
-        <insert id="batch${subClassName}">
-            insert into ${subTableName}(#foreach($column in $subTable.columns) $column.columnName#if($velocityCount != $subTable.columns.size()),#end#end) values
-            <foreach item="item" index="index" collection="list" separator=",">
-                (#foreach($column in $subTable.columns) #{item.$column.javaField}#if($velocityCount != $subTable.columns.size()),#end#end)
-            </foreach>
-        </insert>
-    #end
+    <insert id="batch${subClassName}">
+        insert into ${subTableName}(#foreach($column in $subTable.columns) $column.columnName#if($velocityCount != $subTable.columns.size()),#end#end) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#foreach($column in $subTable.columns) #{item.$column.javaField}#if($velocityCount != $subTable.columns.size()),#end#end)
+        </foreach>
+    </insert>
+#end
 </mapper>

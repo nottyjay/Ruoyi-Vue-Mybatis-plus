@@ -23,7 +23,7 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
      */
     public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
 
-    #if($table.sub)
+#if($table.sub)
 
     /**
     * 批量查询${subTable.functionName}
@@ -57,5 +57,5 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
      * @return 结果
      */
     public int delete${subClassName}By${subTableFkClassName}(${pkColumn.javaType} ${pkColumn.javaField});
-    #end
+#end
 }

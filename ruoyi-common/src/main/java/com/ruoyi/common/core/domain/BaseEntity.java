@@ -21,6 +21,7 @@ public class BaseEntity implements Serializable
     private static final long serialVersionUID = 1L;
 
     /** 搜索值 */
+    @TableField(exist = false)
     private String searchValue;
 
     /** 创建者 */
@@ -31,6 +32,7 @@ public class BaseEntity implements Serializable
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
+    @TableField(fill = FieldFill.INSERT)
     private Integer deleted;
 
     /** 更新者 */
@@ -47,16 +49,6 @@ public class BaseEntity implements Serializable
     /** 请求参数 */
     @TableField(exist = false)
     private Map<String, Object> params;
-
-    public String getSearchValue()
-    {
-        return searchValue;
-    }
-
-    public void setSearchValue(String searchValue)
-    {
-        this.searchValue = searchValue;
-    }
 
     public Map<String, Object> getParams()
     {
