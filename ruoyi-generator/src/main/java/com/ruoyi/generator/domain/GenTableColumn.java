@@ -335,7 +335,7 @@ public class GenTableColumn extends BaseEntity
                 // BaseEntity
                 "createBy", "createTime", "updateBy", "updateTime", "remark",
                 // TreeEntity
-                "parentName", "parentId", "orderNum", "ancestors");
+                "parentName", "parentId", "orderNum", "ancestors", "deleted");
     }
 
     public boolean isUsableColumn()

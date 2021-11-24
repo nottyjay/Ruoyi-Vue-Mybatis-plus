@@ -54,10 +54,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #elseif($queryType == "BETWEEN")
             <if test="params.begin$AttrName != null and params.begin$AttrName != '' and params.end$AttrName != null and params.end$AttrName != ''"> and $columnName between #{params.begin$AttrName} and #{params.end$AttrName}</if>
 #end
+#end
+#end
             <if test="deleted != null">and deleted = #{deleted}</if>
             <if test="deleted == null">and deleted = 0</if>
-#end
-#end
         </where>
     </select>
 
