@@ -79,9 +79,9 @@ mybatis-plus:
     cache-enabled: true
     use-generated-keys: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-    default-executor-type: reuse
-#  type-aliases-package: com.ruoyi.**.domain,;com.d3code.**.domain
-    type-aliases-package: com.ruoyi.**.domain
+    default-executor-type: SIMPLE
+  #type-aliases-package: com.ruoyi.**.domain,;com.d3code.**.domain
+  type-aliases-package: com.ruoyi.**.domain
 
 # PageHelper分页插件
 pagehelper: 
