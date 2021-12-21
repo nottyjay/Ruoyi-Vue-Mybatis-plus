@@ -41,7 +41,7 @@ public interface ISysDeptService
      * @param roleId 角色ID
      * @return 选中部门列表
      */
-    public List<Integer> selectDeptListByRoleId(Long roleId);
+    public List<Long> selectDeptListByRoleId(Long roleId);
 
     /**
      * 根据部门ID查询信息
@@ -82,6 +82,13 @@ public interface ISysDeptService
      * @return 结果
      */
     public String checkDeptNameUnique(SysDept dept);
+
+    /**
+     * 校验部门是否有数据权限
+     * 
+     * @param deptId 部门id
+     */
+    public void checkDeptDataScope(Long deptId);
 
     /**
      * 新增保存部门信息

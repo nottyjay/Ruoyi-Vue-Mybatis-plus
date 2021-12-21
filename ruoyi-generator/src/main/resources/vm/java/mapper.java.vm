@@ -51,9 +51,9 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
 
 
     /**
-     * 通过${functionName}ID删除${subTable.functionName}信息
-     *
-     * @param ${subTableFkClassName} ID
+     * 通过${functionName}主键删除${subTable.functionName}信息
+     * 
+     * @param ${pkColumn.javaField} ${functionName}ID
      * @return 结果
      */
     public int delete${subClassName}By${subTableFkClassName}(${pkColumn.javaType} ${pkColumn.javaField});

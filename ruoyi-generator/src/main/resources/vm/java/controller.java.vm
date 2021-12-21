@@ -2,7 +2,7 @@ package ${packageName}.controller;
 
 import java.util.Arrays;
 import java.util.List;
-
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +33,8 @@ import com.ruoyi.common.core.page.TableDataInfo;
  */
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
-public class ${ClassName}Controller extends BaseController {
+public class ${ClassName}Controller extends BaseController
+{
     @Autowired
     private I${ClassName}Service ${className}Service;
 
@@ -43,13 +44,15 @@ public class ${ClassName}Controller extends BaseController {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
 #if($table.crud || $table.sub)
-    public TableDataInfo list(${ClassName} ${className}) {
+    public TableDataInfo list(${ClassName} ${className})
+    {
         startPage();
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
         return getDataTable(list);
     }
 #elseif($table.tree)
-    public AjaxResult list(${ClassName} ${className}) {
+    public AjaxResult list(${ClassName} ${className})
+    {
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
         return AjaxResult.success(list);
     }
@@ -60,11 +63,12 @@ public class ${ClassName}Controller extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')")
     @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
-    @GetMapping("/export")
-    public AjaxResult export(${ClassName} ${className}) {
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, ${ClassName} ${className})
+    {
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}. class);
-        return util.exportExcel(list, "${businessName}");
+        ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}.class);
+        util.exportExcel(response, list, "${functionName}数据");
     }
 
     /**
@@ -83,7 +87,7 @@ public class ${ClassName}Controller extends BaseController {
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ${ClassName} ${className}) {
-        return result(${className}Service.save(${className}));
+        return toAjax(${className}Service.save(${className}));
     }
 
     /**
@@ -93,7 +97,7 @@ public class ${ClassName}Controller extends BaseController {
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ${ClassName} ${className}) {
-        return result(${className}Service.updateById(${className}));
+        return toAjax(${className}Service.updateById(${className}));
     }
 
     /**
@@ -103,6 +107,6 @@ public class ${ClassName}Controller extends BaseController {
     @Log(title = "${functionName}", businessType = BusinessType.DELETE)
     @DeleteMapping("/{${pkColumn.javaField}s}")
     public AjaxResult remove(@PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s) {
-        return result(${className}Service.removeByIds(Arrays.asList(${pkColumn.javaField}s)));
+        return toAjax(${className}Service.removeByIds(Arrays.asList(${pkColumn.javaField}s)));
     }
 }

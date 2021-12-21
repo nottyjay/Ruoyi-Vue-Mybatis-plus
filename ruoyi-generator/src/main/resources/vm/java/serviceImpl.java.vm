@@ -124,7 +124,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
     public void insert${subClassName}(${ClassName} ${className})
     {
         List<${subClassName}> ${subclassName}List = ${className}.get${subClassName}List();
-        Long ${pkColumn.javaField} = ${className}.get${pkColumn.capJavaField}();
+        ${pkColumn.javaType} ${pkColumn.javaField} = ${className}.get${pkColumn.capJavaField}();
         if (StringUtils.isNotNull(${subclassName}List))
         {
             List<${subClassName}> list = new ArrayList<${subClassName}>();

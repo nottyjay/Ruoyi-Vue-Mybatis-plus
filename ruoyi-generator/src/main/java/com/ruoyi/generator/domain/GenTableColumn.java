@@ -1,13 +1,12 @@
 package com.ruoyi.generator.domain;
 
+import javax.validation.constraints.NotBlank;
 import com.ruoyi.common.core.domain.BaseEntity;
 import com.ruoyi.common.utils.StringUtils;
 
-import javax.validation.constraints.NotBlank;
-
 /**
  * 代码生成业务字段表 gen_table_column
- *
+ * 
  * @author ruoyi
  */
 public class GenTableColumn extends BaseEntity
@@ -335,7 +334,7 @@ public class GenTableColumn extends BaseEntity
                 // BaseEntity
                 "createBy", "createTime", "updateBy", "updateTime", "remark",
                 // TreeEntity
-                "parentName", "parentId", "orderNum", "ancestors", "deleted");
+                "parentName", "parentId", "orderNum", "ancestors");
     }
 
     public boolean isUsableColumn()

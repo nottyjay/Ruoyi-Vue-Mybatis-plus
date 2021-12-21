@@ -1,11 +1,7 @@
 package com.ruoyi.web.controller.common;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 
 import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.SpecCaptcha;
@@ -38,14 +34,13 @@ public class CaptchaController
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public AjaxResult getCode(HttpServletResponse response) throws IOException
+    public AjaxResult getCode() throws IOException
     {
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 
-        String capStr = null, code = null;
-        BufferedImage image = null;
+        String code = null;
 
         AjaxResult ajax = AjaxResult.success();
         ajax.put("uuid", uuid);

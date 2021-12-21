@@ -1,9 +1,8 @@
 package com.ruoyi.generator.service;
 
-import com.ruoyi.generator.domain.GenTable;
-
 import java.util.List;
 import java.util.Map;
+import com.ruoyi.generator.domain.GenTable;
 
 /**
  * 业务 服务层

@@ -1,31 +1,5 @@
 package com.ruoyi.generator.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.constant.GenConstants;
-import com.ruoyi.common.core.text.CharsetKit;
-import com.ruoyi.common.exception.CustomException;
-import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.common.utils.file.FileUtils;
-import com.ruoyi.generator.domain.GenTable;
-import com.ruoyi.generator.domain.GenTableColumn;
-import com.ruoyi.generator.mapper.GenTableColumnMapper;
-import com.ruoyi.generator.mapper.GenTableMapper;
-import com.ruoyi.generator.util.GenUtils;
-import com.ruoyi.generator.util.VelocityInitializer;
-import com.ruoyi.generator.util.VelocityUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +10,31 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ruoyi.common.constant.Constants;
+import com.ruoyi.common.constant.GenConstants;
+import com.ruoyi.common.core.text.CharsetKit;
+import com.ruoyi.common.exception.ServiceException;
+import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.generator.domain.GenTable;
+import com.ruoyi.generator.domain.GenTableColumn;
+import com.ruoyi.generator.mapper.GenTableColumnMapper;
+import com.ruoyi.generator.mapper.GenTableMapper;
+import com.ruoyi.generator.util.GenUtils;
+import com.ruoyi.generator.util.VelocityInitializer;
+import com.ruoyi.generator.util.VelocityUtils;
 
 /**
  * 业务 服务层实现
@@ -181,7 +180,7 @@ public class GenTableServiceImpl implements IGenTableService
         }
         catch (Exception e)
         {
-            throw new CustomException("导入失败：" + e.getMessage());
+            throw new ServiceException("导入失败：" + e.getMessage());
         }
     }
 
@@ -270,7 +269,7 @@ public class GenTableServiceImpl implements IGenTableService
                 }
                 catch (IOException e)
                 {
-                    throw new CustomException("渲染模板失败，表名：" + table.getTableName());
+                    throw new ServiceException("渲染模板失败，表名：" + table.getTableName());
                 }
             }
         }
@@ -292,7 +291,7 @@ public class GenTableServiceImpl implements IGenTableService
         List<GenTableColumn> dbTableColumns = genTableColumnMapper.selectDbTableColumnsByName(tableName);
         if (StringUtils.isEmpty(dbTableColumns))
         {
-            throw new CustomException("同步数据失败，原表结构不存在");
+            throw new ServiceException("同步数据失败，原表结构不存在");
         }
         List<String> dbTableColumnNames = dbTableColumns.stream().map(GenTableColumn::getColumnName).collect(Collectors.toList());
 
@@ -384,25 +383,25 @@ public class GenTableServiceImpl implements IGenTableService
             JSONObject paramsObj = JSONObject.parseObject(options);
             if (StringUtils.isEmpty(paramsObj.getString(GenConstants.TREE_CODE)))
             {
-                throw new CustomException("树编码字段不能为空");
+                throw new ServiceException("树编码字段不能为空");
             }
             else if (StringUtils.isEmpty(paramsObj.getString(GenConstants.TREE_PARENT_CODE)))
             {
-                throw new CustomException("树父编码字段不能为空");
+                throw new ServiceException("树父编码字段不能为空");
             }
             else if (StringUtils.isEmpty(paramsObj.getString(GenConstants.TREE_NAME)))
             {
-                throw new CustomException("树名称字段不能为空");
+                throw new ServiceException("树名称字段不能为空");
             }
             else if (GenConstants.TPL_SUB.equals(genTable.getTplCategory()))
             {
                 if (StringUtils.isEmpty(genTable.getSubTableName()))
                 {
-                    throw new CustomException("关联子表的表名不能为空");
+                    throw new ServiceException("关联子表的表名不能为空");
                 }
                 else if (StringUtils.isEmpty(genTable.getSubTableFkName()))
                 {
-                    throw new CustomException("子表关联的外键名不能为空");
+                    throw new ServiceException("子表关联的外键名不能为空");
                 }
             }
         }
