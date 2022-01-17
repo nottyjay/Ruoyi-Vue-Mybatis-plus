@@ -1,4 +1,10 @@
 <template>
+    #foreach($column in $columns)
+        #set($dictType=$column.dictType)
+        #if("" != $dictType)
+            ${column.javaField}--${column.list}
+        #end
+    #end
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
 #foreach($column in $columns)
