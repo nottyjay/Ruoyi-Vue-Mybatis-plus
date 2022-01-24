@@ -4,7 +4,7 @@ import router from '@/router';
 export default {
   // 刷新当前tab页签
   refreshPage(obj) {
-    const { path, matched } = router.currentRoute;
+    const { path, matched, query } = router.currentRoute;
     if (obj === undefined) {
       matched.forEach((m) => {
         if (m.components && m.components.default && m.components.default.name) {
@@ -17,7 +17,8 @@ export default {
     return store.dispatch('tagsView/delCachedView', obj).then(() => {
       const { path } = obj
       router.replace({
-        path: '/redirect' + path
+        path: '/redirect' + path,
+        query
       })
     })
   },
