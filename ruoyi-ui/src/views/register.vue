@@ -115,7 +115,7 @@ export default {
       getCodeImg().then(res => {
         this.captchaOnOff = res.captchaOnOff === undefined ? true : res.captchaOnOff;
         if (this.captchaOnOff) {
-          this.codeUrl = "data:image/gif;base64," + res.img;
+          this.codeUrl = res.img;
           this.registerForm.uuid = res.uuid;
         }
       });
