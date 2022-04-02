@@ -1,15 +1,18 @@
 ## 更新说明
 
-#### 2022/01/24
+### 2022/04/02
+同步代码至2022/04/02版本，升级Spring-boot至2.5.12，修复RCE漏洞
+
+### 2022/01/24
 修复页面中选项卡刷新页面时丢失query数据问题
 
-#### 2022/01/17  
+### 2022/01/17  
 同步至2022/01/14日版本
 
-#### 2021/12/21  
+### 2021/12/21  
 主要代码同步至 3.8.0版本
 
-#### 2021/06/04  
+### 2021/06/04  
 经过一段时间的使用，功能代码的bug已经被修复的差不多。2月之后的代码并没有进行合并。同时在使用中发现这个框架的在切换mybatis-plus之后的很多不足，以及部分场景与我们的业务产生冲突。仔细斟酌后，我们决定该框架后续功能以更贴合我们的实际应用场景来做调整，官方的修复内容未来将进行评估审核，对必要功能或反馈较多的功能进行添加。
 本次更新内容：
 1. 修复生成代码中部分逻辑bug
@@ -18,28 +21,31 @@
 4. 采用配置来对不同包名下的mapper文件进行扫描，不用再去系统里更改代码了。详细可参考`application.yml`中的`ruoyi.auto-scan-mapper`与`ruoyi.auto-scan-package`配置
 5. 调整了SecurityConfig类，采用内部类来定义拦截策略。以后有新的需要权限验证的子系统可以直接在此类扩展
 
-#### 2021/02/15  
+### 2021/02/15  
 代码同步至2021-02-15日版本。详细更新说明请自行查阅
 修复左侧导航栏无法展示的bug
 
-#### 2021/01/08  
+### 2021/01/08  
 代码同步至2021-01-04日版本。详细更新说明请自行查阅  
 修复保存数据时BaseEntity类params属性映射失败的问题
 
 ## 变化说明
-1.  代码在[Ruoyi-Vue](https://gitee.com/y_project/RuoYi-Vue)（2020/12/14）版本变化而来
-2.  将Mybatis替换为Mybatis-plus
-3.  添加RedisUtils工具类方便直接操作redis
-4.  将登录、权限验证等代码整体迁移至ruoyi-admin模块中，现在可以在开发前端接口时直接接入ruoyi-framework模块使用
+1. 代码在[Ruoyi-Vue](https://gitee.com/y_project/RuoYi-Vue)（2020/12/14）版本变化而来
+2. 将Mybatis替换为Mybatis-plus
+3. 添加RedisUtils工具类方便直接操作redis
+4. 将登录、权限验证等代码整体迁移至ruoyi-admin模块中，现在可以在开发前端接口时直接接入ruoyi-framework模块使用
+
+#### 捐赠
+![维护不易，可以请维护者喝杯咖啡？](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-76eddc9e-0b4f-4996-8d0c-8018690010d4/b714caae-1a2b-4e74-a2bf-94596c52c5e3.png)
 
 <p align="center">
 	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.8.1</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.8.2</h1>
 <h4 align="center">基于SpringBoot+Vue前后端分离的Java快速开发框架</h4>
 <p align="center">
 	<a href="https://gitee.com/y_project/RuoYi-Vue/stargazers"><img src="https://gitee.com/y_project/RuoYi-Vue/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.8.1-brightgreen.svg"></a>
+	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.8.2-brightgreen.svg"></a>
 	<a href="https://gitee.com/y_project/RuoYi-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
 </p>
 
@@ -128,4 +134,4 @@
 
 ## 若依前后端分离交流群
 
-QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) [![加入QQ群](https://img.shields.io/badge/已满-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu) [![加入QQ群](https://img.shields.io/badge/已满-201396349-blue.svg)](https://jq.qq.com/?_wv=1027&k=5vYAqA05) [![加入QQ群](https://img.shields.io/badge/已满-101456076-blue.svg)](https://jq.qq.com/?_wv=1027&k=kOIINEb5) [![加入QQ群](https://img.shields.io/badge/已满-101539465-blue.svg)](https://jq.qq.com/?_wv=1027&k=UKtX5jhs) [![加入QQ群](https://img.shields.io/badge/264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ) 点击按钮入群。
+QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) [![加入QQ群](https://img.shields.io/badge/已满-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu) [![加入QQ群](https://img.shields.io/badge/已满-201396349-blue.svg)](https://jq.qq.com/?_wv=1027&k=5vYAqA05) [![加入QQ群](https://img.shields.io/badge/已满-101456076-blue.svg)](https://jq.qq.com/?_wv=1027&k=kOIINEb5) [![加入QQ群](https://img.shields.io/badge/已满-101539465-blue.svg)](https://jq.qq.com/?_wv=1027&k=UKtX5jhs) [![加入QQ群](https://img.shields.io/badge/已满-264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ) [![加入QQ群](https://img.shields.io/badge/167385320-blue.svg)](https://jq.qq.com/?_wv=1027&k=SWCtLnMz) 点击按钮入群。

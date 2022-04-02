@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -20,6 +22,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.lang3.RegExUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
 import org.apache.poi.hssf.usermodel.HSSFPictureData;
@@ -86,6 +89,10 @@ public class ExcelUtil<T>
 {
     private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
 
+    public static final String FORMULA_REGEX_STR = "=|-|\\+|@";
+
+    public static final String[] FORMULA_STR = { "=", "-", "+", "@" };
+
     /**
      * Excel sheet最大行数，默认65536
      */
@@ -130,7 +137,7 @@ public class ExcelUtil<T>
      * 当前行号
      */
     private int rownum;
-    
+
     /**
      * 标题
      */
@@ -312,7 +319,7 @@ public class ExcelUtil<T>
                             String dateFormat = field.getAnnotation(Excel.class).dateFormat();
                             if (StringUtils.isNotEmpty(dateFormat))
                             {
-                                val = DateUtils.parseDateToStr(dateFormat, (Date) val);
+                                val = parseDateToStr(dateFormat, val);
                             }
                             else
                             {
@@ -324,7 +331,7 @@ public class ExcelUtil<T>
                     {
                         val = Convert.toInt(val);
                     }
-                    else if (Long.TYPE == fieldType || Long.class == fieldType)
+                    else if ((Long.TYPE == fieldType || Long.class == fieldType) && StringUtils.isNumeric(Convert.toStr(val)))
                     {
                         val = Convert.toLong(val);
                     }
@@ -407,7 +414,7 @@ public class ExcelUtil<T>
     {
         return exportExcel(list, sheetName, StringUtils.EMPTY);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      * 
@@ -429,7 +436,6 @@ public class ExcelUtil<T>
      * @param list 导出数据集合
      * @param sheetName 工作表的名称
      * @return 结果
-     * @throws IOException
      */
     public void exportExcel(HttpServletResponse response, List<T> list, String sheetName)
     {
@@ -444,7 +450,6 @@ public class ExcelUtil<T>
      * @param sheetName 工作表的名称
      * @param title 标题
      * @return 结果
-     * @throws IOException
      */
     public void exportExcel(HttpServletResponse response, List<T> list, String sheetName, String title)
     {
@@ -710,7 +715,13 @@ public class ExcelUtil<T>
     {
         if (ColumnType.STRING == attr.cellType())
         {
-            cell.setCellValue(StringUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());
+            String cellValue = Convert.toStr(value);
+            // 对于任何以表达式触发字符 =-+@开头的单元格，直接使用tab字符作为前缀，防止CSV注入。
+            if (StringUtils.startsWithAny(cellValue, FORMULA_STR))
+            {
+                cellValue = RegExUtils.replaceFirst(cellValue, FORMULA_REGEX_STR, "\t$0");
+            }
+            cell.setCellValue(StringUtils.isNull(cellValue) ? attr.defaultValue() : cellValue + attr.suffix());
         }
         else if (ColumnType.NUMERIC == attr.cellType())
         {
@@ -815,7 +826,7 @@ public class ExcelUtil<T>
                 String dictType = attr.dictType();
                 if (StringUtils.isNotEmpty(dateFormat) && StringUtils.isNotNull(value))
                 {
-                    cell.setCellValue(DateUtils.parseDateToStr(dateFormat, (Date) value));
+                    cell.setCellValue(parseDateToStr(dateFormat, value));
                 }
                 else if (StringUtils.isNotEmpty(readConverterExp) && StringUtils.isNotNull(value))
                 {
@@ -1113,7 +1124,7 @@ public class ExcelUtil<T>
         if (StringUtils.isNotEmpty(excel.targetAttr()))
         {
             String target = excel.targetAttr();
-            if (target.indexOf(".") > -1)
+            if (target.contains("."))
             {
                 String[] targets = target.split("[.]");
                 for (String name : targets)
@@ -1208,7 +1219,7 @@ public class ExcelUtil<T>
         for (Object[] os : this.fields)
         {
             Excel excel = (Excel) os[1];
-            maxHeight = maxHeight > excel.height() ? maxHeight : excel.height();
+            maxHeight = Math.max(maxHeight, excel.height());
         }
         return (short) (maxHeight * 20);
     }
@@ -1387,5 +1398,38 @@ public class ExcelUtil<T>
             }
         }
         return sheetIndexPicMap;
+    }
+
+    /**
+     * 格式化不同类型的日期对象
+     * 
+     * @param dateFormat 日期格式
+     * @param val 被格式化的日期对象
+     * @return 格式化后的日期字符
+     */
+    public String parseDateToStr(String dateFormat, Object val)
+    {
+        if (val == null)
+        {
+            return "";
+        }
+        String str;
+        if (val instanceof Date)
+        {
+            str = DateUtils.parseDateToStr(dateFormat, (Date) val);
+        }
+        else if (val instanceof LocalDateTime)
+        {
+            str = DateUtils.parseDateToStr(dateFormat, DateUtils.toDate((LocalDateTime) val));
+        }
+        else if (val instanceof LocalDate)
+        {
+            str = DateUtils.parseDateToStr(dateFormat, DateUtils.toDate((LocalDate) val));
+        }
+        else
+        {
+            str = val.toString();
+        }
+        return str;
     }
 }
