@@ -30,7 +30,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
         ${ClassName} info = baseMapper.selectById(entity.getParentId());
         // 如果父节点不为正常状态，则不允许新增子节点
         if (info == null) {
-            throw new CustomException("${functionName}停用，不允许新增");
+            throw new ServiceException("${functionName}停用，不允许新增");
         }
         entity.setAncestors(info.getAncestors() + "," + entity.getParentId());
         return super.save(entity);
