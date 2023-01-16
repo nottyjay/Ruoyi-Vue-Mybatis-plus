@@ -17,6 +17,7 @@ import com.ruoyi.common.config.RuoYiConfig;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * 文件处理工具类
@@ -115,8 +116,7 @@ public class FileUtils
         // 路径为文件且不为空则进行删除
         if (file.isFile() && file.exists())
         {
-            file.delete();
-            flag = true;
+            flag = file.delete();
         }
         return flag;
     }
@@ -256,7 +256,7 @@ public class FileUtils
     }
 
     /**
-     * 获取名称
+     * 获取文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi.png
      * 
      * @param fileName 路径名称
      * @return 没有文件路径的名称
@@ -271,5 +271,21 @@ public class FileUtils
         int lastWindowsPos = fileName.lastIndexOf('\\');
         int index = Math.max(lastUnixPos, lastWindowsPos);
         return fileName.substring(index + 1);
+    }
+
+    /**
+     * 获取不带后缀文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi
+     * 
+     * @param fileName 路径名称
+     * @return 没有文件路径和后缀的名称
+     */
+    public static String getNameNotSuffix(String fileName)
+    {
+        if (fileName == null)
+        {
+            return null;
+        }
+        String baseName = FilenameUtils.getBaseName(fileName);
+        return baseName;
     }
 }

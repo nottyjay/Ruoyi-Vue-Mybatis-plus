@@ -3,6 +3,8 @@ package com.ruoyi.web.controller.common;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import com.ruoyi.common.constant.CacheConstants;
+import com.ruoyi.system.service.ISysConfigService;
 import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class CaptchaController
 {
 
     @Autowired
+    private ISysConfigService configService;
+
+    @Autowired
     private RedisCache redisCache;
 
     // 验证码类型
@@ -36,13 +41,20 @@ public class CaptchaController
     @GetMapping("/captchaImage")
     public AjaxResult getCode() throws IOException
     {
+        AjaxResult ajax = AjaxResult.success();
+        boolean captchaEnabled = configService.selectCaptchaEnabled();
+        ajax.put("captchaEnabled", captchaEnabled);
+        if (!captchaEnabled)
+        {
+            return ajax;
+        }
+
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
-        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
+        String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
 
         String code = null;
 
-        AjaxResult ajax = AjaxResult.success();
         ajax.put("uuid", uuid);
         // 生成验证码
         if ("math".equals(captchaType))

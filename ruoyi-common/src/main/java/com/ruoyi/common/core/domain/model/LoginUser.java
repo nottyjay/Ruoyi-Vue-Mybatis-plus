@@ -2,9 +2,10 @@ package com.ruoyi.common.core.domain.model;
 
 import java.util.Collection;
 import java.util.Set;
+
+import com.alibaba.fastjson2.annotation.JSONField;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.ruoyi.common.core.domain.entity.SysUser;
 
 /**
