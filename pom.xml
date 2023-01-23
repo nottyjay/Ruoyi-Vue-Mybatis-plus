@@ -24,7 +24,7 @@
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
         <mybatis-plus.boot.version>3.4.3.4</mybatis-plus.boot.version>
-        <fastjson.version>2.0.20</fastjson.version>
+        <fastjson.version>2.0.23</fastjson.version>
         <oshi.version>6.4.0</oshi.version>
         <jna.version>5.9.0</jna.version>
         <commons.io.version>2.11.0</commons.io.version>
