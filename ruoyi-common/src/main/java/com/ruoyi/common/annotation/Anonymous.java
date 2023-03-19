@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * ÄäÃû·ÃÎÊ²»¼øÈ¨×¢½â
+ * åŒ¿åè®¿é—®ä¸é‰´æƒæ³¨è§£
  * 
  * @author ruoyi
  */
