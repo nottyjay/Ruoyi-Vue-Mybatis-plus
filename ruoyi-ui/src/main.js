@@ -63,6 +63,11 @@ Vue.use(plugins)
 Vue.use(VueMeta)
 DictData.install()
 
+
+import NgFormElement  from 'ng-form-element'
+import 'ng-form-element/lib/ng-form-element.css'
+Vue.use(NgFormElement)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
