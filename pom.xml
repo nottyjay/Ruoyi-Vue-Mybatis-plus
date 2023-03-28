@@ -24,6 +24,7 @@
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
         <mybatis-plus.boot.version>3.4.3.4</mybatis-plus.boot.version>
+        <mybatis-plus.dynamic-datasource.version>3.6.1</mybatis-plus.dynamic-datasource.version>
         <fastjson.version>2.0.23</fastjson.version>
         <oshi.version>6.4.0</oshi.version>
         <jna.version>5.9.0</jna.version>
@@ -79,6 +80,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.boot.version}</version>
+            </dependency>
+
+            <!-- mybatis-plus 多数据源扩展 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${mybatis-plus.dynamic-datasource.version}</version>
             </dependency>
 
             <!-- 获取系统信息 -->
