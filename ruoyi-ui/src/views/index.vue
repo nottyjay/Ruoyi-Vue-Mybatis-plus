@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <el-col :sm="24" :lg="24">
         <blockquote class="text-warning" style="font-size: 14px">
-          领取阿里云通用云产品1888优惠券
+          领取阿里云通用云产品
           <br />
           <el-link
             href="https://www.aliyun.com/minisite/goods?userCode=f8dwblym"
@@ -12,7 +12,7 @@
             >https://www.aliyun.com/minisite/goods?userCode=f8dwblym</el-link
           >
           <br />
-          领取腾讯云通用云产品2860优惠券
+          领取腾讯云通用云产品
           <br />
           <el-link
             href="https://cloud.tencent.com/act/cps/redirect?redirect=2446&cps_key=6e68eb5fe0bdd03984b484f3ed0d0fb3&from=console"
@@ -99,6 +99,7 @@
               <li>Axios</li>
               <li>Sass</li>
               <li>Quill</li>
+              <li><a href="https://gitee.com/jjxliu306/ng-form-element" target="_blank">ng-form-element</a></li>
               <li>...</li>
             </ul>
           </el-col>

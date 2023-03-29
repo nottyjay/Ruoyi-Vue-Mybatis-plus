@@ -257,7 +257,7 @@ insert into sys_menu values('1057', '生成删除', '116', '3', '#', '', '', 1, 
 insert into sys_menu values('1058', '导入代码', '116', '4', '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import',            '#', 'admin', sysdate(), '', null, '');
 insert into sys_menu values('1059', '预览代码', '116', '5', '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview',           '#', 'admin', sysdate(), '', null, '');
 insert into sys_menu values('1060', '生成代码', '116', '6', '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code',              '#', 'admin', sysdate(), '', null, '');
-
+INSERT INTO sys_menu values (1061, '动态表单构建', 3, 4, 'build2', 'tool/build2/index', NULL, 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', sysdate(), '', null, '');
 
 -- ----------------------------
 -- 6、用户和角色关联表  用户N-1角色

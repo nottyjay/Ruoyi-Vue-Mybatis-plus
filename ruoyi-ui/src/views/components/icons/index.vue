@@ -1,6 +1,6 @@
 <template>
   <div class="icons-container">
-    <aside>
+    <aside class="icons-aside">
       <a href="#" target="_blank">Add and use
       </a>
     </aside>

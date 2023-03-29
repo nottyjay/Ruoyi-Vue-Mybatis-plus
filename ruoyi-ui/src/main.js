@@ -5,6 +5,8 @@ import Cookies from 'js-cookie'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
+import NgFormElement  from 'ng-form-element/packages/index'
+
 import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App'
@@ -63,10 +65,8 @@ Vue.use(plugins)
 Vue.use(VueMeta)
 DictData.install()
 
-
-import NgFormElement  from 'ng-form-element'
-import 'ng-form-element/lib/ng-form-element.css'
 Vue.use(NgFormElement)
+
 
 /**
  * If you don't want to use mock-server
@@ -81,7 +81,7 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })
 
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 new Vue({
   el: '#app',
