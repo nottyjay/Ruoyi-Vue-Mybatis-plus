@@ -177,7 +177,11 @@ public class SysConfigServiceImpl implements ISysConfigService {
     return UserConstants.UNIQUE;
   }
 
-  /**
+  @Override public SysConfig getConfigByKey(String configKey) {
+    SysConfig config = new SysConfig();
+    config.setConfigKey(configKey);
+    return configMapper.selectConfig(config);
+  } /**
    * 设置cache key
    *
    * @param configKey 参数键

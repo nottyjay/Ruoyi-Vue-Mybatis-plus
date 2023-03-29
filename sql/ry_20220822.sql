@@ -226,7 +226,7 @@ insert into sys_menu
 values ('105', '字典管理', '1', '6', 'dict', 'system/dict/index', '', 1, 0, 'C', '0', '0', 'system:dict:list', 'dict',
         'admin', sysdate(), '', null, '字典管理菜单');
 insert into sys_menu
-values ('106', '参数设置', '1', '7', 'config', 'system/config/index', '', 1, 0, 'C', '0', '0', 'system:config:list',
+values ('106', '参数设置', '1', '10', 'config', 'system/config/index', '', 1, 0, 'C', '0', '0', 'system:config:list',
         'edit', 'admin', sysdate(), '', null, '参数设置菜单');
 insert into sys_menu
 values ('107', '通知公告', '1', '8', 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list',
@@ -467,6 +467,7 @@ values ('1060', '生成代码', '116', '6', '#', '', '', 1, 0, 'F', '0', '0', 't
 INSERT INTO sys_menu
 values (1061, '动态表单构建', 3, 4, 'build2', 'tool/build2/index', NULL, 1, 0, 'C', '0', '0', 'tool:build:list',
         'build', 'admin', sysdate(), '', null, '');
+INSERT INTO sys_menu values (1062, '系统设定', 1, 7, 'setting', 'system/setting/index', NULL, 1, 0, 'C', '0', '0', 'system:setting:edit', 'system', 'admin', sysdate(), '', NULL, '');
 
 -- ----------------------------
 -- 6、用户和角色关联表  用户N-1角色
@@ -906,7 +907,7 @@ values (5, '账号自助-是否开启用户注册功能', 'sys.account.registerU
 INSERT INTO sys_config
 values (6, '系统主题配置', 'sys.theme.setting',
         '{\"topNav\":false,\"tagsView\":true,\"fixedHeader\":false,\"sidebarLogo\":true,\"dynamicTitle\":true,\"sideTheme\":\"theme-dark\"}',
-        'Y', 'admin', '2023-03-29 09:02:30', '', NULL, NULL);
+        'Y', 'admin', sysdate(), '', NULL, NULL);
 
 
 -- ----------------------------

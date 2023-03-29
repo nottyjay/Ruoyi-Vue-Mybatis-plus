@@ -27,6 +27,11 @@ const actions = {
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data)
   },
+  resetSetting({commit}, setting) {
+    Object.keys(setting).map(key => {
+      commit('CHANGE_SETTING', {key: key, value: setting[key]})
+    })
+  },
   // 设置网页标题
   setTitle({ commit }, title) {
     state.title = title

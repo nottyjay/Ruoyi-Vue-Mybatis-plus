@@ -34,12 +34,6 @@ export default {
       await this.setTheme(val)
     }
   },
-  created() {
-    if(this.defaultTheme !== ORIGINAL_THEME) {
-      this.setTheme(this.defaultTheme)
-    }
-  },
-
   methods: {
     async setTheme(val) {
       const oldVal = this.chalk ? this.theme : ORIGINAL_THEME

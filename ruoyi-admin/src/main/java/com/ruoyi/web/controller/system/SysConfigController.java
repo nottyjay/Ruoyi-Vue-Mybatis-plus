@@ -2,7 +2,7 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +25,7 @@ import com.ruoyi.system.service.ISysConfigService;
 
 /**
  * 参数配置 信息操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -100,11 +100,32 @@ public class SysConfigController extends BaseController
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysConfig config)
     {
-        if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config)))
-        {
-            return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
+        if(config.getConfigId() != null){
+            if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config)))
+            {
+                return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            }
+            config.setUpdateBy(getUsername());
+        }else if(StringUtils.isNotBlank(config.getConfigKey())) {
+            SysConfig persistent = configService.getConfigByKey(config.getConfigKey());
+            config.setConfigId(persistent.getConfigId());
+        }else {
+            return AjaxResult.error();
         }
-        config.setUpdateBy(getUsername());
+        return toAjax(configService.updateConfig(config));
+    }
+
+    @PreAuthorize("@ss.hasPermi('system:config:edit')")
+    @Log(title = "参数管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/editByKey")
+    public AjaxResult editByKey(@RequestBody SysConfig config)
+    {
+        if(StringUtils.isNotBlank(config.getConfigKey())) {
+            SysConfig persistent = configService.getConfigByKey(config.getConfigKey());
+            config.setConfigId(persistent.getConfigId());
+        }else {
+            return AjaxResult.error();
+        }
         return toAjax(configService.updateConfig(config));
     }
 

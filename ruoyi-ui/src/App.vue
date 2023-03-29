@@ -7,6 +7,7 @@
 
 <script>
 import ThemePicker from "@/components/ThemePicker";
+import {getConfigKey} from '@/api/system/config'
 
 export default {
   name: "App",
@@ -18,7 +19,18 @@ export default {
                 return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
             }
         }
-    }
+    },
+  mounted() {
+    getConfigKey('sys.theme.setting').then(response => {
+      this.$cache.local.set(
+        "layout-setting",
+        response.msg
+      );
+      let setting = JSON.parse(response.msg)
+      setting['errorLog'] = 'production'
+      this.$store.dispatch('settings/resetSetting', setting)
+    })
+  }
 };
 </script>
 <style scoped>

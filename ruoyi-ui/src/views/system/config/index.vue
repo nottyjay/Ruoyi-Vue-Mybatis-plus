@@ -1,5 +1,9 @@
 <template>
   <div class="app-container">
+    <el-alert
+      title="本页配置涉及系统运行，如非专业人员请勿修改该页任何内容"
+      type="error">
+    </el-alert>
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="参数名称" prop="configName">
         <el-input

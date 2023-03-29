@@ -79,7 +79,7 @@
 
 <script>
 import ThemePicker from '@/components/ThemePicker'
-import {updateConfig} from "@/api/system/config";
+import {updateConfigByKey} from "@/api/system/config";
 
 export default {
   components: {ThemePicker},
@@ -176,7 +176,7 @@ export default {
             "sideTheme":"${this.sideTheme}",
             "theme":"${this.theme}"
           }`;
-      updateConfig({configKey: 'sys.theme.setting', configValue: setting}).then(response => {
+      updateConfigByKey({configKey: 'sys.theme.setting', configValue: setting}).then(response => {
         this.$cache.local.set(
           "layout-setting",
           setting
