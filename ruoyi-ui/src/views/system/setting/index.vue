@@ -1,8 +1,10 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="activeName" tab-position="left">
-      <el-tab-pane label="系统配置" name="first">用户管理</el-tab-pane>
-      <el-tab-pane label="主题设置" name="second">
+      <el-tab-pane label="系统配置" name="system">
+        <system-setting/>
+      </el-tab-pane>
+      <el-tab-pane label="主题设置" name="theme">
         <theme-panel style="width: 500px"/>
       </el-tab-pane>
     </el-tabs>
@@ -11,14 +13,17 @@
 
 <script>
 import ThemePanel from '@/layout/components/Settings/theme'
+import SystemSetting from "@/views/system/setting/system-setting";
 
 export default {
+  name: 'Setting',
   components: {
-    ThemePanel
+    ThemePanel,
+    SystemSetting
   },
   data() {
     return {
-      activeName: 'first'
+      activeName: 'system'
     }
   },
 

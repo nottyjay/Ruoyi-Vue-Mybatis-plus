@@ -45,17 +45,17 @@
       <h3 class="drawer-title">系统布局配置</h3>
 
       <div class="drawer-item">
-        <span>开启 TopNav</span>
+        <span>开启顶部导航</span>
         <el-switch v-model="topNav" class="drawer-switch"/>
       </div>
 
       <div class="drawer-item">
-        <span>开启 Tags-Views</span>
+        <span>开启标签栏</span>
         <el-switch v-model="tagsView" class="drawer-switch"/>
       </div>
 
       <div class="drawer-item">
-        <span>固定 Header</span>
+        <span>固定顶部</span>
         <el-switch v-model="fixedHeader" class="drawer-switch"/>
       </div>
 
@@ -65,7 +65,7 @@
       </div>
 
       <div class="drawer-item">
-        <span>动态标题</span>
+        <span>开启顶部动态标题</span>
         <el-switch v-model="dynamicTitle" class="drawer-switch"/>
       </div>
 
