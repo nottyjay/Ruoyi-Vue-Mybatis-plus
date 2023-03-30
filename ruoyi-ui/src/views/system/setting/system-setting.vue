@@ -20,25 +20,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <h3 class="drawer-title">系统存储配置</h3>
-      <el-divider/>
-      <el-row :gutter="30">
-        <el-col :span="6">
-          <el-form-item label="存储方式">
-            <el-input v-model="form['sys.storage.type']" placeholder="请输入初始密码"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="登陆验证码">
-            <el-switch v-model="form['sys.account.captchaEnabled']" class="drawer-switch"/>
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="自助注册">
-            <el-switch v-model="form['sys.account.registerUser']" class="drawer-switch"/>
-          </el-form-item>
-        </el-col>
-      </el-row>
       <el-divider/>
 
       <el-button size="small" type="primary" plain icon="el-icon-document-add" @click="saveSetting">保存配置
