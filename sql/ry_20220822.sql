@@ -467,7 +467,9 @@ values ('1060', '生成代码', '116', '6', '#', '', '', 1, 0, 'F', '0', '0', 't
 INSERT INTO sys_menu
 values (1061, '动态表单构建', 3, 4, 'build2', 'tool/build2/index', NULL, 1, 0, 'C', '0', '0', 'tool:build:list',
         'build', 'admin', sysdate(), '', null, '');
-INSERT INTO sys_menu values (1062, '系统设定', 1, 7, 'setting', 'system/setting/index', NULL, 1, 0, 'C', '0', '0', 'system:setting:edit', 'system', 'admin', sysdate(), '', NULL, '');
+INSERT INTO sys_menu
+values (1062, '系统设定', 1, 7, 'setting', 'system/setting/index', NULL, 1, 0, 'C', '0', '0', 'system:setting:edit',
+        'system', 'admin', sysdate(), '', NULL, '');
 
 -- ----------------------------
 -- 6、用户和角色关联表  用户N-1角色
@@ -889,25 +891,20 @@ create table sys_config
 ) engine = innodb
   auto_increment = 100 comment = '参数配置表';
 
-insert into sys_config
-values (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', sysdate(), '', null,
-        '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
+INSERT INTO sys_config
+values (1, '系统主题配置', 'sys.theme.setting',
+        '{\"topNav\":false,\"tagsView\":true,\"fixedHeader\":false,\"sidebarLogo\":true,\"dynamicTitle\":true,\"sideTheme\":\"theme-dark\"}',
+        'Y', 'admin', sysdate(), '', NULL, NULL);
 insert into sys_config
 values (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', sysdate(), '', null,
         '初始化密码 123456');
-insert into sys_config
-values (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', sysdate(), '', null,
-        '深色主题theme-dark，浅色主题theme-light');
 insert into sys_config
 values (4, '账号自助-验证码开关', 'sys.account.captchaEnabled', 'true', 'Y', 'admin', sysdate(), '', null,
         '是否开启验证码功能（true开启，false关闭）');
 insert into sys_config
 values (5, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', sysdate(), '', null,
         '是否开启注册用户功能（true开启，false关闭）');
-INSERT INTO sys_config
-values (6, '系统主题配置', 'sys.theme.setting',
-        '{\"topNav\":false,\"tagsView\":true,\"fixedHeader\":false,\"sidebarLogo\":true,\"dynamicTitle\":true,\"sideTheme\":\"theme-dark\"}',
-        'Y', 'admin', sysdate(), '', NULL, NULL);
+
 
 
 -- ----------------------------
