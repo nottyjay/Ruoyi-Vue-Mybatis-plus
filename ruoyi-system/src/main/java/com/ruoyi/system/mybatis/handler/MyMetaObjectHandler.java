@@ -19,8 +19,10 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Timestamp time=new Timestamp(System.currentTimeMillis());
-        this.setFieldValByName("createTime", time, metaObject);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        if (metaObject.getValue("createTime") == null) {
+            this.setFieldValByName("createTime", time, metaObject);
+        }
         // 若deleted值不存在时进行填充
         if (metaObject.getValue("deleted") == null) {
             this.setFieldValByName("deleted", 0, metaObject);
@@ -29,7 +31,9 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void updateFill(MetaObject metaObject) {
-        Timestamp time=new Timestamp(System.currentTimeMillis());
-        this.setFieldValByName("updateTime", time, metaObject);
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        if (metaObject.getValue("updateTime") == null) {
+            this.setFieldValByName("updateTime", time, metaObject);
+        }
     }
 }
