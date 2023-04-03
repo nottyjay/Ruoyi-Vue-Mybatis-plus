@@ -5,9 +5,8 @@ import Cookies from 'js-cookie'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
-import NgFormElement from 'ng-form-element/packages/index'
-// import NgFormElement  from 'ng-form-element'
-// import 'ng-form-element/lib/ng-form-element.css'
+import NgFormElement from 'ng-form-element'
+import 'ng-form-element/lib/ng-form-element.css'
 
 import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
