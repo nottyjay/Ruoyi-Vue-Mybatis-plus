@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 /**
  * Entity基类
- * 
+ *
  * @author ruoyi
  */
 @Data
@@ -25,7 +25,7 @@ public class BaseEntity implements Serializable
 
     /** 搜索值 */
     @TableField(exist = false)
-	@JsonIgnore
+	  @JsonIgnore
     private String searchValue;
 
     /** 创建者 */
