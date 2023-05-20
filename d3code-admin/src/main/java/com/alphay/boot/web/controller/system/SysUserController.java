@@ -11,6 +11,7 @@ import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.common.core.domain.entity.SysUser;
+import com.alphay.boot.common.core.domain.vo.SimpleUserVo;
 import com.alphay.boot.common.core.page.TableDataInfo;
 import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.SecurityUtils;
@@ -20,6 +21,7 @@ import com.alphay.boot.system.service.ISysDeptService;
 import com.alphay.boot.system.service.ISysPostService;
 import com.alphay.boot.system.service.ISysRoleService;
 import com.alphay.boot.system.service.ISysUserService;
+import com.alphay.boot.web.domain.server.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -56,6 +58,13 @@ public class SysUserController extends BaseController {
     startPage();
     List<SysUser> list = userService.selectUserList(user);
     return getDataTable(list);
+  }
+
+  @PreAuthorize("@ss.hasPermi('system:user:list')")
+  @GetMapping("/listSimpleUser")
+  public AjaxResult listSimpleUser(SysUser user) {
+    List<SimpleUserVo> result = userService.selectSimpleAllUserList(user);
+    return success(result);
   }
 
   @Log(title = "用户管理", businessType = BusinessType.EXPORT)

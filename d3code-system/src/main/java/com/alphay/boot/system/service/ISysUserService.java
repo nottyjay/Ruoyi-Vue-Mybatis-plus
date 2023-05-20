@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysUser;
+import com.alphay.boot.common.core.domain.vo.SimpleUserVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -221,4 +222,12 @@ public interface ISysUserService extends IService<SysUser> {
    * @return
    */
   List<SysUser> getUsersByPostIds(Set<Long> ids);
+
+  /**
+   * 获取用户简单信息列表
+   *
+   * @param user
+   * @return
+   */
+  List<SimpleUserVo> selectSimpleAllUserList(SysUser user);
 }

@@ -6,9 +6,12 @@ import javax.validation.Validator;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alphay.boot.common.annotation.DataScope;
+import com.alphay.boot.common.core.convert.SysUserConvert;
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.common.core.domain.entity.SysUser;
+import com.alphay.boot.common.core.domain.vo.SimpleUserVo;
 import com.alphay.boot.common.exception.ServiceException;
+import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.utils.bean.BeanValidators;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
@@ -68,6 +71,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
   @DataScope(deptAlias = "d", userAlias = "u")
   public List<SysUser> selectUserList(SysUser user) {
     return userMapper.selectUserList(user);
+  }
+
+  @Override
+  public List<SimpleUserVo> selectSimpleAllUserList(SysUser user) {
+    List<SysUser> result =
+        baseMapper.selectList(
+            new LambdaQueryWrapperX<SysUser>()
+                .eqIfPresent(SysUser::getDeptId, user.getDeptId())
+                .select(SysUser::getUserId, SysUser::getDeptId, SysUser::getNickName));
+    return SysUserConvert.INSTANCE.convertList(result);
   }
 
   /**
