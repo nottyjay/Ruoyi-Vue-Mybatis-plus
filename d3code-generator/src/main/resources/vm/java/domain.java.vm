@@ -9,14 +9,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 #foreach ($import in $importList)
 import ${import};
 #end
-import com.d3code.common.annotation.Excel;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.alphay.boot.common.annotation.Excel;
 #if($table.crud || $table.sub)
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.d3code.common.core.domain.BaseEntity;
 #elseif($table.tree)
-import com.d3code.common.core.domain.TreeEntity;
 #end
 
 /**

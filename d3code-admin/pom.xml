@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.d3code</groupId>
-        <artifactId>yums</artifactId>
+        <groupId>com.alphay.boot</groupId>
+        <artifactId>d3code</artifactId>
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -45,30 +45,30 @@
 
         <!-- 核心模块-->
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-framework</artifactId>
         </dependency>
 
         <!-- 定时任务-->
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-quartz</artifactId>
         </dependency>
 
         <!-- 代码生成-->
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-generator</artifactId>
         </dependency>
 
         <!-- 工作流 -->
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-bpm</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-security</artifactId>
         </dependency>
 
@@ -82,7 +82,7 @@
                 <version>2.1.1.RELEASE</version>
                 <configuration>
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-                    <mainClass>com.d3code.d3codeApplication</mainClass>
+                    <mainClass>com.alphay.boot.d3codeApplication</mainClass>
                     <layout>ZIP</layout>
                     <includes>
                         <include>

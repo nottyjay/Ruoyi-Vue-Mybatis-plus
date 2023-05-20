@@ -316,34 +316,34 @@ CREATE TABLE `sys_dept`
 -- Records of sys_dept
 -- ----------------------------
 INSERT INTO `sys_dept`
-VALUES (100, 0, '0', '若依科技', 0, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '', NULL,
+VALUES (100, 0, '0', '安惠科技', 0, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '', NULL,
         NULL);
 INSERT INTO `sys_dept`
-VALUES (101, 100, '0,100', '深圳总公司', 1, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (101, 100, '0,100', '南通总公司', 1, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (102, 100, '0,100', '长沙分公司', 2, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (102, 100, '0,100', '长沙分公司', 2, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (103, 101, '0,100,101', '研发部门', 1, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (103, 101, '0,100,101', '研发部门', 1, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (104, 101, '0,100,101', '市场部门', 2, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (104, 101, '0,100,101', '市场部门', 2, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (105, 101, '0,100,101', '测试部门', 3, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (105, 101, '0,100,101', '测试部门', 3, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (106, 101, '0,100,101', '财务部门', 4, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (106, 101, '0,100,101', '财务部门', 4, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (107, 101, '0,100,101', '运维部门', 5, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (107, 101, '0,100,101', '运维部门', 5, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (108, 102, '0,100,102', '市场部门', 1, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (108, 102, '0,100,102', '市场部门', 1, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 INSERT INTO `sys_dept`
-VALUES (109, 102, '0,100,102', '财务部门', 2, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', sysdate(), '',
+VALUES (109, 102, '0,100,102', '财务部门', 2, 1, '15888888888', 'alphay@qq.com', '0', 0, 'admin', sysdate(), '',
         NULL, NULL);
 
 -- ----------------------------
@@ -1048,10 +1048,10 @@ CREATE TABLE `sys_notice`
 -- Records of sys_notice
 -- ----------------------------
 INSERT INTO `sys_notice`
-VALUES (1, '温馨提醒：2018-07-01 若依新版本发布啦', '2', 0xE696B0E78988E69CACE58685E5AEB9, '0', 'admin',
+VALUES (1, '温馨提醒：2018-07-01 D3code新版本发布啦', '2', 0xE696B0E78988E69CACE58685E5AEB9, '0', 'admin',
         sysdate(), '', NULL, '管理员');
 INSERT INTO `sys_notice`
-VALUES (2, '维护通知：2018-07-01 若依系统凌晨维护', '1', 0xE7BBB4E68AA4E58685E5AEB9, '0', 'admin', sysdate(),
+VALUES (2, '维护通知：2018-07-01 D3code系统凌晨维护', '1', 0xE7BBB4E68AA4E58685E5AEB9, '0', 'admin', sysdate(),
         '', NULL, '管理员');
 
 -- ----------------------------
@@ -1400,11 +1400,11 @@ CREATE TABLE `sys_user`
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user`
-VALUES (1, sysdate(), 'admin', null, '', 0, 103, 'admin', '若依', '00', 'ry@q163.com',
+VALUES (1, sysdate(), 'admin', null, '', 0, 103, 'admin', 'Alphay', '00', 'ry@q163.com',
         '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '127.0.0.1',
         sysdate(), '管理员');
 INSERT INTO `sys_user`
-VALUES (2, sysdate(), 'admin', NULL, '', 0, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '',
+VALUES (2, sysdate(), 'admin', NULL, '', 0, 105, 'ry', 'Alphay', '00', 'ry@qq.com', '15666666666', '1', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '127.0.0.1', sysdate(),
         '测试员');
 

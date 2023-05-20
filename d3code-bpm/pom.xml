@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.d3code</groupId>
-        <artifactId>yums</artifactId>
+        <groupId>com.alphay.boot</groupId>
+        <artifactId>d3code</artifactId>
         <version>1.0.0</version>
     </parent>
 
@@ -20,12 +20,12 @@
     <dependencies>
         <!-- 通用工具-->
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-system</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.d3code</groupId>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-security</artifactId>
         </dependency>
 

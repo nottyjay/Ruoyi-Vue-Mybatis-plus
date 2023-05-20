@@ -11,11 +11,11 @@ d3code:
   # 验证码类型 math 数组计算 char 字符验证
   captchaType: math
   # 扫描的mapper
-  # auto-scan-mapper: com.ruoyi.**.mapper,;com.d3code.**.mapper
-  auto-scan-mapper: com.d3code.**.mapper
+  # auto-scan-mapper: com.alphay.boot.**.mapper,;com.d3code.**.mapper
+  auto-scan-mapper: com.alphay.boot.**.mapper
   # 扫描的目录
-  # auto-scan-package: com.ruoyi,;com.d3code
-  auto-scan-package: com.d3code
+  # auto-scan-package: com.alphay.boot,;com.d3code
+  auto-scan-package: com.alphay.boot
   # 验证码类型
   captcha-type: math
 
@@ -102,8 +102,8 @@ mybatis-plus:
     use-generated-keys: true
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     default-executor-type: SIMPLE
-  #type-aliases-package: com.ruoyi.**.domain,;com.d3code.**.domain
-  type-aliases-package: com.d3code.**.domain
+  #type-aliases-package: com.alphay.boot.**.domain,;com.d3code.**.domain
+  type-aliases-package: com.alphay.boot.**.domain
 
 # PageHelper分页插件
 pagehelper:

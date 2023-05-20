@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 #foreach ($import in $subImportList)
 import ${import};
 #end
-import com.d3code.common.annotation.Excel;
+import com.alphay.boot.common.annotation.Excel;
 
 /**
  * ${subTable.functionName}对象 ${subTableName}

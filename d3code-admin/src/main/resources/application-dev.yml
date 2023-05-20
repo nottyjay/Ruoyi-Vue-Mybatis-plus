@@ -5,7 +5,7 @@ d3code:
 # 日志配置
 logging:
   level:
-    com.d3code: debug
+    com.alphay.boot: debug
     org.springframework: warn
 
 # 数据源配置

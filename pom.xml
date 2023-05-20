@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.d3code</groupId>
-    <artifactId>yums</artifactId>
+    <groupId>com.alphay.boot</groupId>
+    <artifactId>d3code</artifactId>
     <version>1.0.0</version>
 
     <name>d3code</name>
@@ -262,49 +262,49 @@
 
             <!-- 定时任务-->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-quartz</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 代码生成-->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-generator</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-framework</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-system</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-common</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 网络安全 -->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-security</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
 
             <!-- 工作流 -->
             <dependency>
-                <groupId>com.d3code</groupId>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-bpm</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
