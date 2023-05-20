@@ -4,16 +4,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
-    <version>3.8.6</version>
+    <groupId>com.d3code</groupId>
+    <artifactId>yums</artifactId>
+    <version>1.0.0</version>
 
-    <name>ruoyi</name>
-    <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <name>d3code</name>
+    <url>http://www.joyshop.cc</url>
+    <description>D3Code管理系统</description>
 
     <properties>
-        <ruoyi.version>3.8.6</ruoyi.version>
+        <d3code.version>1.0.0</d3code.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -23,7 +23,7 @@
         <swagger.version>3.0.0</swagger.version>
         <easy-captcha.version>1.6.2</easy-captcha.version>
         <pagehelper.boot.version>1.4.6</pagehelper.boot.version>
-        <mybatis-plus.boot.version>3.4.3.4</mybatis-plus.boot.version>
+        <mybatis-plus.boot.version>3.5.3.1</mybatis-plus.boot.version>
         <mybatis-plus.dynamic-datasource.version>3.6.1</mybatis-plus.dynamic-datasource.version>
         <fastjson.version>2.0.23</fastjson.version>
         <oshi.version>6.4.0</oshi.version>
@@ -36,9 +36,12 @@
         <jwt.version>0.11.2</jwt.version>
         <lombok.version>1.18.14</lombok.version>
         <log4j2.version>2.17.1</log4j2.version>
-        <hutool.version>5.2.5</hutool.version>
+        <hutool.version>5.8.11</hutool.version>
         <jedis.version>3.3.0</jedis.version>
         <spring-el.version>5.3.14</spring-el.version>
+        <flowable.version>6.8.0</flowable.version>
+        <mapstruct.version>1.5.4.Final</mapstruct.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
 
     <!-- 依赖声明 -->
@@ -67,6 +70,14 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
             </dependency>
+
+            <!-- mysql驱动 -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>8.0.32</version>
+            </dependency>
+
 
             <!-- pagehelper 分页插件 -->
             <dependency>
@@ -195,39 +206,23 @@
                 <optional>true</optional>
             </dependency>
 
-            <!-- 定时任务-->
+            <!-- flowable 工作流相关 -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-quartz</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter-process</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter-actuator</artifactId>
+                <version>${flowable.version}</version>
             </dependency>
 
-            <!-- 代码生成-->
+            <!-- guava -->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-framework</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
-            <!-- 系统模块-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-
-            <!-- 通用工具-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
 
             <!-- Redis 工具 -->
@@ -251,16 +246,81 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <!-- MapStruct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+
+            <!-- 定时任务-->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-quartz</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 代码生成-->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-generator</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 核心模块-->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-framework</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 系统模块-->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-system</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 通用工具-->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-common</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 网络安全 -->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-security</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <!-- 工作流 -->
+            <dependency>
+                <groupId>com.d3code</groupId>
+                <artifactId>d3code-bpm</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
-        <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
-        <module>ruoyi-quartz</module>
-        <module>ruoyi-generator</module>
-        <module>ruoyi-common</module>
+        <module>d3code-admin</module>
+        <module>d3code-framework</module>
+        <module>d3code-system</module>
+        <module>d3code-quartz</module>
+        <module>d3code-generator</module>
+        <module>d3code-common</module>
+        <module>d3code-bpm</module>
+        <module>d3code-security</module>
     </modules>
     <packaging>pom</packaging>
 

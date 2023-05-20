@@ -33,7 +33,7 @@ PAUSE
 		PAUSE
 	)
 
-start javaw %JVM_OPTS% -jar %AppName%
+start javaw -Dloader.path=lib %JVM_OPTS% -jar %AppName%
 
 echo  starting¡­¡­
 echo  Start %AppName% success...
