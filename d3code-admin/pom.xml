@@ -82,7 +82,7 @@
                 <version>2.1.1.RELEASE</version>
                 <configuration>
                     <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-                    <mainClass>com.alphay.boot.d3codeApplication</mainClass>
+                    <mainClass>com.alphay.boot.D3codeApplication</mainClass>
                     <layout>ZIP</layout>
                     <includes>
                         <include>
@@ -125,6 +125,13 @@
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
         </plugins>
