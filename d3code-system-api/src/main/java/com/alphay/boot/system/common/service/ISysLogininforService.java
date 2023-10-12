@@ -1,6 +1,8 @@
 package com.alphay.boot.system.common.service;
 
 import com.alphay.boot.system.common.domain.SysLogininfor;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.IPage;
 
 import java.util.List;
 
@@ -9,7 +11,7 @@ import java.util.List;
  *
  * @author d3code
  */
-public interface ISysLogininforService {
+public interface ISysLogininforService extends IService<SysLogininfor> {
   /**
    * 新增系统登录日志
    *
@@ -23,7 +25,7 @@ public interface ISysLogininforService {
    * @param logininfor 访问日志对象
    * @return 登录记录集合
    */
-  public List<SysLogininfor> selectLogininforList(SysLogininfor logininfor);
+  List<SysLogininfor> selectLogininforList(SysLogininfor logininfor, IPage<SysLogininfor> page);
 
   /**
    * 批量删除系统登录日志

@@ -36,8 +36,7 @@ public class SysLogininforController extends BaseController {
   @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysLogininfor logininfor) {
-    startPage();
-    List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
+    List<SysLogininfor> list = logininforService.selectLogininforList(logininfor, startPage());
     return getDataTable(list);
   }
 
@@ -45,7 +44,7 @@ public class SysLogininforController extends BaseController {
   @PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
   @PostMapping("/export")
   public void export(HttpServletResponse response, SysLogininfor logininfor) {
-    List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
+    List<SysLogininfor> list = logininforService.selectLogininforList(logininfor, null);
     ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
     util.exportExcel(response, list, "登录日志");
   }
