@@ -7,6 +7,7 @@ import java.util.List;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.domain.model.LoginUser;
 import com.alphay.boot.common.utils.sql.SqlUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -45,8 +46,8 @@ public class BaseController {
   }
 
   /** 设置请求分页数据 */
-  protected void startPage() {
-    PageUtils.startPage();
+  protected IPage startPage() {
+    return PageUtils.startPage();
   }
 
   /** 设置请求排序数据 */
@@ -71,7 +72,7 @@ public class BaseController {
     rspData.setCode(HttpStatus.SUCCESS);
     rspData.setMsg("查询成功");
     rspData.setRows(list);
-    rspData.setTotal(new PageInfo(list).getTotal());
+    rspData.setTotal(PageUtils.getLocalPage().getTotal());
     return rspData;
   }
 

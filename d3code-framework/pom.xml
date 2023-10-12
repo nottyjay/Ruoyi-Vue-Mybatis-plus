@@ -44,7 +44,23 @@
         <!-- 系统模块-->
         <dependency>
             <groupId>com.alphay.boot</groupId>
+            <artifactId>d3code-system-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-system</artifactId>
+        </dependency>
+
+        <!-- 文件管理模块 -->
+        <dependency>
+            <groupId>com.alphay.boot</groupId>
+            <artifactId>d3code-attachment-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alphay.boot</groupId>
+            <artifactId>d3code-attachment</artifactId>
         </dependency>
 
     </dependencies>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alphay.boot.attachment.mapper.SysAttachmentMapper">
+
+    <resultMap type="SysAttachment" id="SysAttachmentResult">
+        <id property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="name" column="name"/>
+        <result property="storageType" column="storage_type"/>
+        <result property="path" column="path"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectAttachmentVo">
+        select id,
+               create_by,
+               create_time,
+               update_by,
+               update_time,
+               deleted,
+               `name`,
+               storage_type,
+               path,
+               remark
+        from sys_attachment
+    </sql>
+
+    <select id="selectSysAttachmentList" resultMap="SysAttachmentResult">
+        <include refid="selectAttachmentVo"/>
+        <where>
+            <if test="name != null and name != ''">and `name` like concat('%', #{name}, '%')</if>
+            <if test="storageType != null and storageType != ''">and storage_type = #{storageType}</if>
+        </where>
+        order by `name` desc
+    </select>
+
+
+</mapper>
