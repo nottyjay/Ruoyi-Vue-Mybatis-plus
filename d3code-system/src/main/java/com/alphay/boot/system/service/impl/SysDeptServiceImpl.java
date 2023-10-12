@@ -13,6 +13,7 @@ import com.alphay.boot.common.core.text.Convert;
 import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
+import com.alphay.boot.system.common.service.ISysDeptService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.alphay.boot.common.enums.SystemStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.system.mapper.SysDeptMapper;
 import com.alphay.boot.system.mapper.SysRoleMapper;
-import com.alphay.boot.system.service.ISysDeptService;
 
 /**
  * 部门管理 服务实现

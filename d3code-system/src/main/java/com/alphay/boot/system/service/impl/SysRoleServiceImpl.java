@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.domain.SysRoleDept;
-import com.alphay.boot.system.domain.SysRoleMenu;
-import com.alphay.boot.system.domain.SysUserRole;
+import com.alphay.boot.system.common.domain.SysRoleDept;
+import com.alphay.boot.system.common.domain.SysRoleMenu;
+import com.alphay.boot.system.common.domain.SysUserRole;
 import com.alphay.boot.system.mapper.SysRoleDeptMapper;
 import com.alphay.boot.system.mapper.SysRoleMapper;
 import com.alphay.boot.system.mapper.SysRoleMenuMapper;
 import com.alphay.boot.system.mapper.SysUserRoleMapper;
-import com.alphay.boot.system.service.ISysRoleService;
+import com.alphay.boot.system.common.service.ISysRoleService;
 
 /**
  * 角色 业务层处理

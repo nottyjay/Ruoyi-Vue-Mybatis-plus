@@ -9,7 +9,7 @@ import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.service.ISysDeptService;
+import com.alphay.boot.system.common.service.ISysDeptService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.alphay.boot.common.core.domain.entity.SysDictData;
 import com.alphay.boot.common.core.domain.entity.SysDictType;
 import com.alphay.boot.common.exception.ServiceException;
+import com.alphay.boot.system.common.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,6 @@ import com.alphay.boot.common.utils.DictUtils;
 import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.system.mapper.SysDictDataMapper;
 import com.alphay.boot.system.mapper.SysDictTypeMapper;
-import com.alphay.boot.system.service.ISysDictTypeService;
 
 /**
  * 字典 业务层处理

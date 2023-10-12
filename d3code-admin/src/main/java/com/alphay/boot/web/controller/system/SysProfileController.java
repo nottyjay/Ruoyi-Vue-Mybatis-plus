@@ -13,7 +13,7 @@ import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.common.utils.file.FileUploadUtils;
 import com.alphay.boot.common.utils.file.MimeTypeUtils;
 import com.alphay.boot.security.service.TokenService;
-import com.alphay.boot.system.service.ISysUserService;
+import com.alphay.boot.system.common.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

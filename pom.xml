@@ -6,14 +6,14 @@
 
     <groupId>com.alphay.boot</groupId>
     <artifactId>d3code</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <name>d3code</name>
     <url>http://www.joyshop.cc</url>
     <description>D3Code管理系统</description>
 
     <properties>
-        <d3code.version>1.0.0</d3code.version>
+        <d3code.version>1.0.1</d3code.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -284,6 +284,12 @@
             <!-- 系统模块-->
             <dependency>
                 <groupId>com.alphay.boot</groupId>
+                <artifactId>d3code-system-api</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-system</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
@@ -315,6 +321,7 @@
     <modules>
         <module>d3code-admin</module>
         <module>d3code-framework</module>
+        <module>d3code-system-api</module>
         <module>d3code-system</module>
         <module>d3code-quartz</module>
         <module>d3code-generator</module>

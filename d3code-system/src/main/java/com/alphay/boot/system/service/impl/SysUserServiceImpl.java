@@ -26,16 +26,16 @@ import org.springframework.util.CollectionUtils;
 import com.alphay.boot.common.constant.UserConstants;
 import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.domain.SysPost;
-import com.alphay.boot.system.domain.SysUserPost;
-import com.alphay.boot.system.domain.SysUserRole;
+import com.alphay.boot.system.common.domain.SysPost;
+import com.alphay.boot.system.common.domain.SysUserPost;
+import com.alphay.boot.system.common.domain.SysUserRole;
 import com.alphay.boot.system.mapper.SysPostMapper;
 import com.alphay.boot.system.mapper.SysRoleMapper;
 import com.alphay.boot.system.mapper.SysUserMapper;
 import com.alphay.boot.system.mapper.SysUserPostMapper;
 import com.alphay.boot.system.mapper.SysUserRoleMapper;
-import com.alphay.boot.system.service.ISysConfigService;
-import com.alphay.boot.system.service.ISysUserService;
+import com.alphay.boot.system.common.service.ISysConfigService;
+import com.alphay.boot.system.common.service.ISysUserService;
 
 /**
  * 用户 业务层处理

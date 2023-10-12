@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 import org.apache.ibatis.annotations.Param;
-import com.alphay.boot.system.domain.SysUserRole;
+import com.alphay.boot.system.common.domain.SysUserRole;
 
 /**
  * 用户与角色关联表 数据层

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
-import com.alphay.boot.system.domain.SysUserPost;
+import com.alphay.boot.system.common.domain.SysUserPost;
 
 /**
  * 用户与岗位关联表 数据层

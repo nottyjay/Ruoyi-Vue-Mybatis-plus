@@ -5,7 +5,7 @@ import com.alphay.boot.common.core.domain.model.LoginUser;
 import com.alphay.boot.common.enums.UserStatus;
 import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.service.ISysUserService;
+import com.alphay.boot.system.common.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

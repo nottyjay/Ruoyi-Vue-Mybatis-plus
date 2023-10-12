@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.alphay.boot</groupId>
         <artifactId>d3code</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -16,11 +16,10 @@
     </description>
 
     <dependencies>
-
-        <!-- 通用工具-->
+        
         <dependency>
             <groupId>com.alphay.boot</groupId>
-            <artifactId>d3code-common</artifactId>
+            <artifactId>d3code-system-api</artifactId>
         </dependency>
 
     </dependencies>

@@ -3,7 +3,7 @@ package com.alphay.boot.system.mapper;
 import java.util.List;
 
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
-import com.alphay.boot.system.domain.SysPost;
+import com.alphay.boot.system.common.domain.SysPost;
 
 /**
  * 岗位信息 数据层

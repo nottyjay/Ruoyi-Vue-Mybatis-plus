@@ -16,18 +16,18 @@ import com.alphay.boot.common.core.domain.entity.SysMenu;
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
+import com.alphay.boot.system.common.service.ISysMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.common.constant.UserConstants;
 import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.domain.vo.MetaVo;
-import com.alphay.boot.system.domain.vo.RouterVo;
+import com.alphay.boot.system.common.domain.vo.MetaVo;
+import com.alphay.boot.system.common.domain.vo.RouterVo;
 import com.alphay.boot.system.mapper.SysMenuMapper;
 import com.alphay.boot.system.mapper.SysRoleMapper;
 import com.alphay.boot.system.mapper.SysRoleMenuMapper;
-import com.alphay.boot.system.service.ISysMenuService;
 
 /**
  * 菜单 业务层处理

@@ -9,7 +9,7 @@ import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.domain.entity.SysMenu;
 import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.service.ISysMenuService;
+import com.alphay.boot.system.common.service.ISysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;

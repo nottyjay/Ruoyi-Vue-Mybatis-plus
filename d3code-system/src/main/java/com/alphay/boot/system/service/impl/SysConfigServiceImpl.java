@@ -7,13 +7,13 @@ import com.alphay.boot.common.constant.CacheConstants;
 import com.alphay.boot.common.core.redis.RedisCache;
 import com.alphay.boot.common.core.text.Convert;
 import com.alphay.boot.common.exception.ServiceException;
+import com.alphay.boot.system.common.domain.SysConfig;
+import com.alphay.boot.system.common.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.common.constant.UserConstants;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.domain.SysConfig;
 import com.alphay.boot.system.mapper.SysConfigMapper;
-import com.alphay.boot.system.service.ISysConfigService;
 
 /**
  * 参数配置 服务层实现
@@ -177,11 +177,14 @@ public class SysConfigServiceImpl implements ISysConfigService {
     return UserConstants.UNIQUE;
   }
 
-  @Override public SysConfig getConfigByKey(String configKey) {
+  @Override
+  public SysConfig getConfigByKey(String configKey) {
     SysConfig config = new SysConfig();
     config.setConfigKey(configKey);
     return configMapper.selectConfig(config);
-  } /**
+  }
+
+  /**
    * 设置cache key
    *
    * @param configKey 参数键

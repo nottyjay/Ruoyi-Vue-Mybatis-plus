@@ -12,10 +12,10 @@ import com.alphay.boot.common.enums.SystemStatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.system.domain.SysPost;
+import com.alphay.boot.system.common.domain.SysPost;
 import com.alphay.boot.system.mapper.SysPostMapper;
 import com.alphay.boot.system.mapper.SysUserPostMapper;
-import com.alphay.boot.system.service.ISysPostService;
+import com.alphay.boot.system.common.service.ISysPostService;
 
 /**
  * 岗位信息 服务层处理
