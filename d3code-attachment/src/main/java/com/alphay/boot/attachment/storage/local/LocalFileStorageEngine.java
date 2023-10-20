@@ -113,7 +113,7 @@ public class LocalFileStorageEngine implements StorageEngine {
       bucketName = this.config.getBucketName();
     }
     File dest = new File(getBucketFullPath(bucketName) + fileName);
-    dest.deleteOnExit();
+    dest.delete();
   }
 
   private String getBucketFullPath(String bucketName) {
