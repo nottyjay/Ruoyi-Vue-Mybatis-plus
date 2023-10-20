@@ -1,8 +1,10 @@
-package com.alphay.boot.attachment.storage;
+package com.alphay.boot.attachment.storage.cos;
 
 import com.alphay.boot.attachment.api.bean.TencentCosConfig;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
+import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.common.utils.JsonUtil;
+import com.alphay.boot.common.utils.StringUtils;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
 import com.qcloud.cos.auth.BasicCOSCredentials;
@@ -100,6 +102,9 @@ public class TencentCosStorageEngine implements StorageEngine {
 
   @Override
   public String uploadFileSync(File file, String bucketName, String key) {
+    if (StringUtils.isEmpty(bucketName)) {
+      bucketName = this.getDefaultBucket();
+    }
     PutObjectRequest putObjectRequest = new PutObjectRequest(getBucketName(bucketName), key, file);
     try {
       Upload upload = this.transferManager.upload(putObjectRequest);
@@ -112,6 +117,9 @@ public class TencentCosStorageEngine implements StorageEngine {
 
   @Override
   public String uploadFileSync(MultipartFile file, String bucketName, String key) {
+    if (StringUtils.isEmpty(bucketName)) {
+      bucketName = this.getDefaultBucket();
+    }
     ObjectMetadata objectMetadata = new ObjectMetadata();
     objectMetadata.setContentLength(file.getSize());
     try {
@@ -129,8 +137,11 @@ public class TencentCosStorageEngine implements StorageEngine {
   }
 
   @Override
-  public void deleteObject(String key) {
-    this.client.deleteObject(getBucketName(getDefaultBucket()), key);
+  public void deleteObject(String bucketName, String key) {
+    if (StringUtils.isEmpty(bucketName)) {
+      bucketName = this.getDefaultBucket();
+    }
+    this.client.deleteObject(getBucketName(bucketName), key);
   }
 
   /**

@@ -1,5 +1,6 @@
 package com.alphay.boot.attachment.api.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * @author nottyjay
  */
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TencentCosConfig {
 
   /** 用户APPID */

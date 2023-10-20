@@ -3,6 +3,8 @@ package com.alphay.boot.attachment.controller;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alphay.boot.attachment.utils.StorageEngineUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,5 +84,18 @@ public class SysOssConfigController extends BaseController {
   @DeleteMapping("/{ids}")
   public AjaxResult remove(@PathVariable Long[] ids) {
     return toAjax(sysOssConfigService.removeByIds(Arrays.asList(ids)));
+  }
+
+  @PreAuthorize("@ss.hasPermi('oss:oss_config:edit')")
+  @Log(title = "存储配置", businessType = BusinessType.UPDATE)
+  @PutMapping("/switch/{id}")
+  public AjaxResult switchEngine(@PathVariable Long id) {
+    sysOssConfigService.switchStorageEngine(id);
+    return success();
+  }
+
+  @GetMapping("/getEnabledEngineConfig")
+  public AjaxResult getEnabledEngineConfig() {
+    return success(sysOssConfigService.getById(StorageEngineUtil.getInstance().getOssConfigId()));
   }
 }

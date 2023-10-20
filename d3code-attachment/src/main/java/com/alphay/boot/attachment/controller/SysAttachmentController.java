@@ -92,7 +92,7 @@ public class SysAttachmentController extends BaseController {
   public AjaxResult remove(@PathVariable Long[] ids) {
     for (Long id : ids) {
       SysAttachment attachment = sysAttachmentService.getById(id);
-      attachmentUploadService.deleteFile(attachment.getPath());
+      attachmentUploadService.deleteFile(attachment.getBucketName(), attachment.getPath());
     }
     return toAjax(sysAttachmentService.removeByIds(Arrays.asList(ids)));
   }

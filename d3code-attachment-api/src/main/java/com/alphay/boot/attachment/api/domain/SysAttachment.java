@@ -47,6 +47,9 @@ public class SysAttachment extends BaseEntity {
   @Excel(name = "URL")
   private String url;
 
+  @Excel(name = "桶名称")
+  private String bucketName;
+
   /** 使用的存储配置 */
   private Long configId;
 

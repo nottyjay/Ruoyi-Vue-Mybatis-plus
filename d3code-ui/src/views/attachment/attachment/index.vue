@@ -118,6 +118,7 @@ import {
   addAttachment,
   updateAttachment
 } from '@/api/attachment/attachment'
+import { getEnabledEngineConfig } from '@/api/attachment/oss/oss_config'
 
 export default {
   name: 'Attachment',
@@ -162,11 +163,23 @@ export default {
     /** 查询文件管理列表 */
     getList() {
       this.loading = true
-      listAttachment(this.queryParams).then(response => {
-        this.attachmentList = response.rows
+      getEnabledEngineConfig().then(response => {
+        this.ossConfig = response.data
+        return listAttachment(this.queryParams)
+      }).then(response => {
+        if (this.ossConfig.ossType === 'local') {
+          const config = JSON.parse(this.ossConfig.config)
+          this.attachmentList = response.rows.map(item => {
+            item.url = config.domain + item.url
+            return item
+          })
+        } else {
+          this.attachmentList = response.rows
+        }
         this.total = response.total
         this.loading = false
       })
+
     },
     // 取消按钮
     cancel() {

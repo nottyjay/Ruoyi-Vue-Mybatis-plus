@@ -71,5 +71,5 @@ public interface StorageEngine {
    *
    * @param fileName
    */
-  void deleteObject(String fileName);
+  void deleteObject(String bucketName, String fileName);
 }

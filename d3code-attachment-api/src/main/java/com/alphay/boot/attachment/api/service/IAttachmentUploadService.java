@@ -45,7 +45,8 @@ public interface IAttachmentUploadService {
   /**
    * 删除文件
    *
+   * @param bucketName
    * @param fileName
    */
-  void deleteFile(String fileName);
+  void deleteFile(String bucketName, String fileName);
 }

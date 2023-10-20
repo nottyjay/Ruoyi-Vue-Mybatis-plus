@@ -38,7 +38,7 @@ public class NullStorageEngine implements StorageEngine {
   }
 
   @Override
-  public void deleteObject(String fileName) {}
+  public void deleteObject(String buckerName, String fileName) {}
 
   @Override
   public boolean exitsBucket(String bucketName) {

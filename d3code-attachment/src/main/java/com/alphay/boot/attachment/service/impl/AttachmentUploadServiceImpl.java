@@ -42,7 +42,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   @Override
   public String uploadFile(MultipartFile file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
-    String url = engine.uploadFileSync(file, engine.getDefaultBucket(), fileName);
+    String url = engine.uploadFileSync(file, null, fileName);
     SysAttachment attachment =
         SysAttachment.builder()
             .name(FilenameUtils.getBaseName(file.getOriginalFilename()))
@@ -51,6 +51,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
             .storageType(engine.getStorageType())
             .extension(getExtension(file))
             .configId(engine.getOssConfigId())
+            .bucketName(engine.getDefaultBucket())
             .build();
     attachmentService.save(attachment);
     return url;
@@ -59,7 +60,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   @Override
   public String uploadFile(File file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
-    String url = engine.uploadFileSync(file, engine.getDefaultBucket(), fileName);
+    String url = engine.uploadFileSync(file, null, fileName);
     SysAttachment attachment =
         SysAttachment.builder()
             .name(FilenameUtils.getBaseName(file.getName()))
@@ -68,6 +69,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
             .storageType(engine.getStorageType())
             .configId(engine.getOssConfigId())
             .extension(getExtension(file))
+            .bucketName(engine.getDefaultBucket())
             .build();
     attachmentService.save(attachment);
     file.delete();
@@ -75,9 +77,9 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   }
 
   @Override
-  public void deleteFile(String fileName) {
+  public void deleteFile(String bucketName, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
-    engine.deleteObject(fileName);
+    engine.deleteObject(bucketName, fileName);
   }
 
   private String getDefaultRandomFileName(MultipartFile file) {

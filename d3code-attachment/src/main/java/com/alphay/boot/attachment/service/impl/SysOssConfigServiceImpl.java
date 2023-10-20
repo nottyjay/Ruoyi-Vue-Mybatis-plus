@@ -77,6 +77,10 @@ public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, Sy
   @Override
   public void switchStorageEngine(Long id) {
     SysOssConfig config = this.getById(id);
+    if (StringUtils.equals(SystemStatusEnum.DISABLE.getStatus(), config.getStatus())) {
+      super.updateById(
+          SysOssConfig.builder().id(id).status(SystemStatusEnum.ENABLE.getStatus()).build());
+    }
     this.update(
         new LambdaUpdateWrapper<SysOssConfig>()
             .ne(SysOssConfig::getId, id)

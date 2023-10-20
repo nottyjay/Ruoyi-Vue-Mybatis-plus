@@ -42,3 +42,17 @@ export function delOss_config(id) {
     method: 'delete'
   })
 }
+
+export function changeStorageEngine(id) {
+  return request({
+    url: `/oss/oss_config/switch/${id}`,
+    method: 'put'
+  })
+}
+
+export function getEnabledEngineConfig() {
+  return request({
+    url: '/oss/oss_config/getEnabledEngineConfig',
+    method: 'get'
+  })
+}

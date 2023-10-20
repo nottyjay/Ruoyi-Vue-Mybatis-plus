@@ -1,6 +1,6 @@
 d3code:
   # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
-  profile: D:/d3code/uploadPath
+  profile: ./uploadPath
 
 # 日志配置
 logging:

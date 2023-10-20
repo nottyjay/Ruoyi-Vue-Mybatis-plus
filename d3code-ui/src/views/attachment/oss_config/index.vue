@@ -74,6 +74,16 @@
           <dict-tag :options="dict.type.storage_type" :value="scope.row.ossType"/>
         </template>
       </el-table-column>
+      <el-table-column label="状态" align="center" key="status">
+        <template v-slot="scope">
+          <el-switch
+            v-model="scope.row.status"
+            active-value="0"
+            inactive-value="1"
+            @change="handleEngineChange(scope.row)"
+          ></el-switch>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark"/>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -119,11 +129,15 @@
           </el-select>
         </el-form-item>
         <template v-if="form.ossType == 'local'">
-          <el-form-item label="上传目录">
-            <el-input v-model="config.uploadPath" placeholder="请输入上传文件根目录"/>
+          <el-form-item label="访问域名">
+            <el-input v-model="config.domain" placeholder="请输入访问所用的域名"/>
+            <span>域名请不要以/结尾</span>
           </el-form-item>
-          <el-form-item label="默认目录">
-            <el-input v-model="config.bucketName" placeholder="请输入默认目录名称"/>
+          <el-form-item label="默认桶">
+            <el-input v-model="config.bucketName" placeholder="请输入默认桶名称"/>
+          </el-form-item>
+          <el-form-item label="上传目录">
+            <el-input v-model="config.filePath" placeholder="请输入上传文件根目录"/>
           </el-form-item>
         </template>
         <template v-else-if="form.ossType == 'tencent_cos'">
@@ -143,6 +157,16 @@
             <el-input v-model="config.bucketName" placeholder="请输入默认目录名称"/>
           </el-form-item>
         </template>
+        <el-form-item label="是否启用" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="dict in dict.type.sys_normal_disable"
+              :key="dict.value"
+              :label="dict.value"
+            >{{ dict.label }}
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" placeholder="请输入备注"/>
         </el-form-item>
@@ -161,12 +185,13 @@ import {
   getOss_config,
   delOss_config,
   addOss_config,
-  updateOss_config
+  updateOss_config,
+  changeStorageEngine
 } from '@/api/attachment/oss/oss_config'
 
 export default {
   name: 'Oss_config',
-  dicts: ['storage_type'],
+  dicts: ['storage_type', 'sys_normal_disable'],
   data() {
     return {
       // 遮罩层
@@ -263,7 +288,10 @@ export default {
       this.reset()
       const id = row.id || this.ids
       getOss_config(id).then(response => {
-        this.form = response.data
+        const data = response.data
+        data.config = JSON.parse(data.config)
+        this.form = data
+        this.config = data.config
         this.open = true
         this.title = '修改存储配置'
       })
@@ -305,6 +333,23 @@ export default {
       this.download('oss/oss_config/export', {
         ...this.queryParams
       }, `oss_config_${new Date().getTime()}.xlsx`)
+    },
+    // 切换引擎
+    handleEngineChange(row) {
+      if (row.status === '0') {
+        const _this = this
+        this.$modal.confirm('确认要切换' + row.name + '"存储引擎吗？').then(() => {
+          return changeStorageEngine(row.id)
+        }).then(() => {
+          this.$modal.msgSuccess('引擎切换成功')
+          _this.getList()
+        }).catch(function() {
+          row.status = row.status === '0' ? '1' : '0'
+        })
+      } else {
+        this.$modal.msgError('至少保证有一个引擎正在工作！请直接选择需要启用的引擎，其它引擎将会自动关闭')
+        row.status = row.status === '1' ? '1' : '0'
+      }
     }
   }
 }
