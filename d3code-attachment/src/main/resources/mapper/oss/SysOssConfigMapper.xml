@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alphay.boot.attachment.mapper.SysOssConfigMapper">
+
+    <resultMap type="SysOssConfig" id="SysOssConfigResult">
+        <result property="id"    column="id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="deleted"    column="deleted"    />
+        <result property="name"    column="name"    />
+        <result property="ossType"    column="oss_type"    />
+        <result property="config"    column="config"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectSysOssConfigVo">
+        select id, create_time, create_by, update_time, update_by, deleted, name, oss_type, config, remark from sys_oss_config
+    </sql>
+
+</mapper>

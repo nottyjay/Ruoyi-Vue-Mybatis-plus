@@ -13,42 +13,29 @@ import com.alphay.boot.common.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.TableField;
 
 /**
- * 文件管理对象 sys_attachment
+ * 存储桶对象 sys_oss_bucket
  *
  * @author d3code
- * @date 2023-10-12
+ * @date 2023-10-13
  */
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SysAttachment extends BaseEntity {
+public class SysOssBucket extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   /** 序号 */
   @TableId(type = IdType.AUTO)
   private Long id;
 
-  /** 文件名称 */
-  @Excel(name = "文件名称")
-  private String name;
-
   /** 存储方式 */
   @Excel(name = "存储方式")
-  private String storageType;
+  private Long ossConfigId;
 
-  /** 后缀名 */
-  private String extension;
-
-  /** 存储路径 */
-  @Excel(name = "存储路径")
-  private String path;
-
-  @Excel(name = "URL")
-  private String url;
-
-  /** 使用的存储配置 */
-  private Long configId;
+  /** 桶名 */
+  @Excel(name = "桶名")
+  private String bucket;
 
   @Override
   public String toString() {
@@ -59,9 +46,8 @@ public class SysAttachment extends BaseEntity {
         .append("updateTime", getUpdateTime())
         .append("updateBy", getUpdateBy())
         .append("deleted", getDeleted())
-        .append("name", getName())
-        .append("storageType", getStorageType())
-        .append("path", getPath())
+        .append("ossConfigId", getOssConfigId())
+        .append("bucket", getBucket())
         .append("remark", getRemark())
         .toString();
   }

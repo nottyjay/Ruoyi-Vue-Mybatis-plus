@@ -14,6 +14,7 @@
         <result property="name" column="name"/>
         <result property="storageType" column="storage_type"/>
         <result property="path" column="path"/>
+        <result property="configId" column="config_id"/>
         <result property="remark" column="remark"/>
     </resultMap>
 
@@ -27,6 +28,7 @@
                `name`,
                storage_type,
                path,
+               config_id,
                remark
         from sys_attachment
     </sql>

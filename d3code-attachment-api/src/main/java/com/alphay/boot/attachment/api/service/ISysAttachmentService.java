@@ -1,24 +1,34 @@
 package com.alphay.boot.attachment.api.service;
 
-import com.alphay.boot.attachment.api.domain.SysAttachment;
+import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import com.alphay.boot.attachment.api.domain.SysAttachment;
 
 /**
- * 系统附件管理
+ * 文件管理Service接口
  *
- * @author D3code
+ * @author d3code
+ * @date 2023-10-13
  */
 public interface ISysAttachmentService extends IService<SysAttachment> {
 
   /**
-   * 查询文件附件列表
+   * 查询文件管理列表
    *
-   * @param attachment 文件管理
-   * @param page 分页控制器
-   * @return 文件集合
+   * @param sysAttachment 文件管理
+   * @return 文件管理集合
    */
-  List<SysAttachment> selectSysAttachmentList(SysAttachment attachment, IPage<SysAttachment> page);
+  default List<SysAttachment> selectSysAttachmentList(SysAttachment sysAttachment) {
+    return selectSysAttachmentList(sysAttachment, null);
+  }
+
+  /**
+   * 查询文件管理列表
+   *
+   * @param sysAttachment 文件管理
+   * @param page 分页
+   * @return 文件管理集合
+   */
+  List<SysAttachment> selectSysAttachmentList(SysAttachment sysAttachment, IPage page);
 }
