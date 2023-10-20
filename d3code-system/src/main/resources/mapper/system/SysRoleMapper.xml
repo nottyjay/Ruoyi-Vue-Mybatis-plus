@@ -13,7 +13,7 @@
         <result property="menuCheckStrictly" column="menu_check_strictly"/>
         <result property="deptCheckStrictly" column="dept_check_strictly"/>
         <result property="status" column="status"/>
-        <result property="delFlag" column="del_flag"/>
+        <result property="deleted" column="deleted"/>
         <result property="createBy" column="create_by"/>
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
@@ -30,7 +30,7 @@
                         r.menu_check_strictly,
                         r.dept_check_strictly,
                         r.status,
-                        r.del_flag,
+                        r.deleted,
                         r.create_time,
                         r.remark
         from sys_role r
@@ -41,33 +41,33 @@
 
     <select id="selectRoleList" parameterType="SysRole" resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
-        where r.del_flag = '0'
-        <if test="roleId != null and roleId != 0">
-            AND r.role_id = #{roleId}
+        where r.deleted = 0
+        <if test="role.roleId != null and role.roleId != 0">
+            AND r.role_id = #{role.roleId}
         </if>
-        <if test="roleName != null and roleName != ''">
-            AND r.role_name like concat('%', #{roleName}, '%')
+        <if test="role.roleName != null and role.roleName != ''">
+            AND r.role_name like concat('%', #{role.roleName}, '%')
         </if>
-        <if test="status != null and status != ''">
-            AND r.status = #{status}
+        <if test="role.status != null and role.status != ''">
+            AND r.status = #{role.status}
         </if>
-        <if test="roleKey != null and roleKey != ''">
-            AND r.role_key like concat('%', #{roleKey}, '%')
+        <if test="role.roleKey != null and role.roleKey != ''">
+            AND r.role_key like concat('%', #{role.roleKey}, '%')
         </if>
-        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-            and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        <if test="role.params.beginTime != null and role.params.beginTime != ''"><!-- 开始时间检索 -->
+            and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{role.params.beginTime},'%y%m%d')
         </if>
-        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-            and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        <if test="role.params.endTime != null and role.params.endTime != ''"><!-- 结束时间检索 -->
+            and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{role.params.endTime},'%y%m%d')
         </if>
         <!-- 数据范围过滤 -->
-        ${params.dataScope}
+        ${role.params.dataScope}
         order by r.role_sort
     </select>
 
     <select id="selectRolePermissionByUserId" parameterType="Long" resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
-        WHERE r.del_flag = '0' and ur.user_id = #{userId}
+        WHERE r.deleted = 0 and ur.user_id = #{userId}
     </select>
 
     <select id="selectRoleAll" resultMap="SysRoleResult">
@@ -89,17 +89,17 @@
 
     <select id="selectRolesByUserName" parameterType="String" resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
-        WHERE r.del_flag = '0' and u.user_name = #{userName}
+        WHERE r.deleted = 0 and u.user_name = #{userName}
     </select>
 
     <select id="checkRoleNameUnique" parameterType="String" resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
-        where r.role_name=#{roleName} and r.del_flag = '0' limit 1
+        where r.role_name=#{roleName} and r.deleted = 0 limit 1
     </select>
 
     <select id="checkRoleKeyUnique" parameterType="String" resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
-        where r.role_key=#{roleKey} and r.del_flag = '0' limit 1
+        where r.role_key=#{roleKey} and r.deleted = 0 limit 1
     </select>
 
     <insert id="insertRole" parameterType="SysRole" useGeneratedKeys="true" keyProperty="roleId">
@@ -133,12 +133,12 @@
 
     <delete id="deleteRoleById" parameterType="Long">
         update sys_role
-        set del_flag = '2'
+        set deleted = 1
         where role_id = #{roleId}
     </delete>
 
     <delete id="deleteRoleByIds" parameterType="Long">
-        update sys_role set del_flag = '2' where role_id in
+        update sys_role set deleted = 1 where role_id in
         <foreach collection="array" item="roleId" open="(" separator="," close=")">
             #{roleId}
         </foreach>

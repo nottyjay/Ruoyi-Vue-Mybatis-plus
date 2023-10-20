@@ -7,13 +7,14 @@ import java.util.Set;
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.system.common.domain.SysUserRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * 角色业务层
  *
  * @author d3code
  */
-public interface ISysRoleService {
+public interface ISysRoleService extends IService<SysRole> {
   /**
    * 根据条件分页查询角色数据
    *
@@ -109,22 +110,6 @@ public interface ISysRoleService {
    * @return 结果
    */
   public int countUserRoleByRoleId(Long roleId);
-
-  /**
-   * 新增保存角色信息
-   *
-   * @param role 角色信息
-   * @return 结果
-   */
-  public int insertRole(SysRole role);
-
-  /**
-   * 修改保存角色信息
-   *
-   * @param role 角色信息
-   * @return 结果
-   */
-  public int updateRole(SysRole role);
 
   /**
    * 修改角色状态

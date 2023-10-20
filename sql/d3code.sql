@@ -11,7 +11,7 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 13/10/2023 16:04:30
+ Date: 21/10/2023 01:52:16
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `bpm_form`  (
   `fields` json NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_form
@@ -62,7 +62,7 @@ CREATE TABLE `bpm_process_definition_ext`  (
   `form_custom_view_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_process_definition_ext
@@ -90,7 +90,7 @@ CREATE TABLE `bpm_process_instance_ext`  (
   `form_variables` json NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_process_instance_ext
@@ -114,7 +114,7 @@ CREATE TABLE `bpm_task_assign_rule`  (
   `options` json NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_task_assign_rule
@@ -141,7 +141,7 @@ CREATE TABLE `bpm_task_ext`  (
   `process_definition_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_task_ext
@@ -164,186 +164,10 @@ CREATE TABLE `bpm_user_group`  (
   `member_user_ids` json NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of bpm_user_group
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_channel_definition
--- ----------------------------
-DROP TABLE IF EXISTS `flw_channel_definition`;
-CREATE TABLE `flw_channel_definition`  (
-  `ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `VERSION_` int NULL DEFAULT NULL,
-  `KEY_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `CATEGORY_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DEPLOYMENT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `CREATE_TIME_` datetime(3) NULL DEFAULT NULL,
-  `TENANT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `RESOURCE_NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DESCRIPTION_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `TYPE_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `IMPLEMENTATION_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID_`) USING BTREE,
-  UNIQUE INDEX `ACT_IDX_CHANNEL_DEF_UNIQ`(`KEY_` ASC, `VERSION_` ASC, `TENANT_ID_` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_channel_definition
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_ev_databasechangelog
--- ----------------------------
-DROP TABLE IF EXISTS `flw_ev_databasechangelog`;
-CREATE TABLE `flw_ev_databasechangelog`  (
-  `ID` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `AUTHOR` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `FILENAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `DATEEXECUTED` datetime NOT NULL,
-  `ORDEREXECUTED` int NOT NULL,
-  `EXECTYPE` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `MD5SUM` varchar(35) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DESCRIPTION` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `COMMENTS` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `TAG` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `LIQUIBASE` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `CONTEXTS` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `LABELS` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DEPLOYMENT_ID` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_ev_databasechangelog
--- ----------------------------
-INSERT INTO `flw_ev_databasechangelog` VALUES ('1', 'flowable', 'org/flowable/eventregistry/db/liquibase/flowable-eventregistry-db-changelog.xml', '2023-05-19 13:04:20', 1, 'EXECUTED', '8:1b0c48c9cf7945be799d868a2626d687', 'createTable tableName=FLW_EVENT_DEPLOYMENT; createTable tableName=FLW_EVENT_RESOURCE; createTable tableName=FLW_EVENT_DEFINITION; createIndex indexName=ACT_IDX_EVENT_DEF_UNIQ, tableName=FLW_EVENT_DEFINITION; createTable tableName=FLW_CHANNEL_DEFIN...', '', NULL, '4.3.5', NULL, NULL, '4472660605');
-INSERT INTO `flw_ev_databasechangelog` VALUES ('2', 'flowable', 'org/flowable/eventregistry/db/liquibase/flowable-eventregistry-db-changelog.xml', '2023-05-19 13:04:20', 2, 'EXECUTED', '8:0ea825feb8e470558f0b5754352b9cda', 'addColumn tableName=FLW_CHANNEL_DEFINITION; addColumn tableName=FLW_CHANNEL_DEFINITION', '', NULL, '4.3.5', NULL, NULL, '4472660605');
-INSERT INTO `flw_ev_databasechangelog` VALUES ('3', 'flowable', 'org/flowable/eventregistry/db/liquibase/flowable-eventregistry-db-changelog.xml', '2023-05-19 13:04:20', 3, 'EXECUTED', '8:3c2bb293350b5cbe6504331980c9dcee', 'customChange', '', NULL, '4.3.5', NULL, NULL, '4472660605');
-
--- ----------------------------
--- Table structure for flw_ev_databasechangeloglock
--- ----------------------------
-DROP TABLE IF EXISTS `flw_ev_databasechangeloglock`;
-CREATE TABLE `flw_ev_databasechangeloglock`  (
-  `ID` int NOT NULL,
-  `LOCKED` bit(1) NOT NULL,
-  `LOCKGRANTED` datetime NULL DEFAULT NULL,
-  `LOCKEDBY` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_ev_databasechangeloglock
--- ----------------------------
-INSERT INTO `flw_ev_databasechangeloglock` VALUES (1, b'0', NULL, NULL);
-
--- ----------------------------
--- Table structure for flw_event_definition
--- ----------------------------
-DROP TABLE IF EXISTS `flw_event_definition`;
-CREATE TABLE `flw_event_definition`  (
-  `ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `VERSION_` int NULL DEFAULT NULL,
-  `KEY_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `CATEGORY_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DEPLOYMENT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `TENANT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `RESOURCE_NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DESCRIPTION_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID_`) USING BTREE,
-  UNIQUE INDEX `ACT_IDX_EVENT_DEF_UNIQ`(`KEY_` ASC, `VERSION_` ASC, `TENANT_ID_` ASC) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_event_definition
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_event_deployment
--- ----------------------------
-DROP TABLE IF EXISTS `flw_event_deployment`;
-CREATE TABLE `flw_event_deployment`  (
-  `ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `CATEGORY_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DEPLOY_TIME_` datetime(3) NULL DEFAULT NULL,
-  `TENANT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `PARENT_DEPLOYMENT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`ID_`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_event_deployment
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_event_resource
--- ----------------------------
-DROP TABLE IF EXISTS `flw_event_resource`;
-CREATE TABLE `flw_event_resource`  (
-  `ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `NAME_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `DEPLOYMENT_ID_` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `RESOURCE_BYTES_` longblob NULL,
-  PRIMARY KEY (`ID_`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_event_resource
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_ru_batch
--- ----------------------------
-DROP TABLE IF EXISTS `flw_ru_batch`;
-CREATE TABLE `flw_ru_batch`  (
-  `ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
-  `REV_` int NULL DEFAULT NULL,
-  `TYPE_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
-  `SEARCH_KEY_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `SEARCH_KEY2_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `CREATE_TIME_` datetime(3) NOT NULL,
-  `COMPLETE_TIME_` datetime(3) NULL DEFAULT NULL,
-  `STATUS_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `BATCH_DOC_ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `TENANT_ID_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT '',
-  PRIMARY KEY (`ID_`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_ru_batch
--- ----------------------------
-
--- ----------------------------
--- Table structure for flw_ru_batch_part
--- ----------------------------
-DROP TABLE IF EXISTS `flw_ru_batch_part`;
-CREATE TABLE `flw_ru_batch_part`  (
-  `ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
-  `REV_` int NULL DEFAULT NULL,
-  `BATCH_ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `TYPE_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NOT NULL,
-  `SCOPE_ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `SUB_SCOPE_ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `SCOPE_TYPE_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `SEARCH_KEY_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `SEARCH_KEY2_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `CREATE_TIME_` datetime(3) NOT NULL,
-  `COMPLETE_TIME_` datetime(3) NULL DEFAULT NULL,
-  `STATUS_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `RESULT_DOC_ID_` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT NULL,
-  `TENANT_ID_` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_bin NULL DEFAULT '',
-  PRIMARY KEY (`ID_`) USING BTREE,
-  INDEX `FLW_IDX_BATCH_PART`(`BATCH_ID_` ASC) USING BTREE,
-  CONSTRAINT `FLW_FK_BATCH_PART_PARENT` FOREIGN KEY (`BATCH_ID_`) REFERENCES `flw_ru_batch` (`ID_`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb3 COLLATE = utf8mb3_bin ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of flw_ru_batch_part
 -- ----------------------------
 
 -- ----------------------------
@@ -372,12 +196,14 @@ CREATE TABLE `gen_table`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
 INSERT INTO `gen_table` VALUES (1, 'sys_attachment', '附件', NULL, NULL, 'SysAttachment', 'crud', 'com.alphay.boot.attachment', 'attachment', 'attachment', '文件管理', 'd3code', '0', '/', '{\"parentMenuId\":1}', 'admin', '2023-10-12 21:35:36', '', '2023-10-12 21:37:55', NULL);
+INSERT INTO `gen_table` VALUES (2, 'sys_oss_bucket', '存储桶配置', NULL, NULL, 'SysOssBucket', 'crud', 'com.alphay.boot.attachment', 'bucket', 'bucket', '存储桶', 'd3code', '0', '/', '{\"parentMenuId\":2027}', 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42', NULL);
+INSERT INTO `gen_table` VALUES (3, 'sys_oss_config', 'OSS配置', NULL, NULL, 'SysOssConfig', 'crud', 'com.alphay.boot.attachment', 'oss', 'oss_config', '存储配置', 'd3code', '0', '/', '{\"parentMenuId\":2027}', 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -407,7 +233,7 @@ CREATE TABLE `gen_table_column`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '代码生成业务表字段' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of gen_table_column
@@ -422,6 +248,26 @@ INSERT INTO `gen_table_column` VALUES (7, '1', 'name', '文件名称', 'varchar(
 INSERT INTO `gen_table_column` VALUES (8, '1', 'storage_type', '存储方式', 'varchar(30)', 'String', 'storageType', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 8, 'admin', '2023-10-12 21:35:36', '', '2023-10-12 21:37:55');
 INSERT INTO `gen_table_column` VALUES (9, '1', 'path', '存储路径', 'varchar(1000)', 'String', 'path', '0', '0', NULL, '1', '1', '1', '0', 'EQ', 'textarea', '', 9, 'admin', '2023-10-12 21:35:36', '', '2023-10-12 21:37:55');
 INSERT INTO `gen_table_column` VALUES (10, '1', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 10, 'admin', '2023-10-12 21:35:36', '', '2023-10-12 21:37:55');
+INSERT INTO `gen_table_column` VALUES (11, '2', 'id', '序号', 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (12, '2', 'create_time', NULL, 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 2, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (13, '2', 'create_by', NULL, 'varchar(30)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 3, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (14, '2', 'update_time', NULL, 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 4, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (15, '2', 'update_by', NULL, 'varchar(30)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (16, '2', 'deleted', NULL, 'tinyint', 'Long', 'deleted', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (17, '2', 'oss_config_id', '存储方式', 'int', 'Long', 'ossConfigId', '0', '0', NULL, '1', '1', '1', '0', 'EQ', 'input', '', 7, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (18, '2', 'bucket', '桶名', 'varchar(100)', 'String', 'bucket', '0', '0', NULL, '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (19, '2', 'p_id', '上级桶', 'int', 'Long', 'pId', '0', '0', NULL, '1', '1', '1', '0', 'EQ', 'input', '', 9, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (20, '2', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 10, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:04:42');
+INSERT INTO `gen_table_column` VALUES (21, '3', 'id', '序号', 'int', 'Long', 'id', '1', '1', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (22, '3', 'create_time', NULL, 'datetime', 'Date', 'createTime', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'datetime', '', 2, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (23, '3', 'create_by', NULL, 'varchar(30)', 'String', 'createBy', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 3, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (24, '3', 'update_time', NULL, 'datetime', 'Date', 'updateTime', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'datetime', '', 4, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (25, '3', 'update_by', NULL, 'varchar(30)', 'String', 'updateBy', '0', '0', NULL, '1', '1', NULL, NULL, 'EQ', 'input', '', 5, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (26, '3', 'deleted', NULL, 'tinyint', 'Long', 'deleted', '0', '0', NULL, '1', NULL, NULL, NULL, 'EQ', 'input', '', 6, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (27, '3', 'name', '配置名称', 'varchar(30)', 'String', 'name', '0', '0', NULL, '1', '1', '1', '1', 'LIKE', 'input', '', 7, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (28, '3', 'oss_type', '存储类型', 'varchar(30)', 'String', 'ossType', '0', '0', NULL, '1', '1', '1', '1', 'EQ', 'select', '', 8, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (29, '3', 'config', '存储内容', 'varchar(1000)', 'String', 'config', '0', '0', NULL, '0', '0', '0', '0', 'EQ', 'textarea', '', 9, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
+INSERT INTO `gen_table_column` VALUES (30, '3', 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', NULL, '1', '1', '1', NULL, 'EQ', 'input', '', 10, 'admin', '2023-10-13 22:59:32', '', '2023-10-13 23:02:52');
 
 -- ----------------------------
 -- Table structure for sys_attachment
@@ -437,13 +283,22 @@ CREATE TABLE `sys_attachment`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `storage_type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `path` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `url` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `config_id` int NULL DEFAULT NULL,
+  `bucket_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `extension` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_attachment
 -- ----------------------------
+INSERT INTO `sys_attachment` VALUES (1, '2023-10-15 20:58:54', NULL, NULL, NULL, 0, '微信截图_20231011171447.png', 'tencent_cos', '2023/10/15/d07be5bb-e953-4d9f-9025-9a7aaf86c2b4_20231015205853A001.png', 'https://default-1319610221.cos.ap-shanghai.myqcloud.com/2023/10/15/d07be5bb-e953-4d9f-9025-9a7aaf86c2b4_20231015205853A001.png', 3, NULL, NULL, NULL);
+INSERT INTO `sys_attachment` VALUES (2, '2023-10-15 21:11:09', NULL, NULL, NULL, 0, '微信截图_20231011171447.png', 'tencent_cos', '2023/10/15/84cde012-d258-4dfb-ad17-99361e0e77a7_20231015211108A001.png', 'https://default-1319610221.cos.ap-shanghai.myqcloud.com/2023/10/15/84cde012-d258-4dfb-ad17-99361e0e77a7_20231015211108A001.png', 3, NULL, NULL, NULL);
+INSERT INTO `sys_attachment` VALUES (3, '2023-10-20 15:36:18', NULL, NULL, NULL, 0, '微信截图_20231011171447', 'LOCAL', '2023/10/20/548a2093-dce4-4d20-a043-9b87d3836bdf_20231020153617A001.png', '/profile/2023/10/20/548a2093-dce4-4d20-a043-9b87d3836bdf_20231020153617A001.png', 4, '/', NULL, 'png');
+INSERT INTO `sys_attachment` VALUES (4, '2023-10-20 16:50:58', NULL, '2023-10-20 20:00:34', NULL, 1, '微信截图_20231011171447', 'LOCAL', '2023/10/20/7bc57b0b-35ea-435d-a8e1-59183577d046_20231020165057A001.png', '/profile/2023/10/20/7bc57b0b-35ea-435d-a8e1-59183577d046_20231020165057A001.png', 4, '/', NULL, 'png');
+INSERT INTO `sys_attachment` VALUES (5, '2023-10-20 16:54:21', NULL, '2023-10-20 19:55:44', NULL, 1, '微信截图_20231011171447', 'LOCAL', '2023/10/20/752c7034-efce-4114-b4c0-e9dd25a2d7c7_20231020165421A001.png', '/profile/2023/10/20/752c7034-efce-4114-b4c0-e9dd25a2d7c7_20231020165421A001.png', 4, '/', NULL, 'png');
 
 -- ----------------------------
 -- Table structure for sys_config
@@ -508,7 +363,7 @@ INSERT INTO `sys_dept` VALUES (106, 101, '0,100,101', '财务部门', 4, 1, '158
 INSERT INTO `sys_dept` VALUES (107, 101, '0,100,101', '运维部门', 5, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', '2023-05-19 13:04:00', '', NULL, NULL);
 INSERT INTO `sys_dept` VALUES (108, 102, '0,100,102', '市场部门', 1, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', '2023-05-19 13:04:00', '', NULL, NULL);
 INSERT INTO `sys_dept` VALUES (109, 102, '0,100,102', '财务部门', 2, 1, '15888888888', 'ry@qq.com', '0', 0, 'admin', '2023-05-19 13:04:00', '', NULL, NULL);
-INSERT INTO `sys_dept` VALUES (200, 100, '0,100', '测试', 3, NULL, '18651373578', '111111@11.com', '0', 0, 'admin', '2023-05-20 11:50:27', '', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (200, 100, '0,100', '测试', 3, NULL, '18651373578', '111111@11.com', '0', 1, 'admin', '2023-05-20 11:50:27', '', '2023-10-13 21:11:31', NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -531,7 +386,7 @@ CREATE TABLE `sys_dict_data`  (
   `deleted` tinyint NULL DEFAULT NULL,
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 104 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典数据表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -585,6 +440,10 @@ INSERT INTO `sys_dict_data` VALUES (46, 3, '不通过', '3', 'bpm_process_instan
 INSERT INTO `sys_dict_data` VALUES (47, 4, '已取消', '4', 'bpm_process_instance_result', NULL, 'info', 'N', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程实例的结果 - 已取消');
 INSERT INTO `sys_dict_data` VALUES (48, 1, '进行中', '1', 'bpm_process_instance_status', NULL, 'primary', 'N', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程实例的状态 - 进行中');
 INSERT INTO `sys_dict_data` VALUES (49, 2, '已完成', '2', 'bpm_process_instance_status', NULL, 'success', 'N', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程实例的状态 - 已完成');
+INSERT INTO `sys_dict_data` VALUES (100, 0, '本地文件', 'local', 'storage_type', NULL, 'info', 'N', '0', 'admin', '2023-10-14 07:53:24', 'admin', '2023-10-14 07:54:39', 0, NULL);
+INSERT INTO `sys_dict_data` VALUES (101, 1, '亚马逊S3', 'amazon_s3', 'storage_type', NULL, 'success', 'N', '0', 'admin', '2023-10-14 07:54:05', '', NULL, 0, NULL);
+INSERT INTO `sys_dict_data` VALUES (102, 2, '阿里云OSS', 'aliyun_oss', 'storage_type', NULL, 'primary', 'N', '0', 'admin', '2023-10-14 07:54:24', '', NULL, 0, NULL);
+INSERT INTO `sys_dict_data` VALUES (103, 3, '腾讯云COS', 'tencent_cos', 'storage_type', NULL, 'danger', 'N', '0', 'admin', '2023-10-14 11:37:02', 'admin', '2023-10-14 11:38:31', 0, NULL);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -603,7 +462,7 @@ CREATE TABLE `sys_dict_type`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `dict_type`(`dict_type` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 105 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 106 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典类型表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -624,6 +483,7 @@ INSERT INTO `sys_dict_type` VALUES (13, '任务分配规则的类型', 'bpm_task
 INSERT INTO `sys_dict_type` VALUES (14, '流程的表单类型', 'bpm_model_form_type', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程的表单类型列表');
 INSERT INTO `sys_dict_type` VALUES (15, '流程实例的结果', 'bpm_process_instance_result', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程实例的结果列表');
 INSERT INTO `sys_dict_type` VALUES (16, '流程实例的状态', 'bpm_process_instance_status', '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '流程实例的状态列表');
+INSERT INTO `sys_dict_type` VALUES (105, '存储桶方案', 'storage_type', '0', 'admin', '2023-10-14 07:46:44', 'admin', '2023-10-14 07:53:02', 0, '存储桶的解决方案');
 
 -- ----------------------------
 -- Table structure for sys_job
@@ -667,7 +527,7 @@ CREATE TABLE `sys_job_log`  (
   `exception_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '异常信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -687,29 +547,23 @@ CREATE TABLE `sys_logininfor`  (
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
   `msg` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '提示消息',
   `login_time` datetime NULL DEFAULT NULL COMMENT '访问时间',
+  `create_time` datetime NULL DEFAULT NULL,
+  `create_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `deleted` tinyint NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
 -- ----------------------------
-INSERT INTO `sys_logininfor` VALUES (1, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-05-19 13:05:01');
-INSERT INTO `sys_logininfor` VALUES (2, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-05-20 10:29:48');
-INSERT INTO `sys_logininfor` VALUES (3, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-05-20 10:55:30');
-INSERT INTO `sys_logininfor` VALUES (4, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 17:28:43');
-INSERT INTO `sys_logininfor` VALUES (5, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:44:35');
-INSERT INTO `sys_logininfor` VALUES (6, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:45:02');
-INSERT INTO `sys_logininfor` VALUES (7, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:45:21');
-INSERT INTO `sys_logininfor` VALUES (8, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:48:09');
-INSERT INTO `sys_logininfor` VALUES (9, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:48:17');
-INSERT INTO `sys_logininfor` VALUES (10, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '1', '验证码错误', '2023-10-12 20:53:29');
-INSERT INTO `sys_logininfor` VALUES (11, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:53:36');
-INSERT INTO `sys_logininfor` VALUES (12, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:54:57');
-INSERT INTO `sys_logininfor` VALUES (13, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:56:23');
-INSERT INTO `sys_logininfor` VALUES (14, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:56:59');
-INSERT INTO `sys_logininfor` VALUES (15, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 20:59:33');
-INSERT INTO `sys_logininfor` VALUES (16, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 21:17:06');
-INSERT INTO `sys_logininfor` VALUES (17, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-12 21:30:18');
+INSERT INTO `sys_logininfor` VALUES (1, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-16 10:08:57', '2023-10-16 10:08:57', NULL, NULL, NULL, 0, NULL);
+INSERT INTO `sys_logininfor` VALUES (2, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-16 10:58:01', '2023-10-16 10:58:01', NULL, NULL, NULL, 0, NULL);
+INSERT INTO `sys_logininfor` VALUES (3, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-20 14:51:25', '2023-10-20 14:51:25', NULL, NULL, NULL, 0, NULL);
+INSERT INTO `sys_logininfor` VALUES (4, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-20 16:48:18', '2023-10-20 16:48:18', NULL, NULL, NULL, 0, NULL);
+INSERT INTO `sys_logininfor` VALUES (5, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2023-10-20 19:51:06', '2023-10-20 19:51:06', NULL, NULL, NULL, 0, NULL);
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -738,7 +592,7 @@ CREATE TABLE `sys_menu`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '备注',
   `deleted` tinyint NULL DEFAULT NULL,
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2021 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2040 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '菜单权限表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -746,7 +600,7 @@ CREATE TABLE `sys_menu`  (
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 96, NULL, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2023-05-19 13:04:00', 'admin', '2023-05-19 13:04:00', '', 0);
 INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 97, NULL, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2023-05-19 13:04:00', 'admin', '2023-05-19 13:04:00', '', 0);
 INSERT INTO `sys_menu` VALUES (3, '系统工具', 0, 98, NULL, 'tool', NULL, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2023-05-19 13:04:00', 'admin', '2023-05-19 13:04:00', '', 0);
-INSERT INTO `sys_menu` VALUES (4, '安惠官网', 0, 99, NULL, 'http://www.alphay.com', NULL, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2023-05-19 13:04:00', 'admin', '2023-05-19 13:04:00', '', 0);
+INSERT INTO `sys_menu` VALUES (4, '安惠官网', 0, 99, NULL, 'https://www.alphay.com', NULL, '', 0, 0, 'M', '0', '0', '', 'guide', 'admin', '2023-05-19 13:04:00', 'admin', '2023-05-19 13:04:00', '', 0);
 INSERT INTO `sys_menu` VALUES (100, '用户管理', 1, 1, NULL, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2023-05-19 13:04:00', '', NULL, '用户管理菜单', 0);
 INSERT INTO `sys_menu` VALUES (101, '角色管理', 1, 2, NULL, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2023-05-19 13:04:00', '', NULL, '角色管理菜单', 0);
 INSERT INTO `sys_menu` VALUES (102, '菜单管理', 1, 3, NULL, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2023-05-19 13:04:00', '', NULL, '菜单管理菜单', 0);
@@ -849,6 +703,25 @@ INSERT INTO `sys_menu` VALUES (2017, '待办', 2015, 2, NULL, 'todo', 'bpm/task/
 INSERT INTO `sys_menu` VALUES (2018, '已完结', 2015, 3, NULL, 'done', 'bpm/task/done', NULL, 1, 0, 'C', '0', '0', NULL, 'eye', 'admin', '2023-05-19 13:04:00', '', NULL, '', 0);
 INSERT INTO `sys_menu` VALUES (2019, '发起流程', 2015, 4, NULL, 'create', 'bpm/processInstance/create', NULL, 1, 0, 'C', '1', '0', 'bpm:processInstance:create', '#', 'admin', '2023-05-19 13:04:00', '', NULL, '', 0);
 INSERT INTO `sys_menu` VALUES (2020, '流程信息', 2015, 5, NULL, 'detail', 'bpm/processInstance/detail', NULL, 1, 0, 'C', '1', '0', 'bpm:processInstance:info', '#', 'admin', '2023-05-19 13:04:00', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2021, '文件管理', 2027, 1, 'Attachment', 'attachment', 'attachment/attachment/index', NULL, 1, 0, 'C', '0', '0', 'attachment:attachment:list', 'folder', 'admin', '2023-10-13 21:13:37', 'admin', '2023-10-13 21:34:44', '文件管理菜单', 0);
+INSERT INTO `sys_menu` VALUES (2022, '文件管理查询', 2021, 1, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'attachment:attachment:query', '#', 'admin', '2023-10-13 21:13:37', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2023, '文件管理新增', 2021, 2, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'attachment:attachment:add', '#', 'admin', '2023-10-13 21:13:37', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2024, '文件管理修改', 2021, 3, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'attachment:attachment:edit', '#', 'admin', '2023-10-13 21:13:37', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2025, '文件管理删除', 2021, 4, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'attachment:attachment:remove', '#', 'admin', '2023-10-13 21:13:37', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2026, '文件管理导出', 2021, 5, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'attachment:attachment:export', '#', 'admin', '2023-10-13 21:13:37', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2027, '附件管理', 1, 11, NULL, 'attachment', NULL, NULL, 1, 0, 'M', '0', '0', NULL, 'excel', 'admin', '2023-10-13 23:01:53', 'admin', '2023-10-13 23:02:03', '', 0);
+INSERT INTO `sys_menu` VALUES (2028, '存储配置', 2027, 1, NULL, 'oss_config', 'attachment/oss_config/index', NULL, 1, 0, 'C', '0', '0', 'oss:oss_config:list', 'oss', 'admin', '2023-10-13 23:07:18', 'admin', '2023-10-16 11:30:29', '存储配置菜单', 0);
+INSERT INTO `sys_menu` VALUES (2029, '存储配置查询', 2028, 1, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'oss:oss_config:query', '#', 'admin', '2023-10-13 23:07:18', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2030, '存储配置新增', 2028, 2, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'oss:oss_config:add', '#', 'admin', '2023-10-13 23:07:18', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2031, '存储配置修改', 2028, 3, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'oss:oss_config:edit', '#', 'admin', '2023-10-13 23:07:18', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2032, '存储配置删除', 2028, 4, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'oss:oss_config:remove', '#', 'admin', '2023-10-13 23:07:18', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2033, '存储配置导出', 2028, 5, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'oss:oss_config:export', '#', 'admin', '2023-10-13 23:07:18', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2034, '存储桶', 2027, 1, NULL, 'bucket', 'attachment/bucket/index', NULL, 1, 0, 'C', '0', '0', 'bucket:bucket:list', 'bitbucket', 'admin', '2023-10-13 23:07:33', 'admin', '2023-10-16 11:30:18', '存储桶菜单', 0);
+INSERT INTO `sys_menu` VALUES (2035, '存储桶查询', 2034, 1, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'bucket:bucket:query', '#', 'admin', '2023-10-13 23:07:33', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2036, '存储桶新增', 2034, 2, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'bucket:bucket:add', '#', 'admin', '2023-10-13 23:07:33', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2037, '存储桶修改', 2034, 3, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'bucket:bucket:edit', '#', 'admin', '2023-10-13 23:07:33', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2038, '存储桶删除', 2034, 4, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'bucket:bucket:remove', '#', 'admin', '2023-10-13 23:07:33', '', NULL, '', 0);
+INSERT INTO `sys_menu` VALUES (2039, '存储桶导出', 2034, 5, NULL, '#', '', NULL, 1, 0, 'F', '0', '0', 'bucket:bucket:export', '#', 'admin', '2023-10-13 23:07:33', '', NULL, '', 0);
 
 -- ----------------------------
 -- Table structure for sys_notice
@@ -880,6 +753,11 @@ INSERT INTO `sys_notice` VALUES (2, '维护通知：2018-07-01 若依系统凌�
 DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE `sys_oper_log`  (
   `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `create_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `create_time` datetime NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `deleted` tinyint NULL DEFAULT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '模块标题',
   `business_type` int NULL DEFAULT 0 COMMENT '业务类型（0其它 1新增 2修改 3删除）',
   `method` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '方法名称',
@@ -901,11 +779,55 @@ CREATE TABLE `sys_oper_log`  (
 -- ----------------------------
 -- Records of sys_oper_log
 -- ----------------------------
-INSERT INTO `sys_oper_log` VALUES (1, '部门管理', 2, 'com.alphay.boot.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', NULL, '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":103,\"deptName\":\"研发部门\",\"email\":\"ry@qq.com\",\"leaderUserId\":1,\"orderNum\":1,\"params\":{},\"parentId\":101,\"parentName\":\"深圳总公司\",\"phone\":\"15888888888\",\"status\":\"0\"}', NULL, 1, '\r\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Unknown column \'del_flag\' in \'where clause\'\r\n### The error may exist in file [D:\\Develop\\java\\ruoyi-vue-mybatis-plus\\d3code-system\\target\\classes\\mapper\\system\\SysDeptMapper.xml]\r\n### The error may involve defaultParameterMap\r\n### The error occurred while setting parameters\r\n### SQL: select d.dept_id,                d.parent_id,                d.ancestors,                d.dept_name,                d.order_num,                d.leader_user_id,                d.phone,                d.email,                d.status,                d.deleted,                d.create_by,                d.create_time         from sys_dept d               where dept_name=? and parent_id = ? and del_flag = \'0\' limit 1\r\n### Cause: java.sql.SQLSyntaxErrorException: Unknown column \'del_flag\' in \'where clause\'\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: Unknown column \'del_flag\' in \'where clause\'', '2023-05-20 11:47:59');
-INSERT INTO `sys_oper_log` VALUES (2, '部门管理', 2, 'com.alphay.boot.web.controller.system.SysDeptController.edit()', 'PUT', 1, 'admin', NULL, '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100,101\",\"children\":[],\"deptId\":103,\"deptName\":\"研发部门\",\"email\":\"ry@qq.com\",\"leaderUserId\":1,\"orderNum\":1,\"params\":{},\"parentId\":101,\"parentName\":\"深圳总公司\",\"phone\":\"15888888888\",\"status\":\"0\",\"updateBy\":\"admin\",\"updateTime\":\"2023-05-20 11:49:58\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2023-05-20 11:49:58');
-INSERT INTO `sys_oper_log` VALUES (3, '部门管理', 1, 'com.alphay.boot.web.controller.system.SysDeptController.add()', 'POST', 1, 'admin', NULL, '/system/dept', '127.0.0.1', '内网IP', '{\"ancestors\":\"0,100\",\"children\":[],\"createBy\":\"admin\",\"createTime\":\"2023-05-20 11:50:26\",\"deleted\":0,\"deptId\":200,\"deptName\":\"测试\",\"email\":\"111111@11.com\",\"orderNum\":3,\"params\":{},\"parentId\":100,\"phone\":\"18651373578\",\"status\":\"0\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2023-05-20 11:50:26');
-INSERT INTO `sys_oper_log` VALUES (4, '代码生成', 6, 'com.alphay.boot.generator.controller.GenController.importTableSave()', 'POST', 1, 'admin', NULL, '/tool/gen/importTable', '127.0.0.1', '内网IP', '\"sys_attachment\"', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2023-10-12 21:35:36');
-INSERT INTO `sys_oper_log` VALUES (5, '代码生成', 2, 'com.alphay.boot.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', NULL, '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"attachment\",\"className\":\"SysAttachment\",\"columns\":[{\"capJavaField\":\"Id\",\"columnComment\":\"序号\",\"columnId\":1,\"columnName\":\"id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2023-10-12 21:35:36\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"javaField\":\"id\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":1,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"CreateTime\",\"columnId\":2,\"columnName\":\"create_time\",\"columnType\":\"datetime\",\"createBy\":\"admin\",\"createTime\":\"2023-10-12 21:35:36\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"datetime\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"0\",\"javaField\":\"createTime\",\"javaType\":\"Date\",\"list\":false,\"params\":{},\"pk\":false,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":2,\"superColumn\":true,\"tableId\":1,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"CreateBy\",\"columnComment\":\"创建人\",\"columnId\":3,\"columnName\":\"create_by\",\"columnType\":\"varchar(30)\",\"createBy\":\"admin\",\"createTime\":\"2023-10-12 21:35:36\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"javaField\":\"createBy\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":false,\"sort\":3,\"superColumn\":true,\"tableId\":1,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"UpdateTime\",\"columnId\":4,\"columnName\":\"update_time\",\"columnType\":\"datetime\",\"createBy\":\"admin\",\"createTime\":\"2023-10-12 21:35:36\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"datetime\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isPk\":\"0\",\"javaField\":\"updateTime\",\"javaType\":\"Date\",\"list\":false,\"params\":{},\"pk\":false,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":4,\"superColumn\":true,\"tableId\":1,\"updateBy\":\"\",\"usableColum', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2023-10-12 21:37:55');
+
+-- ----------------------------
+-- Table structure for sys_oss_bucket
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_oss_bucket`;
+CREATE TABLE `sys_oss_bucket`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `create_time` datetime NULL DEFAULT NULL,
+  `create_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `deleted` tinyint NULL DEFAULT NULL,
+  `oss_config_id` int NULL DEFAULT NULL,
+  `bucket` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `p_id` int NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_oss_bucket
+-- ----------------------------
+INSERT INTO `sys_oss_bucket` VALUES (1, '2023-10-20 15:04:41', NULL, NULL, NULL, 0, 4, NULL, NULL, NULL);
+INSERT INTO `sys_oss_bucket` VALUES (2, '2023-10-20 15:15:44', NULL, NULL, NULL, 0, 4, '/', NULL, NULL);
+
+-- ----------------------------
+-- Table structure for sys_oss_config
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_oss_config`;
+CREATE TABLE `sys_oss_config`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `create_time` datetime NULL DEFAULT NULL,
+  `create_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `update_time` datetime NULL DEFAULT NULL,
+  `update_by` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `deleted` tinyint NULL DEFAULT NULL,
+  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `oss_type` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `config` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `status` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_oss_config
+-- ----------------------------
+INSERT INTO `sys_oss_config` VALUES (3, '2023-10-14 22:04:10', 'admin', '2023-10-20 17:21:51', 'admin', 0, '腾讯云测试', 'tencent_cos', '{\"appId\":\"1319610221\",\"region\":\"ap-shanghai\",\"secretId\":\"AKIDGPNSL1WnskPr7IH5g4GEpCMI0UlnaAWB\",\"secretKey\":\"d1CAuPgjaMxZ0FJCvVv64pRs8D8sOgmd\",\"bucketName\":\"default\"}', NULL, '1');
+INSERT INTO `sys_oss_config` VALUES (4, '2023-10-20 14:53:20', 'admin', '2023-10-20 19:51:29', 'admin', 0, '本地存储', 'local', '{\"domain\":\"http://localhost:8080\",\"bucketName\":\"/\",\"filePath\":\"./uploadPath\"}', NULL, '0');
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -947,11 +869,11 @@ CREATE TABLE `sys_role`  (
   `menu_check_strictly` tinyint(1) NULL DEFAULT 1 COMMENT '菜单树选择项是否关联显示',
   `dept_check_strictly` tinyint(1) NULL DEFAULT 1 COMMENT '部门树选择项是否关联显示',
   `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
   `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '创建者',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
+  `deleted` tinyint NULL DEFAULT NULL,
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 100 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '角色信息表' ROW_FORMAT = DYNAMIC;
@@ -959,8 +881,8 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2023-05-19 13:04:00', '', NULL, '超级管理员');
-INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', 1, 1, '0', '0', 'admin', '2023-05-19 13:04:00', '', NULL, '普通角色');
+INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', 'admin', '2023-05-19 13:04:00', '', NULL, 0, '超级管理员');
+INSERT INTO `sys_role` VALUES (2, '普通角色', 'common', 2, '2', 1, 1, '0', 'admin', '2023-05-19 13:04:00', 'admin', '2023-10-20 20:34:56', 0, '普通角色');
 
 -- ----------------------------
 -- Table structure for sys_role_dept
@@ -1108,7 +1030,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, '2023-05-19 13:04:00', 'admin', '2023-10-13 15:26:56', '', 0, 103, 'admin', '安惠科技', '00', 'ah@q163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '127.0.0.1', '2023-10-13 15:26:56', '管理员');
+INSERT INTO `sys_user` VALUES (1, '2023-05-19 13:04:00', 'admin', '2023-10-20 19:51:06', '', 0, 103, 'admin', '安惠科技', '00', 'ah@q163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '127.0.0.1', '2023-10-20 19:51:06', '管理员');
 INSERT INTO `sys_user` VALUES (2, '2023-05-19 13:04:00', 'admin', NULL, '', 0, 105, 'ah', '安惠生物', '00', 'ah@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '127.0.0.1', '2023-05-19 13:04:00', '测试员');
 
 -- ----------------------------
@@ -1157,7 +1079,7 @@ CREATE TABLE `test_table`  (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of test_table

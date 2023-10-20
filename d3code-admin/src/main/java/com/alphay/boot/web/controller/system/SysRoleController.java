@@ -86,7 +86,7 @@ public class SysRoleController extends BaseController {
       return error("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
     }
     role.setCreateBy(getUsername());
-    return toAjax(roleService.insertRole(role));
+    return toAjax(roleService.save(role));
   }
 
   /** 修改保存角色 */
@@ -103,7 +103,7 @@ public class SysRoleController extends BaseController {
     }
     role.setUpdateBy(getUsername());
 
-    if (roleService.updateRole(role) > 0) {
+    if (roleService.updateById(role)) {
       // 更新缓存用户权限
       LoginUser loginUser = getLoginUser();
       if (StringUtils.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin()) {
