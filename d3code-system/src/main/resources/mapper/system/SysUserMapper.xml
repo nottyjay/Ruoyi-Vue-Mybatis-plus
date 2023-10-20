@@ -89,30 +89,31 @@
         u
         left join sys_dept d on u.dept_id = d.dept_id
         where u.deleted = 0
-        <if test="userId != null and userId != 0">
-            AND u.user_id = #{userId}
+        <if test="sysUser.userId != null and sysUser.userId != 0">
+            AND u.user_id = #{sysUser.userId}
         </if>
-        <if test="userName != null and userName != ''">
-            AND u.user_name like concat('%', #{userName}, '%')
+        <if test="sysUser.userName != null and sysUser.userName != ''">
+            AND u.user_name like concat('%', #{sysUser.userName}, '%')
         </if>
-        <if test="status != null and status != ''">
-            AND u.status = #{status}
+        <if test="sysUser.status != null and sysUser.status != ''">
+            AND u.status = #{sysUser.status}
         </if>
-        <if test="phonenumber != null and phonenumber != ''">
-            AND u.phonenumber like concat('%', #{phonenumber}, '%')
+        <if test="sysUser.phonenumber != null and sysUser.phonenumber != ''">
+            AND u.phonenumber like concat('%', #{sysUser.phonenumber}, '%')
         </if>
-        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
-            AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+        <if test="sysUser.params.beginTime != null and sysUser.params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &gt;= date_format(#{sysUser.params.beginTime},'%y%m%d')
         </if>
-        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
-            AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+        <if test="sysUser.params.endTime != null and sysUser.params.endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{sysUser.params.endTime},'%y%m%d')
         </if>
-        <if test="deptId != null and deptId != 0">
-            AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(#{deptId},
+        <if test="sysUser.deptId != null and sysUser.deptId != 0">
+            AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE
+            find_in_set(#{sysUser.deptId},
             ancestors) ))
         </if>
         <!-- 数据范围过滤 -->
-        ${params.dataScope}
+        ${sysUser.params.dataScope}
     </select>
 
     <select id="selectAllocatedList" parameterType="SysUser" resultMap="SysUserResult">

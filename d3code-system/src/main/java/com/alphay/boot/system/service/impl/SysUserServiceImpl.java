@@ -15,6 +15,7 @@ import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.utils.bean.BeanValidators;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.alphay.boot.common.enums.SystemStatusEnum;
 import org.slf4j.Logger;
@@ -69,8 +70,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    */
   @Override
   @DataScope(deptAlias = "d", userAlias = "u")
-  public List<SysUser> selectUserList(SysUser user) {
-    return userMapper.selectUserList(user);
+  public List<SysUser> selectUserList(SysUser user, IPage page) {
+    List<SysUser> users = userMapper.selectUserList(user, page);
+    return users;
   }
 
   @Override

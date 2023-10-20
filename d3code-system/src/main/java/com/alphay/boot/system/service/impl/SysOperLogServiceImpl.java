@@ -1,6 +1,12 @@
 package com.alphay.boot.system.service.impl;
 
+import java.util.Date;
 import java.util.List;
+
+import com.alphay.boot.common.mybatis.query.QueryWrapperX;
+import com.alphay.boot.common.mybatis.service.ServiceImplX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.system.common.domain.SysOperLog;
@@ -13,7 +19,8 @@ import com.alphay.boot.system.common.service.ISysOperLogService;
  * @author d3code
  */
 @Service
-public class SysOperLogServiceImpl implements ISysOperLogService {
+public class SysOperLogServiceImpl extends ServiceImplX<SysOperLogMapper, SysOperLog>
+    implements ISysOperLogService {
   @Autowired private SysOperLogMapper operLogMapper;
 
   /**
@@ -22,8 +29,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
    * @param operLog 操作日志对象
    */
   @Override
-  public void insertOperlog(SysOperLog operLog) {
-    operLogMapper.insertOperlog(operLog);
+  public boolean save(SysOperLog operLog) {
+    operLog.setOperTime(new Date());
+    return super.save(operLog);
   }
 
   /**
@@ -33,30 +41,17 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
    * @return 操作日志集合
    */
   @Override
-  public List<SysOperLog> selectOperLogList(SysOperLog operLog) {
-    return operLogMapper.selectOperLogList(operLog);
-  }
-
-  /**
-   * 批量删除系统操作日志
-   *
-   * @param operIds 需要删除的操作日志ID
-   * @return 结果
-   */
-  @Override
-  public int deleteOperLogByIds(Long[] operIds) {
-    return operLogMapper.deleteOperLogByIds(operIds);
-  }
-
-  /**
-   * 查询操作日志详细
-   *
-   * @param operId 操作ID
-   * @return 操作日志对象
-   */
-  @Override
-  public SysOperLog selectOperLogById(Long operId) {
-    return operLogMapper.selectOperLogById(operId);
+  public List<SysOperLog> selectOperLogList(SysOperLog operLog, IPage page) {
+    QueryWrapperX<SysOperLog> queryWrapper =
+        new QueryWrapperX<SysOperLog>()
+            .likeIfPresent("title", operLog.getTitle())
+            .eqIfPresent("business_type", operLog.getBusinessType())
+            .inIfPresent("business_type", operLog.getBusinessTypes())
+            .eqIfPresent("status", operLog.getStatus())
+            .likeIfPresent("oper_name", operLog.getOperName());
+    parseBeginTimeAndEndTime(operLog.getParams(), queryWrapper, "oper_time");
+    queryWrapper.orderByDesc("oper_id");
+    return this.list(page, queryWrapper);
   }
 
   /** 清空操作日志 */

@@ -46,8 +46,7 @@ public class ${ClassName}Controller extends BaseController
 #if($table.crud || $table.sub)
     public TableDataInfo list(${ClassName} ${className})
     {
-        startPage();
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
+        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className}, startPage());
         return getDataTable(list);
     }
 #elseif($table.tree)
@@ -87,6 +86,7 @@ public class ${ClassName}Controller extends BaseController
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody ${ClassName} ${className}) {
+        ${className}.setCreateBy(getUsername());
         return toAjax(${className}Service.save(${className}));
     }
 
@@ -97,6 +97,7 @@ public class ${ClassName}Controller extends BaseController
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody ${ClassName} ${className}) {
+        ${className}.setUpdateBy(getUsername());
         return toAjax(${className}Service.updateById(${className}));
     }
 

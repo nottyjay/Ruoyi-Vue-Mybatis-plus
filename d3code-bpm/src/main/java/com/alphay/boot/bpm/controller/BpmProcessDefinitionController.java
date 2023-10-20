@@ -26,9 +26,8 @@ public class BpmProcessDefinitionController extends BaseController {
 
   @GetMapping("/list")
   public TableDataInfo list(BpmProcessDefinitionQueryRequestVo requestVo) {
-    startPage();
     List<BpmProcessDefinitionPageItemResponseVo> result =
-        bpmProcessDefinitionService.getProcessDefinitionList(requestVo);
+        bpmProcessDefinitionService.selectProcessDefinitionList(requestVo, startPage());
     return getDataTable(result);
   }
 

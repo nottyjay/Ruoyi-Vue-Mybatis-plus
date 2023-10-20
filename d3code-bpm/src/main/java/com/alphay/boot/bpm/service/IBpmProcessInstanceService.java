@@ -5,6 +5,7 @@ import com.alphay.boot.bpm.model.vo.BpmProcessInstanceCancelRequestVo;
 import com.alphay.boot.bpm.model.vo.BpmProcessInstanceItemResponseVo;
 import com.alphay.boot.bpm.model.vo.BpmProcessInstanceResponseVo;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.engine.delegate.event.FlowableCancelledEvent;
 import org.flowable.engine.history.HistoricProcessInstance;
 import org.flowable.engine.runtime.ProcessInstance;
@@ -28,7 +29,7 @@ public interface IBpmProcessInstanceService {
    * @return
    */
   List<BpmProcessInstanceItemResponseVo> selectMyProcessInstanceList(
-      Long userId, BpmProcessInstanceExt processInstanceExt);
+      Long userId, BpmProcessInstanceExt processInstanceExt, IPage page);
 
   /**
    * 创建流程实例（提供给前端）

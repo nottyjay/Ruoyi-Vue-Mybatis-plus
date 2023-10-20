@@ -28,15 +28,15 @@ public class BpmTaskController extends BaseController {
 
   @GetMapping("/todo-page")
   public TableDataInfo getTodoTaskPage(BpmTaskExt bpmTaskExt) {
-    startPage();
-    List<BpmTaskTodoItemResponseVo> result = taskService.getTodoTaskList(getUserId(), bpmTaskExt);
+    List<BpmTaskTodoItemResponseVo> result =
+        taskService.selectTodoTaskList(getUserId(), bpmTaskExt, startPage());
     return getDataTable(result);
   }
 
   @GetMapping("/done-page")
   public TableDataInfo getDoneTaskPage(BpmTaskExt bpmTaskExt) {
-    startPage();
-    List<BpmTaskDoneItemResponseVo> result = taskService.getDoneTaskList(getUserId(), bpmTaskExt);
+    List<BpmTaskDoneItemResponseVo> result =
+        taskService.selectDoneTaskList(getUserId(), bpmTaskExt, startPage());
     return getDataTable(result);
   }
 

@@ -23,5 +23,11 @@
             <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-attachment-api</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

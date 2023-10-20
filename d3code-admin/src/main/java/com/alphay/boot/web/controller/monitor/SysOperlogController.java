@@ -1,5 +1,6 @@
 package com.alphay.boot.web.controller.monitor;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,8 +34,7 @@ public class SysOperlogController extends BaseController {
   @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysOperLog operLog) {
-    startPage();
-    List<SysOperLog> list = operLogService.selectOperLogList(operLog);
+    List<SysOperLog> list = operLogService.selectOperLogList(operLog, startPage());
     return getDataTable(list);
   }
 
@@ -42,7 +42,7 @@ public class SysOperlogController extends BaseController {
   @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
   @PostMapping("/export")
   public void export(HttpServletResponse response, SysOperLog operLog) {
-    List<SysOperLog> list = operLogService.selectOperLogList(operLog);
+    List<SysOperLog> list = operLogService.selectOperLogList(operLog, null);
     ExcelUtil<SysOperLog> util = new ExcelUtil<SysOperLog>(SysOperLog.class);
     util.exportExcel(response, list, "操作日志");
   }
@@ -51,7 +51,7 @@ public class SysOperlogController extends BaseController {
   @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
   @DeleteMapping("/{operIds}")
   public AjaxResult remove(@PathVariable Long[] operIds) {
-    return toAjax(operLogService.deleteOperLogByIds(operIds));
+    return toAjax(operLogService.removeBatchByIds(Arrays.asList(operIds)));
   }
 
   @Log(title = "操作日志", businessType = BusinessType.CLEAN)

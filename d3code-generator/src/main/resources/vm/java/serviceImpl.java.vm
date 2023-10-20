@@ -2,8 +2,9 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.alphay.boot.common.mybatis.service.ServiceImplX;
 #if($table.sub)
 import java.util.ArrayList;
 import com.alphay.boot.common.utils.StringUtils;
@@ -21,7 +22,7 @@ import ${packageName}.service.I${ClassName}Service;
  * @date ${datetime}
  */
 @Service
-public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service
+public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service
 {
 
 #if($table.tree)
@@ -40,14 +41,39 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${C
     /**
      * 查询${functionName}列表
      *
-     *
      * @param ${className} ${functionName}
+     * @param page 分页
      * @return ${functionName}
      */
     @Override
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className})
+    public List<${ClassName}> select${ClassName}List(${ClassName} ${className}, IPage page)
     {
-        return baseMapper.select${ClassName}List(${className});
+        return this.list(page, this.lambdaQueryWrapperX()
+#foreach($column in $columns)
+#set($queryType=$column.queryType)
+#set($javaField=$column.javaField)
+#set($javaType=$column.javaType)
+#set($columnName=$column.columnName)
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#if($column.query)
+#if($column.queryType == "EQ")
+                  .eqIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "NE")
+                  .neIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "GT")
+                  .gtIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "GTE")
+                  .geIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "LT")
+                  .ltIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "LTE")
+                  .leIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#elseif($queryType == "LIKE")
+                  .likeIfPresent(${ClassName}::get${AttrName}, ${className}.get${AttrName}())
+#end
+#end
+#end
+                );
     }
 
 #if($table.sub)

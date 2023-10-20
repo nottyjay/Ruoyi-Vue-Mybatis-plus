@@ -1,5 +1,6 @@
 package com.alphay.boot.web.controller.monitor;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,7 +54,7 @@ public class SysLogininforController extends BaseController {
   @Log(title = "登录日志", businessType = BusinessType.DELETE)
   @DeleteMapping("/{infoIds}")
   public AjaxResult remove(@PathVariable Long[] infoIds) {
-    return toAjax(logininforService.deleteLogininforByIds(infoIds));
+    return toAjax(logininforService.removeByIds(Arrays.asList(infoIds)));
   }
 
   @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")

@@ -5,6 +5,7 @@ import com.alphay.boot.bpm.domain.BpmProcessDefinitionExt;
 import com.alphay.boot.bpm.model.dto.BpmProcessDefinitionCreateRequestDTO;
 import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionQueryRequestVo;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
@@ -126,8 +127,8 @@ public interface IBpmProcessDefinitionService {
    * @param requestVo
    * @return
    */
-  List<BpmProcessDefinitionPageItemResponseVo> getProcessDefinitionList(
-      BpmProcessDefinitionQueryRequestVo requestVo);
+  List<BpmProcessDefinitionPageItemResponseVo> selectProcessDefinitionList(
+      BpmProcessDefinitionQueryRequestVo requestVo, IPage page);
 
   /**
    * 获得流程定义对应的 BPMN XML

@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.system.common.domain.SysUserRole;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * 角色业务层
@@ -19,7 +20,18 @@ public interface ISysRoleService {
    * @param role 角色信息
    * @return 角色数据集合信息
    */
-  public List<SysRole> selectRoleList(SysRole role);
+  default List<SysRole> selectRoleList(SysRole role) {
+    return selectRoleList(role, null);
+  }
+
+  /**
+   * 根据条件分页查询角色数据
+   *
+   * @param role 角色信息
+   * @param page 分页
+   * @return 角色数据集合信息
+   */
+  List<SysRole> selectRoleList(SysRole role, IPage page);
 
   /**
    * 根据用户ID查询角色列表

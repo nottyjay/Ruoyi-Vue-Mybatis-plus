@@ -12,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.alphay.boot.common.constant.HttpStatus;
 import com.alphay.boot.common.core.page.PageDomain;
 import com.alphay.boot.common.core.page.TableDataInfo;
@@ -48,15 +46,6 @@ public class BaseController {
   /** 设置请求分页数据 */
   protected IPage startPage() {
     return PageUtils.startPage();
-  }
-
-  /** 设置请求排序数据 */
-  protected void startOrderBy() {
-    PageDomain pageDomain = TableSupport.buildPageRequest();
-    if (StringUtils.isNotEmpty(pageDomain.getOrderBy())) {
-      String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
-      PageHelper.orderBy(orderBy);
-    }
   }
 
   /** 清理分页的线程变量 */

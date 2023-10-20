@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alphay.boot.common.core.domain.entity.SysRole;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 /**
  * 角色表 数据层
@@ -15,9 +16,10 @@ public interface SysRoleMapper extends BaseMapperX<SysRole> {
    * 根据条件分页查询角色数据
    *
    * @param role 角色信息
+   * @param page 分页信息
    * @return 角色数据集合信息
    */
-  public List<SysRole> selectRoleList(SysRole role);
+  public List<SysRole> selectRoleList(SysRole role, IPage page);
 
   /**
    * 根据用户ID查询角色

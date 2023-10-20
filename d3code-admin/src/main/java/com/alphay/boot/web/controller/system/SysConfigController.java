@@ -1,5 +1,6 @@
 package com.alphay.boot.web.controller.system;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,8 +41,7 @@ public class SysConfigController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:config:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysConfig config) {
-    startPage();
-    List<SysConfig> list = configService.selectConfigList(config);
+    List<SysConfig> list = configService.selectConfigList(config, startPage());
     return getDataTable(list);
   }
 
@@ -49,7 +49,7 @@ public class SysConfigController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:config:export')")
   @PostMapping("/export")
   public void export(HttpServletResponse response, SysConfig config) {
-    List<SysConfig> list = configService.selectConfigList(config);
+    List<SysConfig> list = configService.selectConfigList(config, null);
     ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
     util.exportExcel(response, list, "参数数据");
   }
@@ -58,7 +58,7 @@ public class SysConfigController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:config:query')")
   @GetMapping(value = "/{configId}")
   public AjaxResult getInfo(@PathVariable Long configId) {
-    return success(configService.selectConfigById(configId));
+    return success(configService.getById(configId));
   }
 
   /** 根据参数键名查询参数值 */
@@ -76,7 +76,7 @@ public class SysConfigController extends BaseController {
       return error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
     }
     config.setCreateBy(getUsername());
-    return toAjax(configService.insertConfig(config));
+    return toAjax(configService.save(config));
   }
 
   /** 修改参数配置 */
@@ -95,7 +95,7 @@ public class SysConfigController extends BaseController {
     } else {
       return AjaxResult.error();
     }
-    return toAjax(configService.updateConfig(config));
+    return toAjax(configService.updateById(config));
   }
 
   @PreAuthorize("@ss.hasPermi('system:config:edit')")
@@ -108,9 +108,9 @@ public class SysConfigController extends BaseController {
     } else {
       config.setConfigName("系统自助生成" + RandomUtil.randomNumbers(6));
       config.setConfigType("Y");
-      return toAjax(configService.insertConfig(config));
+      return toAjax(configService.save(config));
     }
-    return toAjax(configService.updateConfig(config));
+    return toAjax(configService.updateById(config));
   }
 
   /** 删除参数配置 */
@@ -118,7 +118,7 @@ public class SysConfigController extends BaseController {
   @Log(title = "参数管理", businessType = BusinessType.DELETE)
   @DeleteMapping("/{configIds}")
   public AjaxResult remove(@PathVariable Long[] configIds) {
-    configService.deleteConfigByIds(configIds);
+    configService.removeByIds(Arrays.asList(configIds));
     return success();
   }
 

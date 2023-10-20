@@ -3,35 +3,33 @@ package com.alphay.boot.system.common.service;
 import java.util.Collection;
 import java.util.List;
 import com.alphay.boot.system.common.domain.SysPost;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * 岗位信息 服务层
  *
  * @author d3code
  */
-public interface ISysPostService {
+public interface ISysPostService extends IService<SysPost> {
   /**
    * 查询岗位信息集合
    *
    * @param post 岗位信息
    * @return 岗位列表
    */
-  public List<SysPost> selectPostList(SysPost post);
+  default List<SysPost> selectPostList(SysPost post) {
+    return selectPostList(post, null);
+  }
 
   /**
-   * 查询所有岗位
+   * 查询岗位信息集合
    *
+   * @param post 岗位信息
+   * @param page 分页
    * @return 岗位列表
    */
-  public List<SysPost> selectPostAll();
-
-  /**
-   * 通过岗位ID查询岗位信息
-   *
-   * @param postId 岗位ID
-   * @return 角色对象信息
-   */
-  public SysPost selectPostById(Long postId);
+  List<SysPost> selectPostList(SysPost post, IPage page);
 
   /**
    * 根据用户ID获取岗位选择框列表
@@ -39,7 +37,7 @@ public interface ISysPostService {
    * @param userId 用户ID
    * @return 选中岗位ID列表
    */
-  public List<Long> selectPostListByUserId(Long userId);
+  List<Long> selectPostListByUserId(Long userId);
 
   /**
    * 校验岗位名称
@@ -47,7 +45,7 @@ public interface ISysPostService {
    * @param post 岗位信息
    * @return 结果
    */
-  public String checkPostNameUnique(SysPost post);
+  String checkPostNameUnique(SysPost post);
 
   /**
    * 校验岗位编码
@@ -55,7 +53,7 @@ public interface ISysPostService {
    * @param post 岗位信息
    * @return 结果
    */
-  public String checkPostCodeUnique(SysPost post);
+  String checkPostCodeUnique(SysPost post);
 
   /**
    * 通过岗位ID查询岗位使用数量
@@ -63,15 +61,7 @@ public interface ISysPostService {
    * @param postId 岗位ID
    * @return 结果
    */
-  public int countUserPostById(Long postId);
-
-  /**
-   * 删除岗位信息
-   *
-   * @param postId 岗位ID
-   * @return 结果
-   */
-  public int deletePostById(Long postId);
+  int countUserPostById(Long postId);
 
   /**
    * 批量删除岗位信息
@@ -79,23 +69,7 @@ public interface ISysPostService {
    * @param postIds 需要删除的岗位ID
    * @return 结果
    */
-  public int deletePostByIds(Long[] postIds);
-
-  /**
-   * 新增保存岗位信息
-   *
-   * @param post 岗位信息
-   * @return 结果
-   */
-  public int insertPost(SysPost post);
-
-  /**
-   * 修改保存岗位信息
-   *
-   * @param post 岗位信息
-   * @return 结果
-   */
-  public int updatePost(SysPost post);
+  boolean deletePostByIds(Long[] postIds);
 
   /**
    * 校验岗位们是否有效。如下情况，视为无效： 1. 岗位编号不存在 2. 岗位被禁用

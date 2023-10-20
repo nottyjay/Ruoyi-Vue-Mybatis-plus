@@ -1,8 +1,8 @@
 package com.alphay.boot.system.common.service;
 
 import com.alphay.boot.system.common.domain.SysLogininfor;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.github.pagehelper.IPage;
 
 import java.util.List;
 
@@ -12,12 +12,6 @@ import java.util.List;
  * @author d3code
  */
 public interface ISysLogininforService extends IService<SysLogininfor> {
-  /**
-   * 新增系统登录日志
-   *
-   * @param logininfor 访问日志对象
-   */
-  public void insertLogininfor(SysLogininfor logininfor);
 
   /**
    * 查询系统登录日志集合
@@ -26,14 +20,6 @@ public interface ISysLogininforService extends IService<SysLogininfor> {
    * @return 登录记录集合
    */
   List<SysLogininfor> selectLogininforList(SysLogininfor logininfor, IPage<SysLogininfor> page);
-
-  /**
-   * 批量删除系统登录日志
-   *
-   * @param infoIds 需要删除的登录日志ID
-   * @return 结果
-   */
-  public int deleteLogininforByIds(Long[] infoIds);
 
   /** 清空系统登录日志 */
   public void cleanLogininfor();

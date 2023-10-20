@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -17,9 +18,10 @@ public interface SysUserMapper extends BaseMapperX<SysUser> {
    * 根据条件分页查询用户列表
    *
    * @param sysUser 用户信息
+   * @param page 分页信息
    * @return 用户信息集合信息
    */
-  List<SysUser> selectUserList(SysUser sysUser);
+  List<SysUser> selectUserList(@Param("sysUser") SysUser sysUser, IPage page);
 
   /**
    * 根据条件分页查询已配用户角色列表

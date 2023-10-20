@@ -11,6 +11,7 @@ import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
 import com.alphay.boot.common.enums.SystemStatusEnum;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,8 +49,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
    */
   @Override
   @DataScope(deptAlias = "d")
-  public List<SysRole> selectRoleList(SysRole role) {
-    return roleMapper.selectRoleList(role);
+  public List<SysRole> selectRoleList(SysRole role, IPage page) {
+    return roleMapper.selectRoleList(role, page);
   }
 
   /**
@@ -219,7 +220,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
   @Transactional
   public int updateRole(SysRole role) {
     // 修改角色信息
-    roleMapper.updateRole(role);
+    roleMapper.updateById(role);
     // 删除角色与菜单关联
     roleMenuMapper.deleteRoleMenuByRoleId(role.getRoleId());
     return insertRoleMenu(role);

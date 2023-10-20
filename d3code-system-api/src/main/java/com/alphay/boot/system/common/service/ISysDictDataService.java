@@ -4,60 +4,34 @@ import java.util.Collection;
 import java.util.List;
 
 import com.alphay.boot.common.core.domain.entity.SysDictData;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * 字典 业务层
  *
  * @author d3code
  */
-public interface ISysDictDataService {
+public interface ISysDictDataService extends IService<SysDictData> {
+
   /**
    * 根据条件分页查询字典数据
    *
    * @param dictData 字典数据信息
    * @return 字典数据集合信息
    */
-  public List<SysDictData> selectDictDataList(SysDictData dictData);
+  default List<SysDictData> selectDictDataList(SysDictData dictData) {
+    return selectDictDataList(dictData, null);
+  }
+
+  List<SysDictData> selectDictDataList(SysDictData dictData, IPage page);
 
   /**
-   * 根据字典类型和字典键值查询字典数据信息
+   * 更新缓存中的字典信息
    *
-   * @param dictType 字典类型
-   * @param dictValue 字典键值
-   * @return 字典标签
+   * @param dictType
    */
-  public String selectDictLabel(String dictType, String dictValue);
-
-  /**
-   * 根据字典数据ID查询信息
-   *
-   * @param dictCode 字典数据ID
-   * @return 字典数据
-   */
-  public SysDictData selectDictDataById(Long dictCode);
-
-  /**
-   * 批量删除字典数据信息
-   *
-   * @param dictCodes 需要删除的字典数据ID
-   */
-  public void deleteDictDataByIds(Long[] dictCodes);
-
-  /**
-   * 新增保存字典数据信息
-   *
-   * @param dictData 字典数据信息
-   * @return 结果
-   */
-  public int insertDictData(SysDictData dictData);
-
-  /**
-   * 修改保存字典数据信息
-   *
-   * @param dictData 字典数据信息
-   * @return 结果
-   */
-  public int updateDictData(SysDictData dictData);
+  void refreshDictData(String dictType);
 
   /**
    * 校验字典数据们是否有效。如下情况，视为无效： 1. 字典数据不存在 2. 字典数据被禁用
@@ -66,4 +40,29 @@ public interface ISysDictDataService {
    * @param values
    */
   void validateDictDataList(String dictType, Collection<String> values);
+
+  /**
+   * 同步修改字典类型
+   *
+   * @param oldDictType 旧字典类型
+   * @param newDictType 新旧字典类型
+   * @return 结果
+   */
+  int updateDictDataType(String oldDictType, String newDictType);
+
+  /**
+   * 获取同一Type下的字典配置
+   *
+   * @param dictType
+   * @return
+   */
+  List<SysDictData> selectDictDataByType(String dictType);
+
+  /**
+   * 统计type下字典配置数量
+   *
+   * @param dictType
+   * @return
+   */
+  long countDictDataByType(String dictType);
 }

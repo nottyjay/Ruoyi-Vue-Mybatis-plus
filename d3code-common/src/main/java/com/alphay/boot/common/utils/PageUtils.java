@@ -2,11 +2,8 @@ package com.alphay.boot.common.utils;
 
 import com.alphay.boot.common.core.page.PageDomain;
 import com.alphay.boot.common.core.page.TableSupport;
-import com.alphay.boot.common.utils.sql.SqlUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.github.pagehelper.PageHelper;
 
 /**
  * 分页工具类
@@ -22,8 +19,14 @@ public class PageUtils {
     PageDomain pageDomain = TableSupport.buildPageRequest();
     Integer pageNum = pageDomain.getPageNum();
     Integer pageSize = pageDomain.getPageSize();
-    IPage page = new Page(pageNum, pageSize);
-    setLocalPage(page);
+    IPage page = getLocalPage();
+    if (page == null) {
+      page = new Page(pageNum, pageSize);
+      setLocalPage(page);
+    } else {
+      page.setCurrent(pageNum);
+      page.setSize(pageSize);
+    }
     return page;
   }
 

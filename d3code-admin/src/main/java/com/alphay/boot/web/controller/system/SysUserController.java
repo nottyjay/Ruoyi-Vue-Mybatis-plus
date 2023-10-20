@@ -54,8 +54,7 @@ public class SysUserController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:user:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysUser user) {
-    startPage();
-    List<SysUser> list = userService.selectUserList(user);
+    List<SysUser> list = userService.selectUserList(user, startPage());
     return getDataTable(list);
   }
 
@@ -104,7 +103,7 @@ public class SysUserController extends BaseController {
         SysUser.isAdmin(userId)
             ? roles
             : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
-    ajax.put("posts", postService.selectPostAll());
+    ajax.put("posts", postService.list());
     if (StringUtils.isNotNull(userId)) {
       SysUser sysUser = userService.selectUserById(userId);
       ajax.put(AjaxResult.DATA_TAG, sysUser);

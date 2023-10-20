@@ -12,13 +12,13 @@ import com.alphay.boot.bpm.service.IBpmProcessDefinitionService;
 import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
 import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.JsonUtil;
+import com.alphay.boot.common.utils.PageUtils;
 import com.alphay.boot.common.utils.ValidationUtil;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.bpm.model.dto.BpmProcessDefinitionCreateRequestDTO;
 import com.alphay.boot.bpm.model.vo.*;
 import com.alphay.boot.bpm.model.dto.BpmModelMetaInfoRespDTO;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.converter.BpmnXMLConverter;
@@ -52,9 +52,8 @@ public class BpmModelServiceImpl implements IBpmModelService {
   @Resource private IBpmTaskAssignRuleService taskAssignRuleService;
 
   @Override
-  public List<BpmModelItemResponseVo> selectModelList(BpmModelQueryRequestVo requestVo) {
-    Page page = PageHelper.getLocalPage();
-    PageHelper.clearPage();
+  public List<BpmModelItemResponseVo> selectModelList(
+      BpmModelQueryRequestVo requestVo, IPage page) {
     ModelQuery modelQuery = repositoryService.createModelQuery();
     if (StringUtils.isNotBlank(requestVo.getKey())) {
       modelQuery.modelKey(requestVo.getKey());
@@ -73,7 +72,9 @@ public class BpmModelServiceImpl implements IBpmModelService {
       models = modelQuery.list();
     } else {
       models =
-          modelQuery.listPage((page.getPageNum() - 1) * page.getPageSize(), page.getPageSize());
+          modelQuery.listPage(
+              ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
+              ((Long) page.getSize()).intValue());
     }
 
     Set<Long> formIds =
@@ -100,14 +101,7 @@ public class BpmModelServiceImpl implements IBpmModelService {
 
     List<BpmModelItemResponseVo> result =
         BpmModelConvert.INSTANCE.convertList(models, formMap, deploymentMap, processDefinitionMap);
-    if (page == null) {
-      return result;
-    } else {
-      long modelCount = modelQuery.count();
-      page.setTotal(modelCount);
-      page.addAll(result);
-      return page;
-    }
+    return result;
   }
 
   @Override

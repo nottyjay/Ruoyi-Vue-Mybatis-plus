@@ -26,9 +26,9 @@ public class BpmProcessInstanceController extends BaseController {
 
   @GetMapping("/list")
   public TableDataInfo list(BpmProcessInstanceExt processInstanceExt) {
-    startPage();
     List<BpmProcessInstanceItemResponseVo> result =
-        processInstanceService.selectMyProcessInstanceList(getUserId(), processInstanceExt);
+        processInstanceService.selectMyProcessInstanceList(
+            getUserId(), processInstanceExt, startPage());
     return getDataTable(result);
   }
 

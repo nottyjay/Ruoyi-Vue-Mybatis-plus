@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.core.domain.vo.SimpleUserVo;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -20,7 +21,18 @@ public interface ISysUserService extends IService<SysUser> {
    * @param user 用户信息
    * @return 用户信息集合信息
    */
-  List<SysUser> selectUserList(SysUser user);
+  default List<SysUser> selectUserList(SysUser user) {
+    return selectUserList(user, null);
+  }
+
+  /**
+   * 根据条件分页查询用户列表
+   *
+   * @param user 用户信息
+   * @param page 分页信息
+   * @return 用户信息集合信息
+   */
+  List<SysUser> selectUserList(SysUser user, IPage page);
 
   /**
    * 根据条件分页查询已分配用户角色列表

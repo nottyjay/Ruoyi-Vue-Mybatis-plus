@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 
 import com.alphay.boot.common.annotation.Excel;
 import com.alphay.boot.common.core.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,6 +20,7 @@ public class SysConfig extends BaseEntity {
 
   /** 参数主键 */
   @Excel(name = "参数主键", cellType = Excel.ColumnType.NUMERIC)
+  @TableId(type = IdType.AUTO)
   private Long configId;
 
   /** 参数名称 */

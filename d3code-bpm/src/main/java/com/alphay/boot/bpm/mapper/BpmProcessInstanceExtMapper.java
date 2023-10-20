@@ -3,6 +3,7 @@ package com.alphay.boot.bpm.mapper;
 import com.alphay.boot.bpm.domain.BpmProcessInstanceExt;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.List;
 
@@ -13,8 +14,10 @@ import java.util.List;
  */
 public interface BpmProcessInstanceExtMapper extends BaseMapperX<BpmProcessInstanceExt> {
 
-  default List<BpmProcessInstanceExt> selectList(BpmProcessInstanceExt processInstanceExt) {
+  default List<BpmProcessInstanceExt> selectList(
+      BpmProcessInstanceExt processInstanceExt, IPage page) {
     return selectList(
+        page,
         new LambdaQueryWrapperX<BpmProcessInstanceExt>()
             .eqIfPresent(BpmProcessInstanceExt::getStartUserId, processInstanceExt.getStartUserId())
             .likeIfPresent(BpmProcessInstanceExt::getName, processInstanceExt.getName())

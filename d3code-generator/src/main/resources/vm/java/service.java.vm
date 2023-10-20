@@ -1,6 +1,7 @@
 package ${packageName}.service;
 
 import java.util.List;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import ${packageName}.domain.${ClassName};
 
@@ -19,6 +20,17 @@ public interface I${ClassName}Service extends IService<${ClassName}>
      * @param ${className} ${functionName}
      * @return ${functionName}集合
      */
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    default List<${ClassName}> select${ClassName}List(${ClassName} ${className}){
+      return select${ClassName}List(${className}, null);
+    }
+
+    /**
+    * 查询${functionName}列表
+    *
+    * @param ${className} ${functionName}
+    * @param page 分页
+    * @return ${functionName}集合
+    */
+    List<${ClassName}> select${ClassName}List(${ClassName} ${className}, IPage page);
 
 }

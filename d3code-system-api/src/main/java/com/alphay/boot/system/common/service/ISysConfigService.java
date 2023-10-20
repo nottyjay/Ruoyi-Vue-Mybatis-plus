@@ -1,6 +1,8 @@
 package com.alphay.boot.system.common.service;
 
 import com.alphay.boot.system.common.domain.SysConfig;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -9,14 +11,7 @@ import java.util.List;
  *
  * @author d3code
  */
-public interface ISysConfigService {
-  /**
-   * 查询参数配置信息
-   *
-   * @param configId 参数配置ID
-   * @return 参数配置信息
-   */
-  public SysConfig selectConfigById(Long configId);
+public interface ISysConfigService extends IService<SysConfig> {
 
   /**
    * 根据键名查询参数配置信息
@@ -24,14 +19,14 @@ public interface ISysConfigService {
    * @param configKey 参数键名
    * @return 参数键值
    */
-  public String selectConfigByKey(String configKey);
+  String selectConfigByKey(String configKey);
 
   /**
    * 获取验证码开关
    *
    * @return true开启，false关闭
    */
-  public boolean selectCaptchaEnabled();
+  boolean selectCaptchaEnabled();
 
   /**
    * 查询参数配置列表
@@ -39,39 +34,16 @@ public interface ISysConfigService {
    * @param config 参数配置信息
    * @return 参数配置集合
    */
-  public List<SysConfig> selectConfigList(SysConfig config);
-
-  /**
-   * 新增参数配置
-   *
-   * @param config 参数配置信息
-   * @return 结果
-   */
-  public int insertConfig(SysConfig config);
-
-  /**
-   * 修改参数配置
-   *
-   * @param config 参数配置信息
-   * @return 结果
-   */
-  public int updateConfig(SysConfig config);
-
-  /**
-   * 批量删除参数信息
-   *
-   * @param configIds 需要删除的参数ID
-   */
-  public void deleteConfigByIds(Long[] configIds);
+  List<SysConfig> selectConfigList(SysConfig config, IPage page);
 
   /** 加载参数缓存数据 */
-  public void loadingConfigCache();
+  void loadingConfigCache();
 
   /** 清空参数缓存数据 */
-  public void clearConfigCache();
+  void clearConfigCache();
 
   /** 重置参数缓存数据 */
-  public void resetConfigCache();
+  void resetConfigCache();
 
   /**
    * 校验参数键名是否唯一
@@ -79,7 +51,7 @@ public interface ISysConfigService {
    * @param config 参数信息
    * @return 结果
    */
-  public String checkConfigKeyUnique(SysConfig config);
+  String checkConfigKeyUnique(SysConfig config);
 
   /**
    * 通过key获取config配置

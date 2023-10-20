@@ -1,6 +1,7 @@
 package com.alphay.boot.web.controller.system;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,8 +42,7 @@ public class SysDictDataController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:dict:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysDictData dictData) {
-    startPage();
-    List<SysDictData> list = dictDataService.selectDictDataList(dictData);
+    List<SysDictData> list = dictDataService.selectDictDataList(dictData, startPage());
     return getDataTable(list);
   }
 
@@ -50,7 +50,7 @@ public class SysDictDataController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:dict:export')")
   @PostMapping("/export")
   public void export(HttpServletResponse response, SysDictData dictData) {
-    List<SysDictData> list = dictDataService.selectDictDataList(dictData);
+    List<SysDictData> list = dictDataService.selectDictDataList(dictData, null);
     ExcelUtil<SysDictData> util = new ExcelUtil<SysDictData>(SysDictData.class);
     util.exportExcel(response, list, "字典数据");
   }
@@ -59,7 +59,7 @@ public class SysDictDataController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:dict:query')")
   @GetMapping(value = "/{dictCode}")
   public AjaxResult getInfo(@PathVariable Long dictCode) {
-    return success(dictDataService.selectDictDataById(dictCode));
+    return success(dictDataService.getById(dictCode));
   }
 
   /** 根据字典类型查询字典数据信息 */
@@ -78,7 +78,7 @@ public class SysDictDataController extends BaseController {
   @PostMapping
   public AjaxResult add(@Validated @RequestBody SysDictData dict) {
     dict.setCreateBy(getUsername());
-    return toAjax(dictDataService.insertDictData(dict));
+    return toAjax(dictDataService.save(dict));
   }
 
   /** 修改保存字典类型 */
@@ -87,7 +87,7 @@ public class SysDictDataController extends BaseController {
   @PutMapping
   public AjaxResult edit(@Validated @RequestBody SysDictData dict) {
     dict.setUpdateBy(getUsername());
-    return toAjax(dictDataService.updateDictData(dict));
+    return toAjax(dictDataService.updateById(dict));
   }
 
   /** 删除字典类型 */
@@ -95,7 +95,7 @@ public class SysDictDataController extends BaseController {
   @Log(title = "字典类型", businessType = BusinessType.DELETE)
   @DeleteMapping("/{dictCodes}")
   public AjaxResult remove(@PathVariable Long[] dictCodes) {
-    dictDataService.deleteDictDataByIds(dictCodes);
+    dictDataService.removeByIds(Arrays.asList(dictCodes));
     return success();
   }
 }

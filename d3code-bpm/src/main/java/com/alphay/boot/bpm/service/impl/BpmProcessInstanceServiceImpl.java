@@ -1,6 +1,7 @@
 package com.alphay.boot.bpm.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
@@ -25,7 +26,7 @@ import com.alphay.boot.system.common.api.DeptApi;
 import com.alphay.boot.bpm.model.vo.BpmProcessInstanceCancelRequestVo;
 import com.alphay.boot.bpm.model.vo.BpmProcessInstanceItemResponseVo;
 import com.alphay.boot.bpm.model.vo.BpmProcessInstanceResponseVo;
-import com.github.pagehelper.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
 import org.flowable.engine.delegate.event.FlowableCancelledEvent;
@@ -64,11 +65,12 @@ public class BpmProcessInstanceServiceImpl implements IBpmProcessInstanceService
 
   @Override
   public List<BpmProcessInstanceItemResponseVo> selectMyProcessInstanceList(
-      Long userId, BpmProcessInstanceExt processInstanceExt) {
+      Long userId, BpmProcessInstanceExt processInstanceExt, IPage page) {
     processInstanceExt.setStartUserId(userId);
-    List<BpmProcessInstanceExt> result = processInstanceExtMapper.selectList(processInstanceExt);
+    List<BpmProcessInstanceExt> result =
+        processInstanceExtMapper.selectList(processInstanceExt, page);
     if (CollUtil.isEmpty(result)) {
-      return new Page<BpmProcessInstanceItemResponseVo>();
+      return ListUtil.empty();
     }
 
     // 获得流程 Task Map
@@ -80,16 +82,7 @@ public class BpmProcessInstanceServiceImpl implements IBpmProcessInstanceService
 
     List<BpmProcessInstanceItemResponseVo> itemResponseVoList =
         BpmProcessInstanceConvert.INSTANCE.convertList(result, taskMap);
-    if (result instanceof Page) {
-      Page resultPage = (Page) result;
-      Page<BpmProcessInstanceItemResponseVo> returnResult =
-          new Page<>(resultPage.getPageSize(), resultPage.getPageNum());
-      returnResult.setTotal(resultPage.getTotal());
-      returnResult.addAll(itemResponseVoList);
-      return returnResult;
-    } else {
-      return itemResponseVoList;
-    }
+    return itemResponseVoList;
   }
 
   @Override

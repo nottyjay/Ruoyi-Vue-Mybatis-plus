@@ -1,5 +1,6 @@
 package com.alphay.boot.system.mapper;
 
+import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 import com.alphay.boot.system.common.domain.SysLogininfor;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author d3code
  */
-public interface SysLogininforMapper {
+public interface SysLogininforMapper extends BaseMapperX<SysLogininfor> {
   /**
    * 新增系统登录日志
    *

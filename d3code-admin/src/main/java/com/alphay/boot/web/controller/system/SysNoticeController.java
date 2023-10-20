@@ -1,5 +1,6 @@
 package com.alphay.boot.web.controller.system;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.alphay.boot.common.annotation.Log;
@@ -35,8 +36,7 @@ public class SysNoticeController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:notice:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysNotice notice) {
-    startPage();
-    List<SysNotice> list = noticeService.selectNoticeList(notice);
+    List<SysNotice> list = noticeService.selectNoticeList(notice, startPage());
     return getDataTable(list);
   }
 
@@ -44,7 +44,7 @@ public class SysNoticeController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:notice:query')")
   @GetMapping(value = "/{noticeId}")
   public AjaxResult getInfo(@PathVariable Long noticeId) {
-    return success(noticeService.selectNoticeById(noticeId));
+    return success(noticeService.getById(noticeId));
   }
 
   /** 新增通知公告 */
@@ -53,7 +53,7 @@ public class SysNoticeController extends BaseController {
   @PostMapping
   public AjaxResult add(@Validated @RequestBody SysNotice notice) {
     notice.setCreateBy(getUsername());
-    return toAjax(noticeService.insertNotice(notice));
+    return toAjax(noticeService.save(notice));
   }
 
   /** 修改通知公告 */
@@ -62,7 +62,7 @@ public class SysNoticeController extends BaseController {
   @PutMapping
   public AjaxResult edit(@Validated @RequestBody SysNotice notice) {
     notice.setUpdateBy(getUsername());
-    return toAjax(noticeService.updateNotice(notice));
+    return toAjax(noticeService.updateById(notice));
   }
 
   /** 删除通知公告 */
@@ -70,6 +70,6 @@ public class SysNoticeController extends BaseController {
   @Log(title = "通知公告", businessType = BusinessType.DELETE)
   @DeleteMapping("/{noticeIds}")
   public AjaxResult remove(@PathVariable Long[] noticeIds) {
-    return toAjax(noticeService.deleteNoticeByIds(noticeIds));
+    return toAjax(noticeService.removeByIds(Arrays.asList(noticeIds)));
   }
 }

@@ -1,6 +1,7 @@
 package com.alphay.boot.bpm.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
@@ -19,8 +20,7 @@ import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.system.common.api.AdminApi;
 import com.alphay.boot.system.common.api.DeptApi;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.TaskService;
@@ -58,9 +58,8 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
   @Resource private DeptApi deptApi;
 
   @Override
-  public List<BpmTaskTodoItemResponseVo> getTodoTaskList(Long userId, BpmTaskExt bpmTaskExt) {
-    Page page = PageHelper.getLocalPage();
-    PageHelper.clearPage();
+  public List<BpmTaskTodoItemResponseVo> selectTodoTaskList(
+      Long userId, BpmTaskExt bpmTaskExt, IPage page) {
     // 查询待办任务
     TaskQuery taskQuery =
         taskService
@@ -82,16 +81,15 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
     List<Task> tasks = null;
     // 执行查询
     if (page != null) {
-      tasks = taskQuery.listPage(page.getPageSize() * (page.getPageNum() - 1), page.getPageSize());
-      if (CollUtil.isEmpty(tasks)) {
-        page.setTotal(0);
-        return page;
-      }
+      tasks =
+          taskQuery.listPage(
+              ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
+              ((Long) page.getSize()).intValue());
     } else {
       tasks = taskQuery.list();
-      if (CollUtil.isEmpty(tasks)) {
-        return new ArrayList<>();
-      }
+    }
+    if (CollUtil.isEmpty(tasks)) {
+      return new ArrayList<>();
     }
 
     // 获得 ProcessInstance Map
@@ -106,19 +104,12 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
     // 拼接结果
     List<BpmTaskTodoItemResponseVo> list =
         BpmTaskConvert.INSTANCE.convertList1(tasks, processInstanceMap, userMap);
-    if (page == null) {
-      return list;
-    } else {
-      page.addAll(list);
-      page.setTotal(taskQuery.count());
-      return page;
-    }
+    return list;
   }
 
   @Override
-  public List<BpmTaskDoneItemResponseVo> getDoneTaskList(Long userId, BpmTaskExt bpmTaskExt) {
-    Page page = PageHelper.getLocalPage();
-    PageHelper.clearPage();
+  public List<BpmTaskDoneItemResponseVo> selectDoneTaskList(
+      Long userId, BpmTaskExt bpmTaskExt, IPage page) {
     // 查询已办任务
     HistoricTaskInstanceQuery taskQuery =
         historyService
@@ -142,16 +133,15 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
     List<HistoricTaskInstance> tasks = null;
     // 执行查询
     if (page != null) {
-      tasks = taskQuery.listPage(page.getPageSize() * (page.getPageNum() - 1), page.getPageSize());
-      if (CollUtil.isEmpty(tasks)) {
-        page.setTotal(0);
-        return page;
-      }
+      tasks =
+          taskQuery.listPage(
+              ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
+              ((Long) page.getSize()).intValue());
     } else {
       tasks = taskQuery.list();
-      if (CollUtil.isEmpty(tasks)) {
-        return new ArrayList<>();
-      }
+    }
+    if (CollUtil.isEmpty(tasks)) {
+      return new ArrayList<>();
     }
 
     // 获得 TaskExtDO Map
@@ -174,13 +164,7 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
     List<BpmTaskDoneItemResponseVo> list =
         BpmTaskConvert.INSTANCE.convertList2(
             tasks, bpmTaskExtDOMap, historicProcessInstanceMap, userMap);
-    if (page == null) {
-      return list;
-    } else {
-      page.addAll(list);
-      page.setTotal(taskQuery.count());
-      return page;
-    }
+    return list;
   }
 
   @Override

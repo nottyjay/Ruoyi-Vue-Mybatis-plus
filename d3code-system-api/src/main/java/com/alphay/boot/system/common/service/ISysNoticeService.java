@@ -1,6 +1,8 @@
 package com.alphay.boot.system.common.service;
 
 import com.alphay.boot.system.common.domain.SysNotice;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -9,14 +11,7 @@ import java.util.List;
  *
  * @author d3code
  */
-public interface ISysNoticeService {
-  /**
-   * 查询公告信息
-   *
-   * @param noticeId 公告ID
-   * @return 公告信息
-   */
-  public SysNotice selectNoticeById(Long noticeId);
+public interface ISysNoticeService extends IService<SysNotice> {
 
   /**
    * 查询公告列表
@@ -24,37 +19,16 @@ public interface ISysNoticeService {
    * @param notice 公告信息
    * @return 公告集合
    */
-  public List<SysNotice> selectNoticeList(SysNotice notice);
+  default List<SysNotice> selectNoticeList(SysNotice notice) {
+    return selectNoticeList(notice, null);
+  }
 
   /**
-   * 新增公告
+   * 查询公告列表
    *
    * @param notice 公告信息
-   * @return 结果
+   * @param page 分页信息
+   * @return 公告集合
    */
-  public int insertNotice(SysNotice notice);
-
-  /**
-   * 修改公告
-   *
-   * @param notice 公告信息
-   * @return 结果
-   */
-  public int updateNotice(SysNotice notice);
-
-  /**
-   * 删除公告信息
-   *
-   * @param noticeId 公告ID
-   * @return 结果
-   */
-  public int deleteNoticeById(Long noticeId);
-
-  /**
-   * 批量删除公告信息
-   *
-   * @param noticeIds 需要删除的公告ID
-   * @return 结果
-   */
-  public int deleteNoticeByIds(Long[] noticeIds);
+  List<SysNotice> selectNoticeList(SysNotice notice, IPage page);
 }

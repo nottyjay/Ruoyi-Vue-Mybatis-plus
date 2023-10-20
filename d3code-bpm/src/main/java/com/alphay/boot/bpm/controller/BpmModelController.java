@@ -28,8 +28,7 @@ public class BpmModelController extends BaseController {
 
   @GetMapping("/list")
   public TableDataInfo list(BpmModelQueryRequestVo requestVo) {
-    startPage();
-    List<BpmModelItemResponseVo> result = modelService.selectModelList(requestVo);
+    List<BpmModelItemResponseVo> result = modelService.selectModelList(requestVo, startPage());
     return getDataTable(result);
   }
 

@@ -2,6 +2,7 @@ package com.alphay.boot.bpm.service;
 
 import com.alphay.boot.bpm.model.vo.*;
 import com.alphay.boot.bpm.model.vo.*;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.bpmn.model.BpmnModel;
 
 import javax.validation.Valid;
@@ -20,7 +21,7 @@ public interface IBpmModelService {
    * @param requestVo
    * @return
    */
-  List<BpmModelItemResponseVo> selectModelList(BpmModelQueryRequestVo requestVo);
+  List<BpmModelItemResponseVo> selectModelList(BpmModelQueryRequestVo requestVo, IPage page);
 
   /**
    * 获取流程模块

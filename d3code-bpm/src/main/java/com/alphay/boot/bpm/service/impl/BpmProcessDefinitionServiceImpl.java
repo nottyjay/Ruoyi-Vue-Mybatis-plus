@@ -1,6 +1,7 @@
 package com.alphay.boot.bpm.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alphay.boot.bpm.convert.BpmProcessDefinitionConvert;
@@ -16,8 +17,7 @@ import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionQueryRequestVo;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.converter.BpmnXMLConverter;
@@ -245,10 +245,8 @@ public class BpmProcessDefinitionServiceImpl implements IBpmProcessDefinitionSer
   }
 
   @Override
-  public List<BpmProcessDefinitionPageItemResponseVo> getProcessDefinitionList(
-      BpmProcessDefinitionQueryRequestVo requestVo) {
-    Page page = PageHelper.getLocalPage();
-    PageHelper.clearPage();
+  public List<BpmProcessDefinitionPageItemResponseVo> selectProcessDefinitionList(
+      BpmProcessDefinitionQueryRequestVo requestVo, IPage page) {
 
     ProcessDefinitionQuery definitionQuery = repositoryService.createProcessDefinitionQuery();
     if (StrUtil.isNotBlank(requestVo.getKey())) {
@@ -267,13 +265,15 @@ public class BpmProcessDefinitionServiceImpl implements IBpmProcessDefinitionSer
     List<ProcessDefinition> processDefinitions = null;
     if (page != null) {
       processDefinitions =
-          query.listPage((page.getPageNum() - 1) * page.getPageSize(), page.getPageSize());
+          query.listPage(
+              ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
+              ((Long) page.getSize()).intValue());
     } else {
       processDefinitions = query.list();
     }
 
     if (CollUtil.isEmpty(processDefinitions)) {
-      return page;
+      return ListUtil.empty();
     }
     // 获得 Deployment Map
     Set<String> deploymentIds = new HashSet<>();
@@ -298,15 +298,7 @@ public class BpmProcessDefinitionServiceImpl implements IBpmProcessDefinitionSer
         BpmProcessDefinitionConvert.INSTANCE.convertList(
             processDefinitions, deploymentMap, processDefinitionDOMap, formMap);
 
-    if (page == null) {
-      return result;
-    } else {
-      // 拼接结果
-      long definitionCount = definitionQuery.count();
-      page.setTotal(definitionCount);
-      page.addAll(result);
-      return page;
-    }
+    return result;
   }
 
   @Override

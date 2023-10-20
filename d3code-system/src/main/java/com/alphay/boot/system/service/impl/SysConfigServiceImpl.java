@@ -7,8 +7,12 @@ import com.alphay.boot.common.constant.CacheConstants;
 import com.alphay.boot.common.core.redis.RedisCache;
 import com.alphay.boot.common.core.text.Convert;
 import com.alphay.boot.common.exception.ServiceException;
+import com.alphay.boot.common.mybatis.query.QueryWrapperX;
+import com.alphay.boot.common.mybatis.service.ServiceImplX;
 import com.alphay.boot.system.common.domain.SysConfig;
 import com.alphay.boot.system.common.service.ISysConfigService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.common.constant.UserConstants;
@@ -21,23 +25,10 @@ import com.alphay.boot.system.mapper.SysConfigMapper;
  * @author d3code
  */
 @Service
-public class SysConfigServiceImpl implements ISysConfigService {
-  @Autowired private SysConfigMapper configMapper;
+public class SysConfigServiceImpl extends ServiceImplX<SysConfigMapper, SysConfig>
+    implements ISysConfigService {
 
   @Autowired private RedisCache redisCache;
-
-  /**
-   * 查询参数配置信息
-   *
-   * @param configId 参数配置ID
-   * @return 参数配置信息
-   */
-  @Override
-  public SysConfig selectConfigById(Long configId) {
-    SysConfig config = new SysConfig();
-    config.setConfigId(configId);
-    return configMapper.selectConfig(config);
-  }
 
   /**
    * 根据键名查询参数配置信息
@@ -51,9 +42,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
     if (StringUtils.isNotEmpty(configValue)) {
       return configValue;
     }
-    SysConfig config = new SysConfig();
-    config.setConfigKey(configKey);
-    SysConfig retConfig = configMapper.selectConfig(config);
+    SysConfig retConfig = this.getConfigByKey(configKey);
     if (StringUtils.isNotNull(retConfig)) {
       redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
       return retConfig.getConfigValue();
@@ -82,8 +71,15 @@ public class SysConfigServiceImpl implements ISysConfigService {
    * @return 参数配置集合
    */
   @Override
-  public List<SysConfig> selectConfigList(SysConfig config) {
-    return configMapper.selectConfigList(config);
+  public List<SysConfig> selectConfigList(SysConfig config, IPage page) {
+    QueryWrapperX<SysConfig> queryWrapper =
+        new QueryWrapperX<SysConfig>()
+            .likeIfPresent("config_name", config.getConfigName())
+            .eqIfPresent("config_type", config.getConfigType())
+            .likeIfPresent("config_key", config.getConfigKey());
+    parseBeginTimeAndEndTime(config.getParams(), queryWrapper, "create_time");
+    queryWrapper.orderByDesc("config_id");
+    return this.list(page, queryWrapper);
   }
 
   /**
@@ -93,12 +89,12 @@ public class SysConfigServiceImpl implements ISysConfigService {
    * @return 结果
    */
   @Override
-  public int insertConfig(SysConfig config) {
-    int row = configMapper.insertConfig(config);
-    if (row > 0) {
+  public boolean save(SysConfig config) {
+    boolean result = super.save(config);
+    if (result) {
       redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
     }
-    return row;
+    return result;
   }
 
   /**
@@ -108,40 +104,38 @@ public class SysConfigServiceImpl implements ISysConfigService {
    * @return 结果
    */
   @Override
-  public int updateConfig(SysConfig config) {
-    SysConfig temp = configMapper.selectConfigById(config.getConfigId());
+  public boolean updateById(SysConfig config) {
+    SysConfig temp = this.getById(config.getConfigId());
     if (!StringUtils.equals(temp.getConfigKey(), config.getConfigKey())) {
       redisCache.deleteObject(getCacheKey(temp.getConfigKey()));
     }
 
-    int row = configMapper.updateConfig(config);
-    if (row > 0) {
+    boolean result = super.updateById(config);
+    if (result) {
       redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
     }
-    return row;
+    return result;
   }
 
-  /**
-   * 批量删除参数信息
-   *
-   * @param configIds 需要删除的参数ID
-   */
   @Override
-  public void deleteConfigByIds(Long[] configIds) {
-    for (Long configId : configIds) {
-      SysConfig config = selectConfigById(configId);
-      if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
-        throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
-      }
-      configMapper.deleteConfigById(configId);
-      redisCache.deleteObject(getCacheKey(config.getConfigKey()));
-    }
+  public boolean removeByIds(Collection<?> configIds) {
+    configIds.stream()
+        .map(configId -> this.getById((Long) configId))
+        .forEach(
+            config -> {
+              if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
+                throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
+              }
+              this.removeById(config.getConfigId());
+              redisCache.deleteObject(getCacheKey(config.getConfigKey()));
+            });
+    return true;
   }
 
   /** 加载参数缓存数据 */
   @Override
   public void loadingConfigCache() {
-    List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
+    List<SysConfig> configsList = this.selectConfigList(new SysConfig(), null);
     for (SysConfig config : configsList) {
       redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
     }
@@ -170,7 +164,8 @@ public class SysConfigServiceImpl implements ISysConfigService {
   @Override
   public String checkConfigKeyUnique(SysConfig config) {
     Long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
-    SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
+    SysConfig info =
+        this.getOne(this.lambdaQuery().eq(SysConfig::getConfigKey, config.getConfigKey()));
     if (StringUtils.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
       return UserConstants.NOT_UNIQUE;
     }
@@ -179,9 +174,7 @@ public class SysConfigServiceImpl implements ISysConfigService {
 
   @Override
   public SysConfig getConfigByKey(String configKey) {
-    SysConfig config = new SysConfig();
-    config.setConfigKey(configKey);
-    return configMapper.selectConfig(config);
+    return this.getOne(this.lambdaQuery().eq(SysConfig::getConfigKey, configKey));
   }
 
   /**

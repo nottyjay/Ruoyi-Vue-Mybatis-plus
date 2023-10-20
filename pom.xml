@@ -206,6 +206,14 @@
                 <optional>true</optional>
             </dependency>
 
+            <!-- 腾讯云COS存储 -->
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>5.6.155</version>
+            </dependency>
+
+
             <!-- flowable 工作流相关 -->
             <dependency>
                 <groupId>org.flowable</groupId>

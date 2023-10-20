@@ -38,8 +38,7 @@ public class SysPostController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:post:list')")
   @GetMapping("/list")
   public TableDataInfo list(SysPost post) {
-    startPage();
-    List<SysPost> list = postService.selectPostList(post);
+    List<SysPost> list = postService.selectPostList(post, startPage());
     return getDataTable(list);
   }
 
@@ -56,7 +55,7 @@ public class SysPostController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:post:query')")
   @GetMapping(value = "/{postId}")
   public AjaxResult getInfo(@PathVariable Long postId) {
-    return success(postService.selectPostById(postId));
+    return success(postService.getById(postId));
   }
 
   /** 新增岗位 */
@@ -70,7 +69,7 @@ public class SysPostController extends BaseController {
       return error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
     }
     post.setCreateBy(getUsername());
-    return toAjax(postService.insertPost(post));
+    return toAjax(postService.save(post));
   }
 
   /** 修改岗位 */
@@ -84,7 +83,7 @@ public class SysPostController extends BaseController {
       return error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
     }
     post.setUpdateBy(getUsername());
-    return toAjax(postService.updatePost(post));
+    return toAjax(postService.updateById(post));
   }
 
   /** 删除岗位 */
@@ -98,7 +97,7 @@ public class SysPostController extends BaseController {
   /** 获取岗位选择框列表 */
   @GetMapping("/optionselect")
   public AjaxResult optionselect() {
-    List<SysPost> posts = postService.selectPostAll();
+    List<SysPost> posts = postService.list();
     return success(posts);
   }
 }

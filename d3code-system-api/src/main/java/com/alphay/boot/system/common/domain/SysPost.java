@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
 import com.alphay.boot.common.annotation.Excel;
 import com.alphay.boot.common.core.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -41,6 +42,7 @@ public class SysPost extends BaseEntity {
   private String status;
 
   /** 用户是否存在此岗位标识 默认不存在 */
+  @TableField(exist = false)
   private boolean flag = false;
 
   public Long getPostId() {

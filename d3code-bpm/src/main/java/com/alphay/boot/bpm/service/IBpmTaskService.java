@@ -4,6 +4,7 @@ import com.alphay.boot.bpm.domain.BpmTaskExt;
 import com.alphay.boot.bpm.model.vo.*;
 import com.alphay.boot.bpm.model.vo.*;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.task.api.Task;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public interface IBpmTaskService {
    * @param bpmTaskExt
    * @return
    */
-  List<BpmTaskTodoItemResponseVo> getTodoTaskList(Long userId, BpmTaskExt bpmTaskExt);
+  List<BpmTaskTodoItemResponseVo> selectTodoTaskList(
+      Long userId, BpmTaskExt bpmTaskExt, IPage page);
 
   /**
    * 获得已办的流程任务分页
@@ -32,7 +34,8 @@ public interface IBpmTaskService {
    * @param bpmTaskExt
    * @return
    */
-  List<BpmTaskDoneItemResponseVo> getDoneTaskList(Long userId, BpmTaskExt bpmTaskExt);
+  List<BpmTaskDoneItemResponseVo> selectDoneTaskList(
+      Long userId, BpmTaskExt bpmTaskExt, IPage page);
 
   /**
    * 获得指令流程实例的流程任务列表，包括所有状态的

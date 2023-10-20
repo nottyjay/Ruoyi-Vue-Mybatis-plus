@@ -4,6 +4,8 @@ import java.util.Date;
 
 import com.alphay.boot.common.annotation.Excel;
 import com.alphay.boot.common.core.domain.BaseEntity;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -16,6 +18,7 @@ public class SysOperLog extends BaseEntity {
 
   /** 日志主键 */
   @Excel(name = "操作序号", cellType = Excel.ColumnType.NUMERIC)
+  @TableId(type = IdType.AUTO)
   private Long operId;
 
   /** 操作模块 */

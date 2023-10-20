@@ -3,6 +3,8 @@ package com.alphay.boot.common.core.domain.entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -21,6 +23,7 @@ public class SysDictData extends BaseEntity {
 
   /** 字典编码 */
   @Excel(name = "字典编码", cellType = ColumnType.NUMERIC)
+  @TableId(type = IdType.AUTO)
   private Long dictCode;
 
   /** 字典排序 */

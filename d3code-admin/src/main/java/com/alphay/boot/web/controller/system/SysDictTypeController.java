@@ -38,7 +38,7 @@ public class SysDictTypeController extends BaseController {
   @GetMapping("/list")
   public TableDataInfo list(SysDictType dictType) {
     startPage();
-    List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
+    List<SysDictType> list = dictTypeService.selectDictTypeList(dictType, startPage());
     return getDataTable(list);
   }
 
@@ -46,7 +46,7 @@ public class SysDictTypeController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:dict:export')")
   @PostMapping("/export")
   public void export(HttpServletResponse response, SysDictType dictType) {
-    List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
+    List<SysDictType> list = dictTypeService.selectDictTypeList(dictType, null);
     ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
     util.exportExcel(response, list, "字典类型");
   }
@@ -55,7 +55,7 @@ public class SysDictTypeController extends BaseController {
   @PreAuthorize("@ss.hasPermi('system:dict:query')")
   @GetMapping(value = "/{dictId}")
   public AjaxResult getInfo(@PathVariable Long dictId) {
-    return success(dictTypeService.selectDictTypeById(dictId));
+    return success(dictTypeService.getById(dictId));
   }
 
   /** 新增字典类型 */
@@ -67,7 +67,7 @@ public class SysDictTypeController extends BaseController {
       return error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
     }
     dict.setCreateBy(getUsername());
-    return toAjax(dictTypeService.insertDictType(dict));
+    return toAjax(dictTypeService.save(dict));
   }
 
   /** 修改字典类型 */
@@ -79,7 +79,7 @@ public class SysDictTypeController extends BaseController {
       return error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
     }
     dict.setUpdateBy(getUsername());
-    return toAjax(dictTypeService.updateDictType(dict));
+    return toAjax(dictTypeService.updateById(dict));
   }
 
   /** 删除字典类型 */
