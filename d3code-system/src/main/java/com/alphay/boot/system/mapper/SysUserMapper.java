@@ -29,7 +29,7 @@ public interface SysUserMapper extends BaseMapperX<SysUser> {
    * @param user 用户信息
    * @return 用户信息集合信息
    */
-  List<SysUser> selectAllocatedList(SysUser user);
+  List<SysUser> selectAllocatedList(@Param("user") SysUser user, IPage page);
 
   /**
    * 根据条件分页查询未分配用户角色列表
@@ -37,7 +37,7 @@ public interface SysUserMapper extends BaseMapperX<SysUser> {
    * @param user 用户信息
    * @return 用户信息集合信息
    */
-  List<SysUser> selectUnallocatedList(SysUser user);
+  List<SysUser> selectUnallocatedList(@Param("user") SysUser user, IPage page);
 
   /**
    * 通过用户名查询用户

@@ -93,8 +93,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    */
   @Override
   @DataScope(deptAlias = "d", userAlias = "u")
-  public List<SysUser> selectAllocatedList(SysUser user) {
-    return userMapper.selectAllocatedList(user);
+  public List<SysUser> selectAllocatedList(SysUser user, IPage page) {
+    return userMapper.selectAllocatedList(user, page);
   }
 
   /**
@@ -105,8 +105,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    */
   @Override
   @DataScope(deptAlias = "d", userAlias = "u")
-  public List<SysUser> selectUnallocatedList(SysUser user) {
-    return userMapper.selectUnallocatedList(user);
+  public List<SysUser> selectUnallocatedList(SysUser user, IPage page) {
+    return userMapper.selectUnallocatedList(user, page);
   }
 
   /**

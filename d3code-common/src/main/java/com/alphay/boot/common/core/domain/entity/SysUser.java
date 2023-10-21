@@ -91,6 +91,10 @@ public class SysUser extends BaseEntity {
   @TableField(exist = false)
   private Long[] postIds;
 
+  /** 角色ID */
+  @TableField(exist = false)
+  private Long roleId;
+
   public SysUser() {}
 
   public SysUser(Long userId) {

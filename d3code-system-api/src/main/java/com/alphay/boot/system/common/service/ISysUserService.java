@@ -38,17 +38,19 @@ public interface ISysUserService extends IService<SysUser> {
    * 根据条件分页查询已分配用户角色列表
    *
    * @param user 用户信息
+   * @param page 分页
    * @return 用户信息集合信息
    */
-  List<SysUser> selectAllocatedList(SysUser user);
+  List<SysUser> selectAllocatedList(SysUser user, IPage page);
 
   /**
    * 根据条件分页查询未分配用户角色列表
    *
    * @param user 用户信息
+   * @param page 分页
    * @return 用户信息集合信息
    */
-  List<SysUser> selectUnallocatedList(SysUser user);
+  List<SysUser> selectUnallocatedList(SysUser user, IPage page);
 
   /**
    * 通过用户名查询用户
