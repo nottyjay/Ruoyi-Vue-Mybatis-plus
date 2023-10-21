@@ -348,7 +348,7 @@ export default {
         })
       } else {
         this.$modal.msgError('至少保证有一个引擎正在工作！请直接选择需要启用的引擎，其它引擎将会自动关闭')
-        row.status = row.status === '1' ? '1' : '0'
+        row.status = row.status === '1' ? '0' : '1'
       }
     }
   }
