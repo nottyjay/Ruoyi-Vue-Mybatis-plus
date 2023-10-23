@@ -6,8 +6,9 @@ import com.alphay.boot.attachment.api.exception.BucketException;
 import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.common.config.D3codeConfig;
 import com.alphay.boot.common.utils.JsonUtil;
+import com.alphay.boot.common.utils.RedisUtils;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.common.utils.file.FileUploadUtils;
+import com.alphay.boot.attachment.utils.FileUploadUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 
 @Slf4j
 public class LocalFileStorageEngine implements StorageEngine {
@@ -32,6 +31,7 @@ public class LocalFileStorageEngine implements StorageEngine {
     if (!defaultBucketDirectory.exists()) {
       defaultBucketDirectory.mkdirs();
     }
+    RedisUtils.set("oss_local_domain", this.config.getDomain());
   }
 
   @Override
@@ -79,12 +79,19 @@ public class LocalFileStorageEngine implements StorageEngine {
   }
 
   @Override
+  public String uploadFileSync(File file, String fileName) {
+    return uploadFileSync(file, getDefaultBucket(), fileName);
+  }
+
+  @Override
   public String uploadFileSync(File file, String bucketName, String fileName) {
     if (StringUtils.isEmpty(bucketName)) {
       bucketName = this.config.getBucketName();
     }
     try {
-      File dest = FileUploadUtils.getAbsoluteFile(getBucketFullPath(bucketName), fileName);
+      File dest =
+          com.alphay.boot.common.utils.file.FileUtils.getAbsoluteFile(
+              getBucketFullPath(bucketName), fileName);
       FileUtils.copyFile(file, dest);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -93,12 +100,19 @@ public class LocalFileStorageEngine implements StorageEngine {
   }
 
   @Override
+  public String uploadFileSync(MultipartFile file, String fileName) {
+    return uploadFileSync(file, getDefaultBucket(), fileName);
+  }
+
+  @Override
   public String uploadFileSync(MultipartFile file, String bucketName, String fileName) {
     if (StringUtils.isEmpty(bucketName)) {
       bucketName = this.getDefaultBucket();
     }
     try {
-      File dest = FileUploadUtils.getAbsoluteFile(getBucketFullPath(bucketName), fileName);
+      File dest =
+          com.alphay.boot.common.utils.file.FileUtils.getAbsoluteFile(
+              getBucketFullPath(bucketName), fileName);
       log.debug("file absolute path: {}", dest.getAbsolutePath());
       file.transferTo(Paths.get(dest.getAbsolutePath()));
     } catch (IOException e) {

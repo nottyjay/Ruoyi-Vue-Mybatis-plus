@@ -28,6 +28,16 @@ public class NullStorageEngine implements StorageEngine {
   public void deleteBucket(String bucketName) {}
 
   @Override
+  public String uploadFileSync(File file, String fileName) {
+    return null;
+  }
+
+  @Override
+  public String uploadFileSync(MultipartFile file, String fileName) {
+    return null;
+  }
+
+  @Override
   public String uploadFileSync(File file, String bucketName, String fileName) {
     return null;
   }

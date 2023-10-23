@@ -10,7 +10,6 @@ public interface IAttachmentUploadService {
    * 上传文件，返回文件访问URL
    *
    * @param file 待上传文件
-   * @param fileName 文件名称
    * @return
    */
   String uploadFile(File file);
@@ -28,7 +27,6 @@ public interface IAttachmentUploadService {
    * 上传文件，返回文件访问URL
    *
    * @param file 待上传文件
-   * @param fileName 文件名称
    * @return
    */
   String uploadFile(MultipartFile file);

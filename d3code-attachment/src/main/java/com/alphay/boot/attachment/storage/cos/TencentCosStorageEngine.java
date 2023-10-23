@@ -2,6 +2,7 @@ package com.alphay.boot.attachment.storage.cos;
 
 import com.alphay.boot.attachment.api.bean.TencentCosConfig;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
+import com.alphay.boot.attachment.api.exception.BucketException;
 import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.common.utils.JsonUtil;
 import com.alphay.boot.common.utils.StringUtils;
@@ -64,7 +65,7 @@ public class TencentCosStorageEngine implements StorageEngine {
 
   @Override
   public String getStorageType() {
-    return ossConfig.getOssType();
+    return "COS";
   }
 
   @Override
@@ -77,11 +78,11 @@ public class TencentCosStorageEngine implements StorageEngine {
     CreateBucketRequest createBucketRequest = new CreateBucketRequest(getBucketName(bucketName));
     createBucketRequest.setCannedAcl(CannedAccessControlList.PublicRead);
     try {
-      Bucket bucketResult = client.createBucket(createBucketRequest);
+      client.createBucket(createBucketRequest);
     } catch (CosServiceException serverException) {
-      serverException.printStackTrace();
+      throw new BucketException(serverException.toString());
     } catch (CosClientException clientException) {
-      clientException.printStackTrace();
+      throw new BucketException(clientException.toString());
     }
   }
 
@@ -101,6 +102,11 @@ public class TencentCosStorageEngine implements StorageEngine {
   }
 
   @Override
+  public String uploadFileSync(File file, String fileName) {
+    return uploadFileSync(file, getDefaultBucket(), fileName);
+  }
+
+  @Override
   public String uploadFileSync(File file, String bucketName, String key) {
     if (StringUtils.isEmpty(bucketName)) {
       bucketName = this.getDefaultBucket();
@@ -113,6 +119,11 @@ public class TencentCosStorageEngine implements StorageEngine {
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  @Override
+  public String uploadFileSync(MultipartFile file, String fileName) {
+    return uploadFileSync(file, getDefaultBucket(), fileName);
   }
 
   @Override

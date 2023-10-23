@@ -2,12 +2,7 @@ package com.alphay.boot.attachment.service.impl;
 
 import java.util.List;
 
-import com.alphay.boot.attachment.api.bean.TencentCosConfig;
-import com.alphay.boot.attachment.api.domain.SysOssBucket;
-import com.alphay.boot.attachment.api.enums.StorageType;
-import com.alphay.boot.attachment.api.service.ISysOssBucketService;
 import com.alphay.boot.attachment.storage.StorageEngine;
-import com.alphay.boot.attachment.storage.StorageEngineFactory;
 import com.alphay.boot.attachment.utils.StorageEngineUtil;
 import com.alphay.boot.common.enums.SystemStatusEnum;
 import com.alphay.boot.common.utils.JsonUtil;
@@ -20,8 +15,6 @@ import com.alphay.boot.attachment.mapper.SysOssConfigMapper;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
 import com.alphay.boot.attachment.api.service.ISysOssConfigService;
 
-import javax.annotation.Resource;
-
 /**
  * 存储配置Service业务层处理
  *
@@ -31,8 +24,6 @@ import javax.annotation.Resource;
 @Service
 public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, SysOssConfig>
     implements ISysOssConfigService {
-
-  @Resource private ISysOssBucketService ossBucketService;
 
   /**
    * 查询存储配置列表
@@ -91,8 +82,6 @@ public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, Sy
     // 检查buck是否已经创建
     boolean isExit = storageEngine.exitsBucket(buckname);
     if (!isExit) {
-      ossBucketService.save(
-          SysOssBucket.builder().ossConfigId(config.getId()).bucket(buckname).build());
       storageEngine.createBucket(buckname);
     }
   }

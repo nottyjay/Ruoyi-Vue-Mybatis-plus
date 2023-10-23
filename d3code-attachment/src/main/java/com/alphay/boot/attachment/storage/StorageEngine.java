@@ -1,5 +1,6 @@
 package com.alphay.boot.attachment.storage;
 
+import com.alphay.boot.attachment.api.bean.LocalStorageConfig;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,12 +52,28 @@ public interface StorageEngine {
   void deleteBucket(String bucketName);
 
   /**
+   * 同步上传文件到默认容器中
+   *
+   * @param file
+   * @param fileName
+   */
+  String uploadFileSync(File file, String fileName);
+
+  /**
    * 同步上传文件到容器中
    *
    * @param file
    * @param bucketName
    */
   String uploadFileSync(File file, String bucketName, String fileName);
+
+  /**
+   * 同步上传文件到默认容器中
+   *
+   * @param file
+   * @param fileName
+   */
+  String uploadFileSync(MultipartFile file, String fileName);
 
   /**
    * 同步上传文件到容器中

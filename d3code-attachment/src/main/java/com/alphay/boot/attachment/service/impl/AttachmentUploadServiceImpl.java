@@ -2,12 +2,14 @@ package com.alphay.boot.attachment.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.alphay.boot.attachment.api.bean.LocalStorageConfig;
 import com.alphay.boot.attachment.api.domain.SysAttachment;
 import com.alphay.boot.attachment.api.service.IAttachmentUploadService;
 import com.alphay.boot.attachment.api.service.ISysAttachmentService;
 import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.attachment.utils.StorageEngineUtil;
 import com.alphay.boot.common.utils.DateUtils;
+import com.alphay.boot.common.utils.RedisUtils;
 import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.common.utils.file.MimeTypeUtils;
 import com.alphay.boot.common.utils.uuid.Seq;
@@ -17,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -42,11 +46,18 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   @Override
   public String uploadFile(MultipartFile file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
-    String url = engine.uploadFileSync(file, null, fileName);
+    String url = engine.uploadFileSync(file, fileName);
+    String path = fileName;
+    if (StringUtils.equals("LOCAL", engine.getStorageType())) {
+      path = url;
+      String domains = RedisUtils.get("oss_local_domain");
+      String domain = RandomUtil.randomEle(domains.split(","));
+      url = domain + url;
+    }
     SysAttachment attachment =
         SysAttachment.builder()
             .name(FilenameUtils.getBaseName(file.getOriginalFilename()))
-            .path(fileName)
+            .path(path)
             .url(url)
             .storageType(engine.getStorageType())
             .extension(getExtension(file))
@@ -61,10 +72,17 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   public String uploadFile(File file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
     String url = engine.uploadFileSync(file, null, fileName);
+    String path = fileName;
+    if (StringUtils.equals("LOCAL", engine.getStorageType())) {
+      path = url;
+      String domains = RedisUtils.get("oss_local_domain");
+      String domain = RandomUtil.randomEle(domains.split(","));
+      url = domain + url;
+    }
     SysAttachment attachment =
         SysAttachment.builder()
             .name(FilenameUtils.getBaseName(file.getName()))
-            .path(fileName)
+            .path(path)
             .url(url)
             .storageType(engine.getStorageType())
             .configId(engine.getOssConfigId())
