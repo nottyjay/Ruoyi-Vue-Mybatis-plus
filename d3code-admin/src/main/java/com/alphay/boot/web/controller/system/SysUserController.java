@@ -17,6 +17,7 @@ import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.common.utils.poi.ExcelUtil;
+import com.alphay.boot.system.common.domain.SysUserGroupRelation;
 import com.alphay.boot.system.common.service.ISysDeptService;
 import com.alphay.boot.system.common.service.ISysPostService;
 import com.alphay.boot.system.common.service.ISysRoleService;
@@ -215,7 +216,7 @@ public class SysUserController extends BaseController {
   }
 
   /** 获取部门树列表 */
-  @PreAuthorize("@ss.hasPermi('system:user:list')")
+  @PreAuthorize("@ss.hasPermi('system:dept:list')")
   @GetMapping("/deptTree")
   public AjaxResult deptTree(SysDept dept) {
     return success(deptService.selectDeptTreeList(dept));

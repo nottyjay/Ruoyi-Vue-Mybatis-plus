@@ -15,6 +15,7 @@ import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.utils.bean.BeanValidators;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
+import com.alphay.boot.system.common.domain.SysUserGroupRelation;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.alphay.boot.common.enums.SystemStatusEnum;
@@ -542,5 +543,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
       return Collections.emptyList();
     }
     return userMapper.selectBatchIds(userIds);
+  }
+
+  @Override
+  public List<?> selectUserListByGroupId(Long groupId, IPage page) {
+    return userMapper.selectUserListByGroupId(groupId, page);
+  }
+
+  @Override
+  public int deleteUserInGroup(SysUserGroupRelation userGroupRelation) {
+    return userMapper.deleteUserInGroup(userGroupRelation);
   }
 }

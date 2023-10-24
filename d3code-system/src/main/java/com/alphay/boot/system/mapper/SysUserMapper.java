@@ -5,6 +5,7 @@ import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
+import com.alphay.boot.system.common.domain.SysUserGroupRelation;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Param;
 
@@ -110,4 +111,20 @@ public interface SysUserMapper extends BaseMapperX<SysUser> {
   default List<SysUser> selectListByPostIds(Set<Long> ids) {
     return selectList(SysUser::getPostIds, ids);
   }
+
+  /**
+   * 分页获取分组用户
+   *
+   * @param groupId
+   * @return
+   */
+  List<SysUser> selectUserListByGroupId(@Param("groupId") Long groupId, IPage page);
+
+  /**
+   * 删除组内用户
+   *
+   * @param userGroupRelation
+   * @return
+   */
+  int deleteUserInGroup(SysUserGroupRelation userGroupRelation);
 }

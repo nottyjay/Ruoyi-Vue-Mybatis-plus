@@ -5,14 +5,14 @@ import cn.hutool.core.util.StrUtil;
 import com.alphay.boot.bpm.DictTypeConstants;
 import com.alphay.boot.bpm.convert.BpmTaskAssignRuleConvert;
 import com.alphay.boot.bpm.domain.BpmTaskAssignRule;
-import com.alphay.boot.bpm.domain.BpmUserGroup;
+import com.alphay.boot.system.common.domain.SysUserGroup;
 import com.alphay.boot.bpm.enums.BpmTaskAssignRuleTypeEnum;
 import com.alphay.boot.bpm.framework.core.script.BpmTaskAssignScript;
 import com.alphay.boot.bpm.mapper.BpmTaskAssignRuleMapper;
 import com.alphay.boot.bpm.service.IBpmModelService;
 import com.alphay.boot.bpm.service.IBpmProcessDefinitionService;
 import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
-import com.alphay.boot.bpm.service.IBpmUserGroupService;
+import com.alphay.boot.system.common.service.ISysUserGroupService;
 import com.alphay.boot.bpm.utils.FlowableUtil;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
@@ -51,7 +51,7 @@ public class BpmTaskAssignRuleServiceImpl implements IBpmTaskAssignRuleService {
 
   @Resource private BpmTaskAssignRuleMapper taskAssignRuleMapper;
   @Resource @Lazy private IBpmModelService modelService;
-  @Resource private IBpmUserGroupService userGroupService;
+  @Resource private ISysUserGroupService userGroupService;
   @Resource private RoleApi roleApi;
   @Resource private DeptApi deptApi;
   @Resource private PostApi postApi;
@@ -284,7 +284,7 @@ public class BpmTaskAssignRuleServiceImpl implements IBpmTaskAssignRuleService {
   }
 
   private Set<Long> calculateTaskCandidateUsersByUserGroup(BpmTaskAssignRule rule) {
-    List<BpmUserGroup> userGroups = userGroupService.getUserGroupList(rule.getOptions());
+    List<SysUserGroup> userGroups = userGroupService.getUserGroupList(rule.getOptions());
     Set<Long> userIds = new HashSet<>();
     userGroups.forEach(group -> userIds.addAll(group.getMemberUserIds()));
     return userIds;

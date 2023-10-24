@@ -1,5 +1,6 @@
-package com.alphay.boot.bpm.domain;
+package com.alphay.boot.system.common.domain;
 
+import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 /** 用户分组 */
@@ -19,17 +21,25 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName(autoResultMap = true)
-public class BpmUserGroup extends BaseEntity {
+public class SysUserGroup extends BaseEntity {
 
   @TableId(type = IdType.AUTO)
   private Long id;
+
   /** 组名 */
   private String name;
+
   /** 描述 */
   private String description;
+
   /** 状态 */
-  private Integer status;
+  private String status;
+
   /** 成员用户编号数组 */
-  @TableField(typeHandler = JsonLongSetTypeHandler.class)
+  @TableField(exist = false)
   private Set<Long> memberUserIds;
+
+  /** 成员用户 */
+  @TableField(exist = false)
+  private List<SysUser> users;
 }

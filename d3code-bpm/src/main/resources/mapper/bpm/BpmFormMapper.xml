@@ -37,9 +37,9 @@
     <select id="selectBpmFormList" parameterType="BpmForm" resultMap="BpmFormResult">
         <include refid="selectBpmFormVo"/>
         <where>
-            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
+            <if test="form.name != null and form.name != ''">and name like concat('%', #{form.name}, '%')</if>
             <choose>
-                <when test="deleted != null">and deleted = #{deleted}</when>
+                <when test="form.deleted != null">and deleted = #{form.deleted}</when>
                 <otherwise>and deleted = 0</otherwise>
             </choose>
         </where>

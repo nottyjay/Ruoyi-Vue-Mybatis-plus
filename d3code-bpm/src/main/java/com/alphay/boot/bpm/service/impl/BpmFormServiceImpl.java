@@ -7,6 +7,7 @@ import com.alphay.boot.bpm.domain.BpmForm;
 import com.alphay.boot.bpm.mapper.BpmFormMapper;
 import com.alphay.boot.bpm.service.IBpmFormService;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +28,8 @@ public class BpmFormServiceImpl extends ServiceImpl<BpmFormMapper, BpmForm>
    * @return 业务流表单
    */
   @Override
-  public List<BpmForm> selectBpmFormList(BpmForm bpmForm) {
-    return baseMapper.selectBpmFormList(bpmForm);
+  public List<BpmForm> selectBpmFormList(BpmForm bpmForm, IPage page) {
+    return baseMapper.selectBpmFormList(bpmForm, page);
   }
 
   @Override

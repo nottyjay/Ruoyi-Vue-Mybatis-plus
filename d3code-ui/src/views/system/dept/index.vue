@@ -60,6 +60,11 @@
     >
       <el-table-column prop="deptName" label="部门名称" width="260"></el-table-column>
       <el-table-column prop="orderNum" label="排序" width="200"></el-table-column>
+      <el-table-column label="部门负责人" width="200">
+        <template v-slot="scope">
+          {{ scope.row.leader == null ? '暂无负责人' : scope.row.leader.nickName }}
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
@@ -112,8 +117,6 @@
               />
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="12">
             <el-form-item label="部门名称" prop="deptName">
               <el-input v-model="form.deptName" placeholder="请输入部门名称"/>
@@ -124,8 +127,6 @@
               <el-input-number v-model="form.orderNum" controls-position="right" :min="0"/>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-row>
           <el-col :span="12">
             <el-form-item label="负责人" prop="leader">
               <el-select v-model="form.leaderUserId" placeholder="请输入负责人" clearable style="width: 100%"
@@ -136,18 +137,6 @@
                 />
               </el-select>
               <span v-else>该部门下暂无人员</span>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="联系电话" prop="phone">
-              <el-input v-model="form.phone" placeholder="请输入联系电话" maxlength="11"/>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="form.email" placeholder="请输入邮箱" maxlength="50"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">

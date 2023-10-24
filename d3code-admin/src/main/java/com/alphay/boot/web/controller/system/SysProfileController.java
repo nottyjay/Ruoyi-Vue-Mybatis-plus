@@ -10,7 +10,7 @@ import com.alphay.boot.common.core.domain.model.LoginUser;
 import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.SecurityUtils;
 import com.alphay.boot.common.utils.StringUtils;
-import com.alphay.boot.common.utils.file.FileUploadUtils;
+import com.alphay.boot.attachment.utils.FileUploadUtils;
 import com.alphay.boot.common.utils.file.MimeTypeUtils;
 import com.alphay.boot.security.service.TokenService;
 import com.alphay.boot.system.common.service.ISysUserService;

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 创建用户组
 export function createUserGroup(data) {
   return request({
-    url: '/bpm/user-group/create',
+    url: '/system/user-group/create',
     method: 'post',
     data: data
   })
@@ -12,7 +12,7 @@ export function createUserGroup(data) {
 // 更新用户组
 export function updateUserGroup(data) {
   return request({
-    url: '/bpm/user-group/update',
+    url: '/system/user-group/update',
     method: 'put',
     data: data
   })
@@ -21,7 +21,7 @@ export function updateUserGroup(data) {
 // 删除用户组
 export function deleteUserGroup(id) {
   return request({
-    url: `/bpm/user-group/delete/${id}`,
+    url: `/system/user-group/delete/${id}`,
     method: 'delete'
   })
 }
@@ -29,7 +29,7 @@ export function deleteUserGroup(id) {
 // 获得用户组
 export function getUserGroup(id) {
   return request({
-    url: `/bpm/user-group/${id}`,
+    url: `/system/user-group/${id}`,
     method: 'get'
   })
 }
@@ -37,8 +37,28 @@ export function getUserGroup(id) {
 // 获取用户组列表
 export function listUserGroup(params) {
   return request({
-    url: '/bpm/user-group/list',
+    url: '/system/user-group/list',
     method: 'get',
     params
+  })
+}
+
+export function changeUserGroupStatus(id, status) {
+
+}
+
+export function deleteUserInGroup(data) {
+  return request({
+    url: '/system/user-group/deleteUserInGroup',
+    method: 'delete',
+    data
+  })
+}
+
+export function listUserByGroup(query) {
+  return request({
+    url: '/system/user-group/listInGroup',
+    method: 'get',
+    params: query
   })
 }

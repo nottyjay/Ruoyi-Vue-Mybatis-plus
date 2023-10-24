@@ -81,27 +81,19 @@ public interface SysDeptMapper extends BaseMapperX<SysDept> {
       @Param("deptName") String deptName, @Param("parentId") Long parentId);
 
   /**
-   * 新增部门信息
-   *
-   * @param dept 部门信息
-   * @return 结果
-   */
-  public int insertDept(SysDept dept);
-
-  /**
-   * 修改部门信息
-   *
-   * @param dept 部门信息
-   * @return 结果
-   */
-  public int updateDept(SysDept dept);
-
-  /**
    * 修改所在部门正常状态
    *
    * @param deptIds 部门ID组
    */
   public void updateDeptStatusNormal(Long[] deptIds);
+
+  /**
+   * 更新部门
+   *
+   * @param dept
+   * @return
+   */
+  int updateDept(SysDept dept);
 
   /**
    * 修改子元素关系
@@ -110,12 +102,4 @@ public interface SysDeptMapper extends BaseMapperX<SysDept> {
    * @return 结果
    */
   public int updateDeptChildren(@Param("depts") List<SysDept> depts);
-
-  /**
-   * 删除部门管理信息
-   *
-   * @param deptId 部门ID
-   * @return 结果
-   */
-  public int deleteDeptById(Long deptId);
 }

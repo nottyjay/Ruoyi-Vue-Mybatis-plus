@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.alphay.boot.bpm.domain.BpmForm;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
@@ -24,7 +25,7 @@ public interface IBpmFormService extends IService<BpmForm> {
    * @param bpmForm 业务流表单
    * @return 业务流表单集合
    */
-  List<BpmForm> selectBpmFormList(BpmForm bpmForm);
+  List<BpmForm> selectBpmFormList(BpmForm bpmForm, IPage page);
 
   /**
    * 获得动态表单列表

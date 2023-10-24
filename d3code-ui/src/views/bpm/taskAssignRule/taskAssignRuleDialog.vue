@@ -104,7 +104,7 @@ import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import { listPost } from '@/api/system/post'
 import { listUser } from '@/api/system/user'
-import { listUserGroup } from '@/api/bpm/userGroup'
+import { listUserGroup } from '@/api/system/userGroup'
 
 export default {
   name: 'taskAssignRuleDialog',

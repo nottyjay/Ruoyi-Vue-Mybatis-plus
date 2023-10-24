@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.core.domain.vo.SimpleUserVo;
+import com.alphay.boot.system.common.domain.SysUserGroupRelation;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -244,4 +245,20 @@ public interface ISysUserService extends IService<SysUser> {
    * @return
    */
   List<SimpleUserVo> selectSimpleAllUserList(SysUser user);
+
+  /**
+   * 分页获取分组用户
+   *
+   * @param groupId
+   * @return
+   */
+  List<?> selectUserListByGroupId(Long groupId, IPage page);
+
+  /**
+   * 删除组内用户
+   *
+   * @param userGroupRelation
+   * @return
+   */
+  int deleteUserInGroup(SysUserGroupRelation userGroupRelation);
 }

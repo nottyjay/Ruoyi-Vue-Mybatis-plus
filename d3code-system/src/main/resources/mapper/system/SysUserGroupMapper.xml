@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alphay.boot.system.mapper.SysUserGroupMapper">
+
+    <resultMap type="SysUserGroup" id="SysUserGroupResult">
+        <id property="id" column="id"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <collection property="memberUserIds" ofType="Long" javaType="java.util.HashSet">
+            <result column="user_id"/>
+        </collection>
+        <collection property="users" javaType="java.util.List" ofType="SysUser">
+            <result property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+            <result property="nickName" column="nick_name"/>
+            <result property="email" column="email"/>
+            <result property="phonenumber" column="phonenumber"/>
+            <result property="status" column="user_status"/>
+            <result property="createTime" column="user_create_time"/>
+        </collection>
+    </resultMap>
+
+    <sql id="selectUserGroupVo">
+        select id,
+               create_by,
+               create_time,
+               update_time,
+               update_by,
+               deleted,
+               name,
+               description,
+               status,
+               remark
+        from sys_user_group
+    </sql>
+
+    <select id="selectFullUserGroupInfoById" resultMap="SysUserGroupResult">
+        select sug.id,
+               sug.create_by,
+               sug.create_time,
+               sug.update_time,
+               sug.update_by,
+               sug.deleted,
+               sug.name,
+               sug.description,
+               sug.status,
+               sug.remark,
+               su.user_id
+        from sys_user_group sug
+                 left join sys_user_group_relation sugr on sug.id = sugr.group_id
+                 left join sys_user su on su.user_id = sugr.user_id
+        where sug.id = #{id}
+        order by sug.create_time desc
+    </select>
+</mapper>

@@ -39,15 +39,14 @@ public class BpmFormController extends BaseController {
   @PreAuthorize("@ss.hasPermi('bpm:bpmForm:list')")
   @GetMapping("/list")
   public TableDataInfo list(BpmForm bpmForm) {
-    startPage();
-    List<BpmForm> list = bpmFormService.selectBpmFormList(bpmForm);
+    List<BpmForm> list = bpmFormService.selectBpmFormList(bpmForm, startPage());
     return getDataTable(list);
   }
 
   @GetMapping("/list-all-simple")
   @PreAuthorize("@ss.hasPermi('bpm:bpmForm:list')")
   public AjaxResult getSimpleForms() {
-    List<BpmForm> list = bpmFormService.selectBpmFormList(new BpmForm());
+    List<BpmForm> list = bpmFormService.selectBpmFormList(new BpmForm(), null);
     return success(BpmFormConvert.INSTANCE.convertList2(list));
   }
 
@@ -56,7 +55,7 @@ public class BpmFormController extends BaseController {
   @Log(title = "业务流表单", businessType = BusinessType.EXPORT)
   @PostMapping("/export")
   public void export(HttpServletResponse response, BpmForm bpmForm) {
-    List<BpmForm> list = bpmFormService.selectBpmFormList(bpmForm);
+    List<BpmForm> list = bpmFormService.selectBpmFormList(bpmForm, null);
     ExcelUtil<BpmForm> util = new ExcelUtil<BpmForm>(BpmForm.class);
     util.exportExcel(response, list, "业务流表单数据");
   }
