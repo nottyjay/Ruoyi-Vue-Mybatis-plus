@@ -73,7 +73,7 @@
             size="mini"
             icon="el-icon-cloudy"
             plain
-            @click="goTarget('https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus')"
+            @click="goTarget('https://gitee.com/anhui-infomation/d3code')"
           >访问码云
           </el-button
           >

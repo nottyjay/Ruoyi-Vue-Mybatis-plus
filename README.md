@@ -3,15 +3,15 @@
 ![维护不易，可以请维护者喝杯咖啡？](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-76eddc9e-0b4f-4996-8d0c-8018690010d4/b714caae-1a2b-4e74-a2bf-94596c52c5e3.png)
 
 <p align="center">
-	<img alt="logo" src="https://default-1319610221.cos.ap-shanghai.myqcloud.com/logo.png">
+	<img alt="logo" src="https://default-1319610221.cos.ap-shanghai.myqcloud.com/logo.png" width="200" height="200">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">D3Code v1.0.2</h1>
 <h4 align="center">基于[Ruoyi-Vue]拓展的Java快速开发框架</h4>
 <p align="center">
-	<a href="https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus/stargazers">
-      <img src="https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus/badge/star.svg?theme=dark">
+	<a href="https://gitee.com/anhui-infomation/d3code/stargazers">
+      <img src="https://gitee.com/anhui-infomation/d3code/badge/star.svg?theme=dark">
     </a>
-	<a href="https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus">
+	<a href="https://gitee.com/anhui-infomation/d3code">
       <img src="https://img.shields.io/badge/D3Code-v1.0.2-brightgreen.svg">
     </a>
 	<a href="https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus/blob/master/LICENSE">
@@ -92,10 +92,10 @@ D3Code是基于Ruoyi-Vue拓展开发而来的框架，同Ruoyi一样是一套全
     </tr>
     <tr>
         <td><img src="https://oscimg.oschina.net/oscnet/b6115bc8c31de52951982e509930b20684a.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
+        <td></td>
     </tr>
 </table>
 
-## 若依前后端分离交流群
+## D3Code框架交流群
 
 QQ群： [![加入QQ群](https://img.shields.io/badge/908022562-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Un7P_Y90f6yvfX6nvsJZSnGrpuRXntUn&authKey=bRrsqhOQZ4Zed2NoT0mTNh%2FYucjHJODwc7DqIIn5MwjYwM54afy0x33NSxbYJgfD&noverify=0&group_code=908022562)
