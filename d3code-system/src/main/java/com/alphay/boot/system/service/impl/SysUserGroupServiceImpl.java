@@ -79,11 +79,6 @@ public class SysUserGroupServiceImpl extends ServiceImpl<SysUserGroupMapper, Sys
   }
 
   @Override
-  public int updateRelation(SysUserGroup userGroup, List<Long> userIds) {
-    return 0;
-  }
-
-  @Override
   public boolean save(SysUserGroup entity) {
     boolean result = super.save(entity);
     if (result) {
@@ -115,6 +110,16 @@ public class SysUserGroupServiceImpl extends ServiceImpl<SysUserGroupMapper, Sys
               .eq(SysUserGroupRelation::getGroupId, entity.getId()));
     }
     return result;
+  }
+
+  @Override
+  public List<SysUserGroup> selectAllocatedUserGroupList(SysUserGroup userGroup, IPage page) {
+    return baseMapper.selectAllocatedUserGroupList(userGroup, page);
+  }
+
+  @Override
+  public List<SysUserGroup> selectUnallocatedUserGroupList(SysUserGroup userGroup, IPage page) {
+    return baseMapper.selectUnallocatedUserGroupList(userGroup, page);
   }
 
   private void batchInsertRelation(SysUserGroup userGroup) {

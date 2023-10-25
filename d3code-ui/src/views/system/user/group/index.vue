@@ -275,7 +275,6 @@ export default {
       rules: {
         name: [{ required: true, message: '组名不能为空', trigger: 'blur' }],
         description: [{ required: true, message: '描述不能为空', trigger: 'blur' }],
-        memberUserIds: [{ required: true, message: '成员不能为空', trigger: 'change' }],
         status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
       },
       groupQueryParams: {

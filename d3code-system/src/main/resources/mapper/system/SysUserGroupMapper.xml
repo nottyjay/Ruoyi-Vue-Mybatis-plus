@@ -60,4 +60,48 @@
         where sug.id = #{id}
         order by sug.create_time desc
     </select>
+
+    <select id="selectAllocatedUserGroupList" parameterType="SysUserGroup" resultMap="SysUserGroupResult">
+        select sug.id,
+        sug.create_by,
+        sug.create_time,
+        sug.update_time,
+        sug.update_by,
+        sug.deleted,
+        sug.name,
+        sug.description,
+        sug.status,
+        sug.remark,
+        null as user_id
+        from sys_user_group sug
+        left join sys_group_role sgr on sgr.group_id = sug.id
+        left join sys_role r on r.role_id = sgr.role_id
+        where sug.deleted = 0
+        and r.role_id = #{group.roleId}
+        <if test="group.name != null and group.name.trim() != ''">and sug.name like concat('%', #{group.name}, '%')</if>
+
+    </select>
+
+    <select id="selectUnallocatedUserGroupList" parameterType="SysUserGroup" resultMap="SysUserGroupResult">
+        select sug.id,
+        sug.create_by,
+        sug.create_time,
+        sug.update_time,
+        sug.update_by,
+        sug.deleted,
+        sug.name,
+        sug.description,
+        sug.status,
+        sug.remark,
+        null as user_id
+        from sys_user_group sug
+        left join sys_group_role sgr on sgr.group_id = sug.id
+        left join sys_role r on r.role_id = sgr.role_id
+        where sug.deleted = 0
+        and (r.role_id != #{group.roleId} or r.role_id IS NULL)
+        and sug.id not in (select sug.id from sys_user_group sug inner join sys_group_role ur on sug.id = ur.group_id
+        and
+        ur.role_id = #{group.roleId})
+        <if test="group.name != null and group.name.trim() != ''">and sug.name like concat('%', #{group.name}, '%')</if>
+    </select>
 </mapper>

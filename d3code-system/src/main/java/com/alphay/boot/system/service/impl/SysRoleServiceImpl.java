@@ -12,6 +12,8 @@ import com.alphay.boot.common.mybatis.service.ServiceImplX;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.utils.spring.SpringUtils;
 import com.alphay.boot.common.enums.SystemStatusEnum;
+import com.alphay.boot.system.common.domain.SysUserGroupRole;
+import com.alphay.boot.system.mapper.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,6 @@ import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.system.common.domain.SysRoleDept;
 import com.alphay.boot.system.common.domain.SysRoleMenu;
 import com.alphay.boot.system.common.domain.SysUserRole;
-import com.alphay.boot.system.mapper.SysRoleDeptMapper;
-import com.alphay.boot.system.mapper.SysRoleMapper;
-import com.alphay.boot.system.mapper.SysRoleMenuMapper;
-import com.alphay.boot.system.mapper.SysUserRoleMapper;
 import com.alphay.boot.system.common.service.ISysRoleService;
 
 /**
@@ -41,6 +39,8 @@ public class SysRoleServiceImpl extends ServiceImplX<SysRoleMapper, SysRole>
   @Autowired private SysUserRoleMapper userRoleMapper;
 
   @Autowired private SysRoleDeptMapper roleDeptMapper;
+
+  @Autowired private SysUserGroupRoleMapper userGroupRoleMapper;
 
   /**
    * 根据条件分页查询角色数据
@@ -387,6 +387,19 @@ public class SysRoleServiceImpl extends ServiceImplX<SysRoleMapper, SysRole>
   }
 
   @Override
+  public int insertAuthUserGroups(Long roleId, Long[] userGroupIds) {
+    // 新增用户与角色管理
+    List<SysUserGroupRole> list = new ArrayList<SysUserGroupRole>();
+    for (Long groupId : userGroupIds) {
+      SysUserGroupRole ur = new SysUserGroupRole();
+      ur.setGroupId(groupId);
+      ur.setRoleId(roleId);
+      list.add(ur);
+    }
+    return userGroupRoleMapper.batchUserGroupRole(list);
+  }
+
+  @Override
   public void validateRoleList(Collection<Long> ids) {
     if (CollUtil.isEmpty(ids)) {
       return;
@@ -410,5 +423,15 @@ public class SysRoleServiceImpl extends ServiceImplX<SysRoleMapper, SysRole>
   @Override
   public List<SysUserRole> selectUserRoleListByRoleIds(Collection<Long> ids) {
     return userRoleMapper.selectUserRoleListByRoleIds(ids);
+  }
+
+  @Override
+  public int deleteAuthUserGroup(SysUserGroupRole groupRole) {
+    return userGroupRoleMapper.deleteUserGroupRoleInfo(groupRole);
+  }
+
+  @Override
+  public int deleteAuthUserGroups(Long roleId, Long[] userGroupIds) {
+    return userGroupRoleMapper.deleteUserGroupRoleInfos(roleId, userGroupIds);
   }
 }

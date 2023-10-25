@@ -74,6 +74,24 @@ export function allocatedUserList(query) {
   })
 }
 
+// 查询角色已授权用户组列表
+export function allocatedUserGroupList(query) {
+  return request({
+    url: '/system/role/authUserGroup/allocatedList',
+    method: 'get',
+    params: query
+  })
+}
+
+// 查询角色未授权用户列表
+export function unallocatedUserGroupList(query) {
+  return request({
+    url: '/system/role/authUserGroup/unallocatedList',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询角色未授权用户列表
 export function unallocatedUserList(query) {
   return request({
@@ -92,6 +110,15 @@ export function authUserCancel(data) {
   })
 }
 
+// 取消用户授权角色
+export function authUserGroupCancel(data) {
+  return request({
+    url: '/system/role/authUserGroup/cancel',
+    method: 'put',
+    data: data
+  })
+}
+
 // 批量取消用户授权角色
 export function authUserCancelAll(data) {
   return request({
@@ -101,10 +128,28 @@ export function authUserCancelAll(data) {
   })
 }
 
+// 批量取消用户授权角色
+export function authUserGroupCancelAll(data) {
+  return request({
+    url: '/system/role/authUserGroup/cancelAll',
+    method: 'put',
+    params: data
+  })
+}
+
 // 授权用户选择
 export function authUserSelectAll(data) {
   return request({
     url: '/system/role/authUser/selectAll',
+    method: 'put',
+    params: data
+  })
+}
+
+// 授权用户组选择
+export function authUserGroupSelectAll(data) {
+  return request({
+    url: '/system/role/authUserGroup/selectAll',
     method: 'put',
     params: data
   })

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.alphay.boot.common.core.domain.entity.SysRole;
+import com.alphay.boot.system.common.domain.SysUserGroupRole;
 import com.alphay.boot.system.common.domain.SysUserRole;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -164,7 +165,7 @@ public interface ISysRoleService extends IService<SysRole> {
    * 批量选择授权用户角色
    *
    * @param roleId 角色ID
-   * @param userIds 需要删除的用户数据ID
+   * @param userIds 需要添加的用户数据ID
    * @return 结果
    */
   public int insertAuthUsers(Long roleId, Long[] userIds);
@@ -183,4 +184,30 @@ public interface ISysRoleService extends IService<SysRole> {
    * @return
    */
   List<SysUserRole> selectUserRoleListByRoleIds(Collection<Long> ids);
+
+  /**
+   * 批量选择授权用户组角色
+   *
+   * @param roleId 角色ID
+   * @param userGroupIds 需要添加的用户数据ID
+   * @return 结果
+   */
+  int insertAuthUserGroups(Long roleId, Long[] userGroupIds);
+
+  /**
+   * 取消授权用户角色
+   *
+   * @param groupRole 需要取消授权的用户组关系
+   * @return 结果
+   */
+  int deleteAuthUserGroup(SysUserGroupRole groupRole);
+
+  /**
+   * 批量取消授权用户角色
+   *
+   * @param roleId 角色ID
+   * @param userGroupIds 需要取消授权的用户组ID
+   * @return 结果
+   */
+  int deleteAuthUserGroups(Long roleId, Long[] userGroupIds);
 }

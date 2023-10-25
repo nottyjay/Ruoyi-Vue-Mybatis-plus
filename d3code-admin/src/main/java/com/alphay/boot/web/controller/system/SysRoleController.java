@@ -16,9 +16,12 @@ import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.common.utils.poi.ExcelUtil;
 import com.alphay.boot.security.service.TokenService;
+import com.alphay.boot.system.common.domain.SysUserGroup;
+import com.alphay.boot.system.common.domain.SysUserGroupRole;
 import com.alphay.boot.system.common.domain.SysUserRole;
 import com.alphay.boot.system.common.service.ISysDeptService;
 import com.alphay.boot.system.common.service.ISysRoleService;
+import com.alphay.boot.system.common.service.ISysUserGroupService;
 import com.alphay.boot.system.common.service.ISysUserService;
 import com.alphay.boot.web.service.SysPermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +51,8 @@ public class SysRoleController extends BaseController {
   @Autowired private SysPermissionService permissionService;
 
   @Autowired private ISysUserService userService;
+
+  @Autowired private ISysUserGroupService userGroupService;
 
   @Autowired private ISysDeptService deptService;
 
@@ -160,6 +165,23 @@ public class SysRoleController extends BaseController {
     return getDataTable(list);
   }
 
+  /** 查询已分配用户角色列表 */
+  @PreAuthorize("@ss.hasPermi('system:role:list')")
+  @GetMapping("/authUserGroup/allocatedList")
+  public TableDataInfo allocatedUserGroupList(SysUserGroup userGroup) {
+    List<SysUserGroup> list = userGroupService.selectAllocatedUserGroupList(userGroup, startPage());
+    return getDataTable(list);
+  }
+
+  /** 查询未分配用户组角色列表 */
+  @PreAuthorize("@ss.hasPermi('system:role:list')")
+  @GetMapping("/authUserGroup/unallocatedList")
+  public TableDataInfo unallocatedUserGroupList(SysUserGroup userGroup) {
+    List<SysUserGroup> list =
+        userGroupService.selectUnallocatedUserGroupList(userGroup, startPage());
+    return getDataTable(list);
+  }
+
   /** 查询未分配用户角色列表 */
   @PreAuthorize("@ss.hasPermi('system:role:list')")
   @GetMapping("/authUser/unallocatedList")
@@ -174,6 +196,22 @@ public class SysRoleController extends BaseController {
   @PutMapping("/authUser/cancel")
   public AjaxResult cancelAuthUser(@RequestBody SysUserRole userRole) {
     return toAjax(roleService.deleteAuthUser(userRole));
+  }
+
+  /** 批量取消授权用户组 */
+  @PreAuthorize("@ss.hasPermi('system:role:edit')")
+  @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  @PutMapping("/authUserGroup/cancelAll")
+  public AjaxResult cancelAuthUserGroupAll(Long roleId, Long[] userGroupIds) {
+    return toAjax(roleService.deleteAuthUserGroups(roleId, userGroupIds));
+  }
+
+  /** 取消授权用户组 */
+  @PreAuthorize("@ss.hasPermi('system:role:edit')")
+  @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  @PutMapping("/authUserGroup/cancel")
+  public AjaxResult cancelAuthUserGroup(@RequestBody SysUserGroupRole groupRole) {
+    return toAjax(roleService.deleteAuthUserGroup(groupRole));
   }
 
   /** 批量取消授权用户 */
@@ -191,6 +229,15 @@ public class SysRoleController extends BaseController {
   public AjaxResult selectAuthUserAll(Long roleId, Long[] userIds) {
     roleService.checkRoleDataScope(roleId);
     return toAjax(roleService.insertAuthUsers(roleId, userIds));
+  }
+
+  /** 批量选择用户组授权 */
+  @PreAuthorize("@ss.hasPermi('system:role:edit')")
+  @Log(title = "角色管理", businessType = BusinessType.GRANT)
+  @PutMapping("/authUserGroup/selectAll")
+  public AjaxResult selectAuthUserGroupAll(Long roleId, Long[] userGroupIds) {
+    roleService.checkRoleDataScope(roleId);
+    return toAjax(roleService.insertAuthUserGroups(roleId, userGroupIds));
   }
 
   /** 获取对应角色部门树列表 */

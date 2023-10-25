@@ -42,4 +42,8 @@ public class SysUserGroup extends BaseEntity {
   /** 成员用户 */
   @TableField(exist = false)
   private List<SysUser> users;
+
+  /** 角色编号 */
+  @TableField(exist = false)
+  private Long roleId;
 }

@@ -25,4 +25,24 @@ public interface SysUserGroupMapper extends BaseMapperX<SysUserGroup> {
   }
 
   SysUserGroup selectFullUserGroupInfoById(Long id);
+
+  /**
+   * 获取授权的用户组
+   *
+   * @param userGroup
+   * @param page
+   * @return
+   */
+  List<SysUserGroup> selectAllocatedUserGroupList(
+      @Param("group") SysUserGroup userGroup, IPage page);
+
+  /**
+   * 获取尚未授权的用户组
+   *
+   * @param userGroup
+   * @param page
+   * @return
+   */
+  List<SysUserGroup> selectUnallocatedUserGroupList(
+      @Param("group") SysUserGroup userGroup, IPage page);
 }

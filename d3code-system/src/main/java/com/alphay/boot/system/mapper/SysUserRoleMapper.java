@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
+import com.alphay.boot.system.common.domain.SysUserGroupRole;
 import org.apache.ibatis.annotations.Param;
 import com.alphay.boot.system.common.domain.SysUserRole;
 

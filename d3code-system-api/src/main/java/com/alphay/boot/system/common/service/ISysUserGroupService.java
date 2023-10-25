@@ -46,11 +46,20 @@ public interface ISysUserGroupService extends IService<SysUserGroup> {
   boolean updateUserGroupStatus(SysUserGroup userGroup);
 
   /**
-   * 更新组成员
+   * 获取授权的用户组
    *
    * @param userGroup
-   * @param userIds
+   * @param page
    * @return
    */
-  int updateRelation(SysUserGroup userGroup, List<Long> userIds);
+  List<SysUserGroup> selectAllocatedUserGroupList(SysUserGroup userGroup, IPage page);
+
+  /**
+   * 获取尚未授权的用户组
+   *
+   * @param userGroup
+   * @param page
+   * @return
+   */
+  List<SysUserGroup> selectUnallocatedUserGroupList(SysUserGroup userGroup, IPage page);
 }

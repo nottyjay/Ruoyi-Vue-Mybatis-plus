@@ -1,19 +1,10 @@
 <template>
   <div class="app-container">
-     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch">
-      <el-form-item label="用户名称" prop="userName">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch">
+      <el-form-item label="用户组名称" prop="name">
         <el-input
-          v-model="queryParams.userName"
-          placeholder="请输入用户名称"
-          clearable
-          style="width: 240px"
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="手机号码" prop="phonenumber">
-        <el-input
-          v-model="queryParams.phonenumber"
-          placeholder="请输入手机号码"
+          v-model="queryParams.name"
+          placeholder="请输入用户组名称"
           clearable
           style="width: 240px"
           @keyup.enter.native="handleQuery"
@@ -32,9 +23,10 @@
           plain
           icon="el-icon-plus"
           size="mini"
-          @click="openSelectUser"
-          v-hasPermi="['system:role:add']"
-        >添加用户</el-button>
+          @click="openSelectUserGroup"
+          v-hasPermi="['system:role:edit']"
+        >添加用户组
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -43,9 +35,10 @@
           icon="el-icon-circle-close"
           size="mini"
           :disabled="multiple"
-          @click="cancelAuthUserAll"
-          v-hasPermi="['system:role:remove']"
-        >批量取消授权</el-button>
+          @click="cancelAuthUserGroupAll"
+          v-hasPermi="['system:role:edit']"
+        >批量取消授权
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -54,20 +47,24 @@
           icon="el-icon-close"
           size="mini"
           @click="handleClose"
-        >关闭</el-button>
+        >关闭
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户名称" prop="userName" :show-overflow-tooltip="true" />
-      <el-table-column label="用户昵称" prop="nickName" :show-overflow-tooltip="true" />
-      <el-table-column label="邮箱" prop="email" :show-overflow-tooltip="true" />
-      <el-table-column label="手机" prop="phonenumber" :show-overflow-tooltip="true" />
-      <el-table-column label="状态" align="center" prop="status">
+    <el-table v-loading="loading" :data="userGroupList" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="用户组名称" prop="name" :show-overflow-tooltip="true"/>
+      <el-table-column label="描述" prop="description" :show-overflow-tooltip="true"/>
+      <el-table-column label="状态" prop="status" :show-overflow-tooltip="true">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="组成员数" :show-overflow-tooltip="true">
+        <template slot-scope="scope">
+          {{ scope.row.memberUserIds != null ? scope.row.memberUserIds.length : 0 }}
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -81,9 +78,10 @@
             size="mini"
             type="text"
             icon="el-icon-circle-close"
-            @click="cancelAuthUser(scope.row)"
+            @click="cancelAuthUserGroup(scope.row)"
             v-hasPermi="['system:role:remove']"
-          >取消授权</el-button>
+          >取消授权
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -95,24 +93,24 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
-    <select-user ref="select" :roleId="queryParams.roleId" @ok="handleQuery" />
+    <select-user-group ref="select" :roleId="queryParams.roleId" @ok="handleQuery"/>
   </div>
 </template>
 
 <script>
-import { allocatedUserList, authUserCancel, authUserCancelAll } from "@/api/system/role";
-import selectUser from "./selectUser";
+import { allocatedUserGroupList, authUserGroupCancel, authUserGroupCancelAll } from '@/api/system/role'
+import selectUserGroup from './selectUserGroup'
 
 export default {
-  name: "AuthUser",
+  name: 'AuthUser',
   dicts: ['sys_normal_disable'],
-  components: { selectUser },
+  components: { selectUserGroup },
   data() {
     return {
       // 遮罩层
       loading: true,
       // 选中用户组
-      userIds: [],
+      userGroupIds: [],
       // 非多个禁用
       multiple: true,
       // 显示搜索条件
@@ -120,80 +118,81 @@ export default {
       // 总条数
       total: 0,
       // 用户表格数据
-      userList: [],
+      userGroupList: [],
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         roleId: undefined,
-        userName: undefined,
-        phonenumber: undefined
+        name: undefined
       }
-    };
+    }
   },
   created() {
-    const roleId = this.$route.params && this.$route.params.roleId;
+    const roleId = this.$route.params && this.$route.params.roleId
     if (roleId) {
-      this.queryParams.roleId = roleId;
-      this.getList();
+      this.queryParams.roleId = roleId
+      this.getList()
     }
   },
   methods: {
     /** 查询授权用户列表 */
     getList() {
-      this.loading = true;
-      allocatedUserList(this.queryParams).then(response => {
-          this.userList = response.rows;
-          this.total = response.total;
-          this.loading = false;
+      this.loading = true
+      allocatedUserGroupList(this.queryParams).then(response => {
+          this.userGroupList = response.rows
+          this.total = response.total
+          this.loading = false
         }
-      );
+      )
     },
     // 返回按钮
     handleClose() {
-      const obj = { path: "/system/role" };
-      this.$tab.closeOpenPage(obj);
+      const obj = { path: '/system/role' }
+      this.$tab.closeOpenPage(obj)
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
+      this.queryParams.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.userIds = selection.map(item => item.userId)
+      this.userGroupIds = selection.map(item => item.id)
       this.multiple = !selection.length
     },
     /** 打开授权用户表弹窗 */
-    openSelectUser() {
-      this.$refs.select.show();
+    openSelectUserGroup() {
+      this.$refs.select.show()
     },
     /** 取消授权按钮操作 */
-    cancelAuthUser(row) {
-      const roleId = this.queryParams.roleId;
-      this.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function() {
-        return authUserCancel({ userId: row.userId, roleId: roleId });
+    cancelAuthUserGroup(row) {
+      const roleId = this.queryParams.roleId
+      this.$modal.confirm('确认要取消该用户组"' + row.userName + '"角色吗？').then(function() {
+        return authUserGroupCancel({ groupId: row.id, roleId })
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("取消授权成功");
-      }).catch(() => {});
+        this.getList()
+        this.$modal.msgSuccess('取消授权成功')
+      }).catch(() => {
+      })
     },
     /** 批量取消授权按钮操作 */
-    cancelAuthUserAll(row) {
-      const roleId = this.queryParams.roleId;
-      const userIds = this.userIds.join(",");
-      this.$modal.confirm('是否取消选中用户授权数据项？').then(function() {
-        return authUserCancelAll({ roleId: roleId, userIds: userIds });
+    cancelAuthUserGroupAll(row) {
+      const roleId = this.queryParams.roleId
+      const userGroupIds = this.userGroupIds.join(',')
+      this.$modal.confirm('是否取消选中用户组授权数据项？').then(function() {
+        return authUserGroupCancelAll({ roleId, userGroupIds })
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("取消授权成功");
-      }).catch(() => {});
+        this.getList()
+        this.$modal.msgSuccess('取消授权成功')
+      }).catch(() => {
+      })
     }
   }
-};
+}
 </script>

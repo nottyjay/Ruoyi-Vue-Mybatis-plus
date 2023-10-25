@@ -154,14 +154,25 @@
     </select>
 
     <select id="selectMenuPermsByUserId" parameterType="Long" resultType="String">
-        select distinct m.perms
-        from sys_menu m
-                 left join sys_role_menu rm on m.menu_id = rm.menu_id
-                 left join sys_user_role ur on rm.role_id = ur.role_id
-                 left join sys_role r on r.role_id = ur.role_id
-        where m.status = '0'
-          and r.status = '0'
-          and ur.user_id = #{userId}
+        select distinct mrurpmrgurp.perms
+        from (select distinct m.perms
+              from sys_menu m
+                       left join sys_role_menu rm on m.menu_id = rm.menu_id
+                       left join sys_user_role ur on rm.role_id = ur.role_id
+                       left join sys_role r on r.role_id = ur.role_id
+              where m.status = '0'
+                and r.status = '0'
+                and ur.user_id = #{userId}
+              union
+              select distinct m.perms
+              from sys_menu m
+                       left join sys_role_menu rm on m.menu_id = rm.menu_id
+                       left join sys_group_role gr on rm.role_id = gr.role_id
+                       left join sys_user_group_relation ugr on ugr.group_id = gr.group_id
+                       left join sys_role r on r.role_id = gr.role_id
+              where m.status = '0'
+                and r.status = '0'
+                and ugr.user_id = #{userId}) as mrurpmrgurp
     </select>
 
     <select id="selectMenuPermsByRoleId" parameterType="Long" resultType="String">
