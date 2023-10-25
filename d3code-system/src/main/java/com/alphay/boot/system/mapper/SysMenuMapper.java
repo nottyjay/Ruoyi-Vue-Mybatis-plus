@@ -21,13 +21,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
   public List<SysMenu> selectMenuList(SysMenu menu);
 
   /**
-   * 根据用户所有权限
-   *
-   * @return 权限列表
-   */
-  public List<String> selectMenuPerms();
-
-  /**
    * 根据用户查询系统菜单列表
    *
    * @param menu 菜单信息
