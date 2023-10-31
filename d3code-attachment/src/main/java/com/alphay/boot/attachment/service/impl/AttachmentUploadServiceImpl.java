@@ -34,17 +34,17 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   @Resource private ISysAttachmentService attachmentService;
 
   @Override
-  public String uploadFile(File file) {
-    return null;
-  }
-
-  @Override
-  public String uploadFile(MultipartFile file) {
+  public SysAttachment uploadFile(File file) {
     return uploadFile(file, getDefaultRandomFileName(file));
   }
 
   @Override
-  public String uploadFile(MultipartFile file, String fileName) {
+  public SysAttachment uploadFile(MultipartFile file) {
+    return uploadFile(file, getDefaultRandomFileName(file));
+  }
+
+  @Override
+  public SysAttachment uploadFile(MultipartFile file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
     String url = engine.uploadFileSync(file, fileName);
     String path = fileName;
@@ -65,11 +65,11 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
             .bucketName(engine.getDefaultBucket())
             .build();
     attachmentService.save(attachment);
-    return url;
+    return attachment;
   }
 
   @Override
-  public String uploadFile(File file, String fileName) {
+  public SysAttachment uploadFile(File file, String fileName) {
     StorageEngine engine = StorageEngineUtil.getInstance();
     String url = engine.uploadFileSync(file, null, fileName);
     String path = fileName;
@@ -90,8 +90,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
             .bucketName(engine.getDefaultBucket())
             .build();
     attachmentService.save(attachment);
-    file.delete();
-    return url;
+    return attachment;
   }
 
   @Override
@@ -101,6 +100,15 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
   }
 
   private String getDefaultRandomFileName(MultipartFile file) {
+    return StringUtils.format(
+        "{}/{}_{}.{}",
+        DateUtils.datePath(),
+        IdUtil.randomUUID(),
+        Seq.getId(Seq.uploadSeqType),
+        getExtension(file));
+  }
+
+  private String getDefaultRandomFileName(File file) {
     return StringUtils.format(
         "{}/{}_{}.{}",
         DateUtils.datePath(),

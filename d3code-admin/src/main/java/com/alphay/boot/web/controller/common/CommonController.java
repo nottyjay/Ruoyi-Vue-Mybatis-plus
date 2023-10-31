@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alphay.boot.attachment.api.domain.SysAttachment;
 import com.alphay.boot.attachment.api.service.IAttachmentUploadService;
 import com.alphay.boot.common.config.D3codeConfig;
 import com.alphay.boot.common.constant.Constants;
@@ -72,10 +73,9 @@ public class CommonController {
   public AjaxResult uploadFile(MultipartFile file) throws Exception {
     try {
       // 上传并返回新文件名称
-      String url = attachmentUploadService.uploadFile(file);
+      SysAttachment attachment = attachmentUploadService.uploadFile(file);
       AjaxResult ajax = AjaxResult.success();
-      ajax.put("url", url);
-      ajax.put("originalFilename", file.getOriginalFilename());
+      ajax.put("attachment", attachment);
       return ajax;
     } catch (Exception e) {
       return AjaxResult.error(e.getMessage());
@@ -88,17 +88,14 @@ public class CommonController {
     try {
       // 上传文件路径
       String filePath = D3codeConfig.getUploadPath();
-      List<String> urls = new ArrayList<String>();
-      List<String> originalFilenames = new ArrayList<String>();
+      List<SysAttachment> attachments = new ArrayList<SysAttachment>();
       for (MultipartFile file : files) {
         // 上传并返回新文件名称
-        String url = attachmentUploadService.uploadFile(file);
-        urls.add(url);
-        originalFilenames.add(file.getOriginalFilename());
+        SysAttachment attachment = attachmentUploadService.uploadFile(file);
+        attachments.add(attachment);
       }
       AjaxResult ajax = AjaxResult.success();
-      ajax.put("urls", StringUtils.join(urls, FILE_DELIMETER));
-      ajax.put("originalFilenames", StringUtils.join(originalFilenames, FILE_DELIMETER));
+      ajax.put("attachments", attachments);
       return ajax;
     } catch (Exception e) {
       return AjaxResult.error(e.getMessage());

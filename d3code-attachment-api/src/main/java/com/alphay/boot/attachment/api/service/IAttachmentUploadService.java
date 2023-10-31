@@ -1,5 +1,6 @@
 package com.alphay.boot.attachment.api.service;
 
+import com.alphay.boot.attachment.api.domain.SysAttachment;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -12,7 +13,7 @@ public interface IAttachmentUploadService {
    * @param file 待上传文件
    * @return
    */
-  String uploadFile(File file);
+  SysAttachment uploadFile(File file);
 
   /**
    * 上传文件，返回文件访问URL
@@ -21,7 +22,7 @@ public interface IAttachmentUploadService {
    * @param fileName 文件名称
    * @return
    */
-  String uploadFile(File file, String fileName);
+  SysAttachment uploadFile(File file, String fileName);
 
   /**
    * 上传文件，返回文件访问URL
@@ -29,7 +30,7 @@ public interface IAttachmentUploadService {
    * @param file 待上传文件
    * @return
    */
-  String uploadFile(MultipartFile file);
+  SysAttachment uploadFile(MultipartFile file);
 
   /**
    * 上传文件，返回文件访问URL
@@ -38,7 +39,7 @@ public interface IAttachmentUploadService {
    * @param fileName 文件名称
    * @return
    */
-  String uploadFile(MultipartFile file, String fileName);
+  SysAttachment uploadFile(MultipartFile file, String fileName);
 
   /**
    * 删除文件
