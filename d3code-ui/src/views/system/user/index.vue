@@ -203,12 +203,12 @@
     </el-row>
 
     <!-- 添加或修改用户配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body :close-on-click-modal="true">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户昵称" prop="nickName">
-              <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
+              <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
