@@ -115,7 +115,7 @@
             AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{sysUser.params.endTime},'%y%m%d')
         </if>
         <if test="sysUser.deptId != null and sysUser.deptId != 0">
-            AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE
+            AND (u.dept_id = #{sysUser.deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE
             find_in_set(#{sysUser.deptId},
             ancestors) ))
         </if>
