@@ -71,7 +71,7 @@ D3Code是基于Ruoyi-Vue拓展开发而来的框架，同Ruoyi一样是一套全
         <td><img src="img/附件管理-上传.png"/></td>
     </tr>
     <tr>
-        <td><img src="img/附件管理-上传.png"/></td>
+        <td><img src="img/附件管理-图片预览.png"/></td>
         <td><img src="img/附件管理-详情.png"/></td>
     </tr>
     <tr>
