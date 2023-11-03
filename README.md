@@ -1,7 +1,3 @@
-#### 捐赠
-
-![维护不易，可以请维护者喝杯咖啡？](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-76eddc9e-0b4f-4996-8d0c-8018690010d4/b714caae-1a2b-4e74-a2bf-94596c52c5e3.png)
-
 <p align="center">
 	<img alt="logo" src="https://default-1319610221.cos.ap-shanghai.myqcloud.com/logo.png" width="200" height="200">
 </p>
@@ -65,6 +61,18 @@ D3Code是基于Ruoyi-Vue拓展开发而来的框架，同Ruoyi一样是一套全
     <tr>
         <td><img src="https://oscimg.oschina.net/oscnet/cd1f90be5f2684f4560c9519c0f2a232ee8.jpg"/></td>
         <td><img src="https://oscimg.oschina.net/oscnet/1cbcf0e6f257c7d3a063c0e3f2ff989e4b3.jpg"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/工作流.png"/></td>
+        <td><img src="img/附件管理引擎.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/腾讯云存储配置.png"/></td>
+        <td><img src="img/附件管理-上传.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="img/附件管理-上传.png"/></td>
+        <td><img src="img/附件管理-详情.png"/></td>
     </tr>
     <tr>
         <td><img src="https://oscimg.oschina.net/oscnet/up-8074972883b5ba0622e13246738ebba237a.png"/></td>

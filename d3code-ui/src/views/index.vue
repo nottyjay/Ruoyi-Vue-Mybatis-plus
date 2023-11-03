@@ -150,6 +150,12 @@
             <span>更新日志</span>
           </div>
           <el-collapse accordion>
+            <el-collapse-item title="v1.0.3 - 2023-11-3">
+              <ol>
+                <li>优化附件管理器UI</li>
+                <li>修复用户列表与系统公告列表数据表格渲染bug</li>
+              </ol>
+            </el-collapse-item>
             <el-collapse-item title="v1.0.2 - 2023-10-25">
               <ol>
                 <li>角色权限可以授予用户组</li>
