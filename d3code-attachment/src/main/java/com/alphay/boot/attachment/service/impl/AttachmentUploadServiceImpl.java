@@ -48,7 +48,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
     StorageEngine engine = StorageEngineUtil.getInstance();
     String url = engine.uploadFileSync(file, fileName);
     String path = fileName;
-    if (StringUtils.equals("LOCAL", engine.getStorageType())) {
+    if (StringUtils.equals("local", engine.getStorageType())) {
       path = url;
       String domains = RedisUtils.get("oss_local_domain");
       String domain = RandomUtil.randomEle(domains.split(","));
@@ -73,7 +73,7 @@ public class AttachmentUploadServiceImpl implements IAttachmentUploadService {
     StorageEngine engine = StorageEngineUtil.getInstance();
     String url = engine.uploadFileSync(file, null, fileName);
     String path = fileName;
-    if (StringUtils.equals("LOCAL", engine.getStorageType())) {
+    if (StringUtils.equals("local", engine.getStorageType())) {
       path = url;
       String domains = RedisUtils.get("oss_local_domain");
       String domain = RandomUtil.randomEle(domains.split(","));

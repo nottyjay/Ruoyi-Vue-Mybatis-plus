@@ -2,6 +2,7 @@ package com.alphay.boot.attachment.storage.local;
 
 import com.alphay.boot.attachment.api.bean.LocalStorageConfig;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
+import com.alphay.boot.attachment.api.enums.StorageType;
 import com.alphay.boot.attachment.api.exception.BucketException;
 import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.common.config.D3codeConfig;
@@ -41,7 +42,7 @@ public class LocalFileStorageEngine implements StorageEngine {
 
   @Override
   public String getStorageType() {
-    return "LOCAL";
+    return StorageType.LOCAL.toString();
   }
 
   @Override
