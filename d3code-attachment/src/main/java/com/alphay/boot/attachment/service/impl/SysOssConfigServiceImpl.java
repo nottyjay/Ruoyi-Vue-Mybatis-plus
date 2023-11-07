@@ -5,6 +5,7 @@ import java.util.List;
 import com.alphay.boot.attachment.storage.StorageEngine;
 import com.alphay.boot.attachment.utils.StorageEngineUtil;
 import com.alphay.boot.common.enums.SystemStatusEnum;
+import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.utils.JsonUtil;
 import com.alphay.boot.common.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -55,13 +56,9 @@ public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, Sy
 
   @Override
   public boolean updateById(SysOssConfig entity) {
-    SysOssConfig oldConfig = this.getById(entity.getId());
     boolean result = super.updateById(entity);
     if (result) {
-      if (StringUtils.equals(SystemStatusEnum.ENABLE.getStatus(), entity.getStatus())
-          && StringUtils.equals(SystemStatusEnum.DISABLE.getStatus(), oldConfig.getStatus())) {
-        switchStorageEngine(entity.getId());
-      }
+      switchStorageEngine(entity.getId());
     }
     return result;
   }
@@ -93,5 +90,17 @@ public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, Sy
     return this.getOne(
         this.lambdaQueryWrapperX()
             .eq(SysOssConfig::getStatus, SystemStatusEnum.ENABLE.getStatus()));
+  }
+
+  @Override
+  public void refreshEngine() {
+    SysOssConfig config = this.getEnabledConfig();
+    StorageEngine storageEngine = StorageEngineUtil.getInstance(config);
+    String buckname = (String) JsonUtil.toMap(config.getConfig()).get("bucketName");
+    // 检查buck是否已经创建
+    boolean isExit = storageEngine.exitsBucket(buckname);
+    if (!isExit) {
+      storageEngine.createBucket(buckname);
+    }
   }
 }

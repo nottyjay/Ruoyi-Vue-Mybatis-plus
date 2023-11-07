@@ -98,4 +98,10 @@ public class SysOssConfigController extends BaseController {
   public AjaxResult getEnabledEngineConfig() {
     return success(sysOssConfigService.getById(StorageEngineUtil.getInstance().getOssConfigId()));
   }
+
+  @GetMapping("/refreshEngine")
+  public AjaxResult refreshEngine() {
+    sysOssConfigService.refreshEngine();
+    return success();
+  }
 }

@@ -56,3 +56,10 @@ export function getEnabledEngineConfig() {
     method: 'get'
   })
 }
+
+export function refreshEngine() {
+  return request({
+    url: '/oss/oss_config/refreshEngine',
+    method: 'get'
+  })
+}

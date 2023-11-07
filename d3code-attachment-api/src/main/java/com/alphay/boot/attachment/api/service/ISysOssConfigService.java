@@ -45,4 +45,7 @@ public interface ISysOssConfigService extends IService<SysOssConfig> {
    * @return
    */
   SysOssConfig getEnabledConfig();
+
+  /** 刷新引擎。切换引擎后如果工作不正常可以通过该方法重启引擎 */
+  void refreshEngine();
 }

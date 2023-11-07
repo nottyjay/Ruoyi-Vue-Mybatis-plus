@@ -62,6 +62,17 @@
         >导出
         </el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="info"
+          plain
+          icon="el-icon-refresh"
+          size="mini"
+          @click="handleRefresh"
+          v-hasPermi="['oss:oss_config:list']"
+        >重启引擎
+        </el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -186,7 +197,8 @@ import {
   delOss_config,
   addOss_config,
   updateOss_config,
-  changeStorageEngine
+  changeStorageEngine,
+  refreshEngine
 } from '@/api/attachment/oss/oss_config'
 
 export default {
@@ -350,6 +362,11 @@ export default {
         this.$modal.msgError('至少保证有一个引擎正在工作！请直接选择需要启用的引擎，其它引擎将会自动关闭')
         row.status = row.status === '1' ? '0' : '1'
       }
+    },
+    handleRefresh() {
+      refreshEngine().then(response => {
+        this.$modal.msgSuccess('引擎重启成功')
+      })
     }
   }
 }
