@@ -22,8 +22,11 @@
       <div style="width: 100%;box-shadow: 0 0 5px 6px rgba(141,141,141,0.2) inset;margin-top: 20px;padding: 15px;"
            v-loading="loading"
       >
-        <div style="display: flex;flex-wrap: wrap;">
-          <attachment-item v-for="(item, index) in attachmentList" :key="index" :item="item"
+        <div
+          :style="isFileNone === false ? 'display: flex;flex-wrap: wrap;' : 'display: flex;flex-wrap: wrap;justify-content: center;'"
+        >
+          <el-empty v-if="isFileNone === true" description="暂无数据" :image-size="120"></el-empty>
+          <attachment-item v-else v-for="(item, index) in attachmentList" :key="index" :item="item"
                            :index="index"
                            :is-edit="isEdit"
                            :is-file-checked="checkFileSelected(item)"
@@ -107,7 +110,9 @@ export default {
       previewImg: null,
       selectedAttachmentList: this.selected,
       // 显示搜索条件
-      showSearch: true
+      showSearch: true,
+      // 判断文件列表是否为空
+      isFileNone: false
     }
   },
   created() {
@@ -129,6 +134,10 @@ export default {
         return listAttachment(this.queryParams)
       }).then(response => {
         this.attachmentList = response.rows
+        if (this.attachmentList.length === 0) {
+          this.isFileNone = true
+        }
+        this.isFileNone = false
         this.total = response.total
         this.loading = false
       })
