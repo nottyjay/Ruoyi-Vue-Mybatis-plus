@@ -14,6 +14,7 @@ import com.alphay.boot.common.mybatis.service.ServiceImplX;
 import com.alphay.boot.attachment.mapper.SysOssConfigMapper;
 import com.alphay.boot.attachment.api.domain.SysOssConfig;
 import com.alphay.boot.attachment.api.service.ISysOssConfigService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 存储配置Service业务层处理
@@ -66,6 +67,7 @@ public class SysOssConfigServiceImpl extends ServiceImplX<SysOssConfigMapper, Sy
   }
 
   @Override
+  @Transactional
   public void switchStorageEngine(Long id) {
     SysOssConfig config = this.getById(id);
     if (StringUtils.equals(SystemStatusEnum.DISABLE.getStatus(), config.getStatus())) {
