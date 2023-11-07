@@ -1,71 +1,17 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="文件名称" prop="name">
-        <el-input
-          v-model="queryParams.name"
-          placeholder="请输入文件名称"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
-      </el-form-item>
-    </el-form>
-    <el-button
-      type="primary"
-      plain
-      icon="el-icon-plus"
-      size="mini"
-      @click="handleAdd"
-      v-hasPermi="['attachment:attachment:add']"
-    >新增
-    </el-button>
-
-    <!--  附件列表  -->
-    <div style="width: 100%;" v-loading="loading">
-      <div style="display: flex;flex-wrap: wrap">
-        <div v-for="(item, index) in attachmentList" :key="index" class="fileList" @click="fileInformation(item)">
-          <div class="fileIconAll">
-            <el-image v-if="item.extension === 'jpg' || item.extension === 'png' || item.extension === 'jpeg' "
-                      :src="item.url" style="width: 120px;height: 120px"
-            >
-              <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div>
-            </el-image>
-            <svg-icon v-else :icon-class="handleFileImg(item)" class="fileIcon"/>
-            <div class="maskingOut">
-              <i class="el-icon-zoom-in" @click.stop="handlePreviewFile(item)"></i>
-              <i class="el-icon-download" @click.stop="handleDownloadFile(item)"></i>
-              <i class="el-icon-delete" @click.stop="handleDeleteFile(index)"></i>
-            </div>
-          </div>
-          <div class="fileName">{{ item.name }}</div>
-        </div>
-      </div>
-    </div>
-
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
-
-    <!-- 预览对话框 -->
-    <el-dialog
-      :visible.sync="showPreview"
-      width="60%"
-      center
-    >
-      <img :src="previreImg" alt="" style="width: 100%;height: 100%;">
-    </el-dialog>
-
-
+    <!-- 附件面板 -->
+    <attachment-panel @askFileInformation="fileInformation" :isEdit="true">
+      <el-button
+        type="primary"
+        plain
+        icon="el-icon-plus"
+        size="mini"
+        @click="handleAdd"
+        v-hasPermi="['attachment:attachment:add']"
+      >新增
+      </el-button>
+    </attachment-panel>
     <!-- 添加或修改文件管理对话框-->
     <attachment-upload :visible.sync="open" @on-success="handleUploadSuccess"/>
 
@@ -124,15 +70,18 @@ import {
 import { getEnabledEngineConfig } from '@/api/attachment/oss/oss_config'
 import { getToken } from '@/utils/auth'
 import AttachmentUpload from '@/components/AttachmentUpload/index.vue'
+import AttachmentPanel from '@/components/AttachmentPanel/index.vue'
 
 export default {
   name: 'Attachment',
   components: {
-    AttachmentUpload
+    AttachmentUpload,
+    AttachmentPanel
   },
   dicts: ['storage_type'],
   data() {
     return {
+      ossConfig: [],
       // 遮罩层
       loading: true,
       // 显示搜索条件
@@ -169,7 +118,7 @@ export default {
       // 表单校验
       rules: {},
       showPreview: false,
-      previreImg: null,
+      previewImg: null,
       uploadFileUrl: process.env.VUE_APP_BASE_API + '/common/upload', // 上传的图片服务器地址
       headers: {
         Authorization: 'Bearer ' + getToken()
@@ -231,42 +180,6 @@ export default {
       this.open = false
       this.getList()
     },
-    // 判断文件图标
-    handleFileImg(item) {
-      if (item.extension === 'doc') {
-        return 'icon_doc'
-      } else if (item.extension === 'pdf') {
-        return 'icon_pdf'
-      } else if (item.extension === 'ppt') {
-        return 'icon_ppt'
-      } else if (item.extension === 'txt') {
-        return 'icon_txt'
-      } else if (item.extension === 'docx') {
-        return 'icon_word'
-      } else if (item.extension === 'xlsx') {
-        return 'icon_xlsx'
-      } else {
-        return ''
-      }
-      // switch (item.extension){
-      //   case 'doc' : return 'icon_doc'; break;
-      //   case 'pdf' : return 'icon_pdf'; break;
-      //   case 'ppt' : return 'icon_ppt'; break;
-      //   case 'txt' : return 'icon_txt'; break;
-      //   case 'docx' : return 'icon_word'; break;
-      //   case 'xlsx' : return 'icon_xlsx'; break;
-      // }
-    },
-    // 预览文件
-    handlePreviewFile(item) {
-      if (item.extension === 'jpg' || item.extension === 'png' || item.extension === 'jpeg') {
-        this.showPreview = true
-        this.previreImg = item.url
-      } else {
-        console.log('qqqqq')
-        // 跳转新页面
-      }
-    },
     // 删除文件
     handleDeleteFile(index) {
       this.$modal.confirm('是否确认删除此文件？').then(function() {
@@ -280,103 +193,12 @@ export default {
     },
     // 点击附件详情
     fileInformation(item) {
-      console.log(item, '------item')
       this.drawer = true
       this.form = item
     },
     clipboardSuccess() {
       this.$modal.msgSuccess('复制成功')
-    },
-    // 下载按钮
-    handleDownloadFile(item) {
-      window.open(item.url)
     }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.fileList {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 140px;
-  height: 100%;
-  margin: 10px 20px;
-  padding: 10px;
-  position: relative;
-
-  .fileIconAll {
-    margin-top: 5px;
-    position: relative;
-
-    .fileIcon {
-      width: 70px;
-      height: 70px;
-    }
-
-    .maskingOut {
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.4);
-      position: absolute;
-      top: 0;
-      opacity: 0;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      .el-icon-zoom-in {
-        font-size: 20px;
-        color: #FFFFFF;
-        z-index: 9;
-      }
-
-      .el-icon-delete {
-        font-size: 20px;
-        color: #FFFFFF;
-        z-index: 9;
-      }
-
-      .el-icon-download {
-        font-size: 20px;
-        color: #FFFFFF;
-        z-index: 9;
-      }
-    }
-  }
-
-  .fileIconAll:hover {
-
-    .maskingOut {
-      opacity: 1;
-    }
-
-    .el-icon-delete {
-      display: block;
-    }
-
-    .el-icon-zoom-in {
-      display: block;
-    }
-
-  }
-
-  .fileName {
-    word-break: break-all;
-    margin-top: 5px;
-    text-align: center;
-    font-size: 13px
-  }
-}
-
-.fileList:hover {
-  background-color: rgba(220, 216, 216, 0.2);
-}
-
-.upload-demo {
-  text-align: center;
-}
-
-</style>
