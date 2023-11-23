@@ -2,16 +2,18 @@
   <!--  附件选择器-->
   <div>
     <el-button @click="handleOpenSelector">选择附件</el-button>
+    <!-- 被选中的附件 -->
     <div class="selectedAttachList">
-      <div class="selectedAttachItem" v-for="(item, index) in value"
+      <div class="selectedAttachItem" v-for="(item, index) in selectedAttachmentList"
            :key="index"
       >
         <div class="selectedAttachItemName">{{ item.name }}</div>
         <i class="el-icon-close closed" @click="removeAttachment(index)"></i>
       </div>
     </div>
+
     <el-dialog title="添加附件" :visible.sync="open" width="1000px" append-to-body>
-      <attachment-panel :selected="this.value" v-if="open" :edit="false"
+      <attachment-panel :selected="this.selectedAttachmentList" v-if="open" :edit="false"
                         @selectedFileList="handleSelectedAttachmentList"
       ></attachment-panel>
       <div slot="footer" class="dialog-footer">
@@ -19,6 +21,7 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
   </div>
 
 </template>
@@ -31,8 +34,7 @@ import AttachmentPanel from '../AttachmentPanel/index.vue'
 export default {
   props: {
     value: {
-      type: Array,
-      default: () => []
+      type: Array || Number
     }
   },
   components: {
@@ -53,7 +55,34 @@ export default {
         storageType: null
       },
       // 被选中的附件按钮
-      selectedAttachmentList: this.value
+      selectedAttachmentList: this.selectedList,
+      // 父组件传下来的selectedList
+      selectedList: []
+    }
+  },
+  watch: {
+    value: {
+      handler: function(n) {
+        // 判断是否是数组，不是则变成数组
+        let isArray = n instanceof Array
+        if (isArray === false) {
+          Array.of(n)
+        }
+        // 判断value是否为空，为空则清空，否则查找ID相同的item
+        if (n.length > 0) {
+          // 过滤出ID相同的item
+          this.selectedList = this.attachmentList.filter(item => {
+            if (n.includes(item.id)) {
+              return item
+            }
+          })
+          console.log(this.selectedList, '----selectedList')
+        } else {
+          this.selectedAttachmentList = []
+        }
+
+      },
+      immediate: true
     }
   },
   methods: {
@@ -73,9 +102,13 @@ export default {
     },
     // 点击确定
     submitForm() {
-      this.value = this.selectedAttachmentList
-      this.$emit('input', this.value)
-      this.$emit('uploadSelectedFile', this.selectedAttachmentList)
+      // this.value = this.selectedAttachmentList
+      let selectedId = []
+      this.selectedAttachmentList.forEach((item, index) => {
+        selectedId.push(item.id)
+      })
+      this.$emit('input', selectedId)
+      // this.$emit('uploadSelectedFile', this.selectedAttachmentList)
       this.open = false
     },
     // 点击取消
@@ -101,6 +134,11 @@ export default {
     // 点击移除选中的某个文附件
     removeAttachment(index) {
       this.selectedAttachmentList.splice(index, 1)
+      let selectedId = []
+      this.selectedAttachmentList.forEach((item, index) => {
+        selectedId.push(item.id)
+      })
+      this.$emit('deleteAttachment', selectedId)
     }
   }
 }

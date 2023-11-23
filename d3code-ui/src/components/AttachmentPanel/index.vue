@@ -32,7 +32,7 @@
                            :is-file-checked="checkFileSelected(item)"
                            @checked="handleItemChecked"
                            @unchecked="handleItemUncheck"
-                           @on-fileDelete="handleDeleteFile(index)"
+                           @on-fileDelete="handleDeleteFile"
                            @on-filePreview="handlePreviewFile(item)"
                            @on-lookFile="fileInformation(item)"
           />
@@ -61,9 +61,10 @@
 </template>
 
 <script>
-import AttachmentItem from '../AttachmentSelector/AttachmentItem/index.vue'
+import AttachmentItem from './AttachmentItem/index.vue'
 import { getEnabledEngineConfig } from '../../api/attachment/oss/oss_config'
-import { listAttachment } from '../../api/attachment/attachment'
+import { delAttachment, listAttachment } from '../../api/attachment/attachment'
+import { cleanLogininfor } from '../../api/monitor/logininfor'
 
 export default {
   props: {
@@ -142,6 +143,7 @@ export default {
         this.loading = false
       })
     },
+    // 被选中的附件
     checkFileSelected(item) {
       const index = this.selectedAttachmentList.findIndex((attachment) => {
         return attachment.id === item.id
@@ -153,11 +155,11 @@ export default {
       this.$emit('askFileInformation', item)
     },
     // 删除文件
-    handleDeleteFile(index) {
+    handleDeleteFile(id) {
       this.$modal.confirm('是否确认删除此文件？').then(function() {
         return ''
       }).then(() => {
-        this.attachmentList.splice(index, 1)
+        delAttachment(id)
         this.getList()
         this.$modal.msgSuccess('删除成功')
       }).catch(() => {

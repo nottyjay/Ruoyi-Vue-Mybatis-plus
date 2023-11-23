@@ -3,12 +3,12 @@
     <!-- 附件面板 -->
     <attachment-panel @askFileInformation="fileInformation" :isEdit="true">
       <el-button
-        type="primary"
-        plain
-        icon="el-icon-plus"
-        size="mini"
-        @click="handleAdd"
-        v-hasPermi="['attachment:attachment:add']"
+          type="primary"
+          plain
+          icon="el-icon-plus"
+          size="mini"
+          @click="handleAdd"
+          v-hasPermi="['attachment:attachment:add']"
       >新增
       </el-button>
     </attachment-panel>
@@ -17,10 +17,10 @@
 
     <!-- 附件详情信息 -->
     <el-drawer
-      title="我是标题"
-      :visible.sync="drawer"
-      :with-header="false"
-      size="600px"
+        title="我是标题"
+        :visible.sync="drawer"
+        :with-header="false"
+        size="600px"
     >
       <div style="font-size: 18px;padding: 20px 20px 0;font-weight: bold">文件详情</div>
       <el-divider></el-divider>
@@ -127,21 +127,21 @@ export default {
     }
   },
   created() {
-    this.getList()
+    // this.getList()
   },
   methods: {
     /** 查询文件管理列表 */
-    getList() {
-      this.loading = true
-      getEnabledEngineConfig().then(response => {
-        this.ossConfig = response.data
-        return listAttachment(this.queryParams)
-      }).then(response => {
-        this.attachmentList = response.rows
-        this.total = response.total
-        this.loading = false
-      })
-    },
+    // getList() {
+    //   this.loading = true
+    //   getEnabledEngineConfig().then(response => {
+    //     this.ossConfig = response.data
+    //     return listAttachment(this.queryParams)
+    //   }).then(response => {
+    //     this.attachmentList = response.rows
+    //     this.total = response.total
+    //     this.loading = false
+    //   })
+    // },
     // 表单重置
     reset() {
       this.form = {
