@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alphay.boot.bpm.service.IBpmFormService;
+import com.alphay.boot.bpm.api.service.IBpmFormService;
 import com.alphay.boot.bpm.convert.BpmFormConvert;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import com.alphay.boot.common.annotation.Log;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.enums.BusinessType;
-import com.alphay.boot.bpm.domain.BpmForm;
+import com.alphay.boot.bpm.api.domain.BpmForm;
 import com.alphay.boot.common.utils.poi.ExcelUtil;
 import com.alphay.boot.common.core.page.TableDataInfo;
 

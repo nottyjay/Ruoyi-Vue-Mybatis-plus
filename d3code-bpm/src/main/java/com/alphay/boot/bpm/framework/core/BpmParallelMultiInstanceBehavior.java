@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.framework.core;
 
-import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
+import com.alphay.boot.bpm.api.service.IBpmTaskAssignRuleService;
 import com.alphay.boot.bpm.utils.FlowableUtil;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

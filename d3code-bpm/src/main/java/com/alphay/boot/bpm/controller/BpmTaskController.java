@@ -1,11 +1,11 @@
 package com.alphay.boot.bpm.controller;
 
-import com.alphay.boot.bpm.domain.BpmTaskExt;
-import com.alphay.boot.bpm.model.vo.BpmTaskCheckRequestVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskDoneItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskTodoItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskUpdateAssigneeRequestVo;
-import com.alphay.boot.bpm.service.IBpmTaskService;
+import com.alphay.boot.bpm.api.domain.BpmTaskExt;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskCheckRequestVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskDoneItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskTodoItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskUpdateAssigneeRequestVo;
+import com.alphay.boot.bpm.api.service.IBpmTaskService;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.page.TableDataInfo;

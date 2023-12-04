@@ -1,8 +1,8 @@
 package com.alphay.boot.bpm.service.impl;
 
 import com.alphay.boot.bpm.convert.BpmActivityConvert;
-import com.alphay.boot.bpm.model.vo.BpmActivityResponseVo;
-import com.alphay.boot.bpm.service.IBpmActivityService;
+import com.alphay.boot.bpm.api.model.vo.BpmActivityResponseVo;
+import com.alphay.boot.bpm.api.service.IBpmActivityService;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.springframework.stereotype.Service;

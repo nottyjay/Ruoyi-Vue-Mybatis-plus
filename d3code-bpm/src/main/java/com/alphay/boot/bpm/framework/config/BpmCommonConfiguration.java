@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.framework.config;
 
-import com.alphay.boot.bpm.framework.event.BpmProcessInstanceResultEventPublisher;
+import com.alphay.boot.bpm.api.framework.event.BpmProcessInstanceResultEventPublisher;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

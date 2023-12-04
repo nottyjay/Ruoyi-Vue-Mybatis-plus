@@ -2,8 +2,8 @@ package com.alphay.boot.bpm.framework.core.script;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.NumberUtil;
-import com.alphay.boot.bpm.enums.BpmTaskRuleScriptEnum;
-import com.alphay.boot.bpm.service.IBpmProcessInstanceService;
+import com.alphay.boot.bpm.api.enums.BpmTaskRuleScriptEnum;
+import com.alphay.boot.bpm.api.service.IBpmProcessInstanceService;
 import org.flowable.engine.delegate.DelegateExecution;
 import org.flowable.engine.runtime.ProcessInstance;
 import org.springframework.context.annotation.Lazy;

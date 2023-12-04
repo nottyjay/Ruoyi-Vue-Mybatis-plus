@@ -5,27 +5,28 @@ import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alphay.boot.bpm.api.framework.event.BpmProcessInstanceResultEventPublisher;
+import com.alphay.boot.bpm.api.model.dto.BpmProcessInstanceCreateReqDTO;
 import com.alphay.boot.bpm.convert.BpmProcessInstanceConvert;
-import com.alphay.boot.bpm.domain.BpmProcessDefinitionExt;
-import com.alphay.boot.bpm.domain.BpmProcessInstanceExt;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceDeleteReasonEnum;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceResultEnum;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceStatusEnum;
-import com.alphay.boot.bpm.framework.event.BpmProcessInstanceResultEventPublisher;
+import com.alphay.boot.bpm.api.domain.BpmProcessDefinitionExt;
+import com.alphay.boot.bpm.api.domain.BpmProcessInstanceExt;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceDeleteReasonEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceResultEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceStatusEnum;
 import com.alphay.boot.bpm.mapper.BpmProcessInstanceExtMapper;
-import com.alphay.boot.bpm.service.IBpmMessageService;
-import com.alphay.boot.bpm.service.IBpmProcessDefinitionService;
-import com.alphay.boot.bpm.service.IBpmProcessInstanceService;
-import com.alphay.boot.bpm.service.IBpmTaskService;
+import com.alphay.boot.bpm.api.service.IBpmMessageService;
+import com.alphay.boot.bpm.api.service.IBpmProcessDefinitionService;
+import com.alphay.boot.bpm.api.service.IBpmProcessInstanceService;
+import com.alphay.boot.bpm.api.service.IBpmTaskService;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.system.common.api.AdminApi;
 import com.alphay.boot.system.common.api.DeptApi;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceCancelRequestVo;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceCancelRequestVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceResponseVo;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RuntimeService;
@@ -75,7 +76,7 @@ public class BpmProcessInstanceServiceImpl implements IBpmProcessInstanceService
 
     // 获得流程 Task Map
     List<String> processInstanceIds =
-        CollectionUtil.convertList(result, BpmProcessInstanceExt::getProcessDefinitionId);
+        CollectionUtil.convertList(result, BpmProcessInstanceExt::getProcessInstanceId);
     Map<String, List<Task>> taskMap =
         taskService.getTaskMapByProcessInstanceIds(processInstanceIds);
     // 转换返回
@@ -167,6 +168,16 @@ public class BpmProcessInstanceServiceImpl implements IBpmProcessInstanceService
     ProcessDefinition definition =
         processDefinitionService.getProcessDefinition(processInstanceExt.getProcessDefinitionId());
     return createProcessInstance0(userId, definition, processInstanceExt.getFormVariables(), null);
+  }
+
+  @Override
+  public String createProcessInstance(Long userId, BpmProcessInstanceCreateReqDTO createReqDTO) {
+    // 获得流程定义
+    ProcessDefinition definition =
+        processDefinitionService.getActiveProcessDefinition(createReqDTO.getProcessDefinitionKey());
+    // 发起流程
+    return createProcessInstance0(
+        userId, definition, createReqDTO.getVariables(), createReqDTO.getBusinessKey());
   }
 
   @Override

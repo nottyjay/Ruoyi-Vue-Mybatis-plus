@@ -2,7 +2,7 @@ package com.alphay.boot.bpm.framework.core.script;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.NumberUtil;
-import com.alphay.boot.bpm.service.IBpmProcessInstanceService;
+import com.alphay.boot.bpm.api.service.IBpmProcessInstanceService;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.system.common.api.AdminApi;

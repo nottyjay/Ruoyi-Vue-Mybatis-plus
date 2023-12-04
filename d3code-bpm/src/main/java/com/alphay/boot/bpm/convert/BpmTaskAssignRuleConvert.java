@@ -1,9 +1,9 @@
 package com.alphay.boot.bpm.convert;
 
-import com.alphay.boot.bpm.domain.BpmTaskAssignRule;
-import com.alphay.boot.bpm.model.vo.BpmTaksAssignRuleCreateRequestVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskAssignRuleResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskAssignRuleUpdateRequestVo;
+import com.alphay.boot.bpm.api.domain.BpmTaskAssignRule;
+import com.alphay.boot.bpm.api.model.vo.BpmTaksAssignRuleCreateRequestVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskAssignRuleResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskAssignRuleUpdateRequestVo;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import org.flowable.bpmn.model.UserTask;
 import org.mapstruct.Mapper;

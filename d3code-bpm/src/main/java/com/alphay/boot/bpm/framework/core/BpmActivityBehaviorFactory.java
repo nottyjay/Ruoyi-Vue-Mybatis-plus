@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.framework.core;
 
-import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
+import com.alphay.boot.bpm.api.service.IBpmTaskAssignRuleService;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
@@ -37,6 +37,6 @@ public class BpmActivityBehaviorFactory extends DefaultActivityBehaviorFactory {
         .setBpmTaskRuleService(bpmTaskRuleService);
   }
 
-  // TODO @ke：SequentialMultiInstanceBehavior 这个抽空也可以看看
+  // TODO SequentialMultiInstanceBehavior 这个抽空也可以看看
 
 }

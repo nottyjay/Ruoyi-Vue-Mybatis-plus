@@ -3,7 +3,7 @@ package com.alphay.boot.bpm.framework.core;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.RandomUtil;
-import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
+import com.alphay.boot.bpm.api.service.IBpmTaskAssignRuleService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.flowable.bpmn.model.UserTask;

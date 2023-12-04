@@ -1,14 +1,15 @@
 <template>
   <!--  附件选择器-->
   <div>
-    <el-button @click="handleOpenSelector">选择附件</el-button>
+    <el-button @click="handleOpenSelector" v-if="!readonly">选择附件</el-button>
     <!-- 被选中的附件 -->
     <div class="selectedAttachList">
       <div class="selectedAttachItem" v-for="(item, index) in selectedAttachmentList"
            :key="index"
       >
         <div class="selectedAttachItemName">{{ item.name }}</div>
-        <i class="el-icon-close closed" @click="removeAttachment(index)"></i>
+        <el-button size="small" type="text" @click="preview(item)" v-if="readonly">预览</el-button>
+        <i class="el-icon-close closed" @click="removeAttachment(index)" v-else></i>
       </div>
     </div>
 
@@ -27,14 +28,18 @@
 </template>
 
 <script>
-import { getEnabledEngineConfig } from '../../api/attachment/oss/oss_config'
-import { listAttachment } from '../../api/attachment/attachment'
+import {getEnabledEngineConfig} from '../../api/attachment/oss/oss_config'
+import {listAttachment, listAttachmentByIds} from '../../api/attachment/attachment'
 import AttachmentPanel from '../AttachmentPanel/index.vue'
 
 export default {
   props: {
     value: {
       type: Array || Number
+    },
+    readonly: {
+      type: Boolean,
+      default: false
     }
   },
   components: {
@@ -62,25 +67,26 @@ export default {
   },
   watch: {
     value: {
-      handler: function(n) {
-        // 判断是否是数组，不是则变成数组
-        let isArray = n instanceof Array
-        if (isArray === false) {
-          Array.of(n)
-        }
-        // 判断value是否为空，为空则清空，否则查找ID相同的item
-        if (n.length > 0) {
-          // 过滤出ID相同的item
-          this.selectedList = this.attachmentList.filter(item => {
-            if (n.includes(item.id)) {
-              return item
-            }
-          })
-          console.log(this.selectedList, '----selectedList')
+      handler: function (n) {
+        if (n) {
+          // 判断是否是数组，不是则变成数组
+          let isArray = n instanceof Array
+          if (isArray === false) {
+            Array.of(n)
+          }
+          // 判断value是否为空，为空则清空，否则查找ID相同的item
+          if (n.length > 0) {
+            // 过滤出ID相同的item
+            listAttachmentByIds(n).then(response => {
+              this.selectedList = response.data
+              this.selectedAttachmentList = this.selectedList
+            })
+          } else {
+            this.selectedAttachmentList = []
+          }
         } else {
           this.selectedAttachmentList = []
         }
-
       },
       immediate: true
     }
@@ -139,6 +145,9 @@ export default {
         selectedId.push(item.id)
       })
       this.$emit('deleteAttachment', selectedId)
+    },
+    preview(item) {
+      window.open(item.url, '_blank')
     }
   }
 }

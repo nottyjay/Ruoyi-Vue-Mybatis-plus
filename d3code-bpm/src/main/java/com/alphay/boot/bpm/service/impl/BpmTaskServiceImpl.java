@@ -1,19 +1,18 @@
 package com.alphay.boot.bpm.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.ListUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import com.alphay.boot.bpm.api.model.vo.*;
 import com.alphay.boot.bpm.convert.BpmTaskConvert;
-import com.alphay.boot.bpm.domain.BpmTaskExt;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceDeleteReasonEnum;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceResultEnum;
+import com.alphay.boot.bpm.api.domain.BpmTaskExt;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceDeleteReasonEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceResultEnum;
 import com.alphay.boot.bpm.mapper.BpmTaskExtMapper;
-import com.alphay.boot.bpm.model.vo.*;
-import com.alphay.boot.bpm.service.IBpmMessageService;
-import com.alphay.boot.bpm.service.IBpmProcessInstanceService;
-import com.alphay.boot.bpm.service.IBpmTaskService;
+import com.alphay.boot.bpm.api.service.IBpmMessageService;
+import com.alphay.boot.bpm.api.service.IBpmProcessInstanceService;
+import com.alphay.boot.bpm.api.service.IBpmTaskService;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.exception.ServiceException;

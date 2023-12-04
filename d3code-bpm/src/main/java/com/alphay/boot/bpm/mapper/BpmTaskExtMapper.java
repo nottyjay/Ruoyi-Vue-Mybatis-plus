@@ -1,7 +1,7 @@
 package com.alphay.boot.bpm.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.alphay.boot.bpm.domain.BpmTaskExt;
+import com.alphay.boot.bpm.api.domain.BpmTaskExt;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package com.alphay.boot.bpm.convert;
 
-import com.alphay.boot.bpm.model.vo.BpmFormSimpleResponseVo;
-import com.alphay.boot.bpm.domain.BpmForm;
+import com.alphay.boot.bpm.api.model.vo.BpmFormSimpleResponseVo;
+import com.alphay.boot.bpm.api.domain.BpmForm;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

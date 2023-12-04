@@ -31,4 +31,12 @@ public interface ISysAttachmentService extends IService<SysAttachment> {
    * @return 文件管理集合
    */
   List<SysAttachment> selectSysAttachmentList(SysAttachment sysAttachment, IPage page);
+
+  /**
+   * 通过ID数组查找对应的附件
+   *
+   * @param ids
+   * @return
+   */
+  List<SysAttachment> selectSysAttachmentListByIds(List<Long> ids);
 }

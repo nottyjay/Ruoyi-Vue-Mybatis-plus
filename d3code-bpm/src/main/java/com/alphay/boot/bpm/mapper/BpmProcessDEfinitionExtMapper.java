@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.mapper;
 
-import com.alphay.boot.bpm.domain.BpmProcessDefinitionExt;
+import com.alphay.boot.bpm.api.domain.BpmProcessDefinitionExt;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 
 import java.util.Collection;

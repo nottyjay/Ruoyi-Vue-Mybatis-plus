@@ -319,6 +319,12 @@
             <!-- 工作流 -->
             <dependency>
                 <groupId>com.alphay.boot</groupId>
+                <artifactId>d3code-bpm-api</artifactId>
+                <version>${d3code.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alphay.boot</groupId>
                 <artifactId>d3code-bpm</artifactId>
                 <version>${d3code.version}</version>
             </dependency>
@@ -351,6 +357,7 @@
         <module>d3code-security</module>
         <module>d3code-attachment</module>
         <module>d3code-attachment-api</module>
+        <module>d3code-bpm-api</module>
     </modules>
     <packaging>pom</packaging>
 

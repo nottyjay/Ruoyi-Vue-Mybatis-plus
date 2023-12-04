@@ -26,6 +26,11 @@
 
         <dependency>
             <groupId>com.alphay.boot</groupId>
+            <artifactId>d3code-bpm-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alphay.boot</groupId>
             <artifactId>d3code-security</artifactId>
         </dependency>
 

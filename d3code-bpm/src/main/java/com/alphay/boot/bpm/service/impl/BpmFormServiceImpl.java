@@ -3,9 +3,9 @@ package com.alphay.boot.bpm.service.impl;
 import java.util.Collection;
 import java.util.List;
 
-import com.alphay.boot.bpm.domain.BpmForm;
+import com.alphay.boot.bpm.api.domain.BpmForm;
 import com.alphay.boot.bpm.mapper.BpmFormMapper;
-import com.alphay.boot.bpm.service.IBpmFormService;
+import com.alphay.boot.bpm.api.service.IBpmFormService;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

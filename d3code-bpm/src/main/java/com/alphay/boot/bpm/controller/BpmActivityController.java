@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.controller;
 
-import com.alphay.boot.bpm.service.IBpmActivityService;
+import com.alphay.boot.bpm.api.service.IBpmActivityService;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import org.springframework.validation.annotation.Validated;

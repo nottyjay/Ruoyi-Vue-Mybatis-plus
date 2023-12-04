@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.framework.core.script;
 
-import com.alphay.boot.bpm.enums.BpmTaskRuleScriptEnum;
+import com.alphay.boot.bpm.api.enums.BpmTaskRuleScriptEnum;
 import org.flowable.engine.delegate.DelegateExecution;
 
 import java.util.Set;

@@ -1,8 +1,8 @@
 package com.alphay.boot.bpm.controller;
 
-import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionPageItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionQueryRequestVo;
-import com.alphay.boot.bpm.service.IBpmProcessDefinitionService;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessDefinitionPageItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessDefinitionQueryRequestVo;
+import com.alphay.boot.bpm.api.service.IBpmProcessDefinitionService;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.page.TableDataInfo;

@@ -9,6 +9,14 @@ export function listAttachment(query) {
   })
 }
 
+export function listAttachmentByIds(ids) {
+  return request({
+    url: '/attachment/listByIds',
+    method: 'get',
+    params: { ids: ids.join(',') }
+  })
+}
+
 // 查询文件管理详细
 export function getAttachment(id) {
   return request({

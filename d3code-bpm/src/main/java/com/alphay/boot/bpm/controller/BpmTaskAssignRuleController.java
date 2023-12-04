@@ -1,8 +1,8 @@
 package com.alphay.boot.bpm.controller;
 
-import com.alphay.boot.bpm.model.vo.BpmTaksAssignRuleCreateRequestVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskAssignRuleUpdateRequestVo;
-import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
+import com.alphay.boot.bpm.api.model.vo.BpmTaksAssignRuleCreateRequestVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskAssignRuleUpdateRequestVo;
+import com.alphay.boot.bpm.api.service.IBpmTaskAssignRuleService;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import org.springframework.validation.annotation.Validated;

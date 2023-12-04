@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.mapper;
 
-import com.alphay.boot.bpm.domain.BpmTaskAssignRule;
+import com.alphay.boot.bpm.api.domain.BpmTaskAssignRule;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 
@@ -20,8 +20,8 @@ public interface BpmTaskAssignRuleMapper extends BaseMapperX<BpmTaskAssignRule> 
       String processDefinitionId, String taskDefinitionKey) {
     return selectList(
         new LambdaQueryWrapperX<BpmTaskAssignRule>()
-            .eq(BpmTaskAssignRule::getProcessDefinitionId, processDefinitionId)
-            .eqIfPresent(BpmTaskAssignRule::getTaskDefinitionKey, taskDefinitionKey));
+            .eqIfPresent(BpmTaskAssignRule::getTaskDefinitionKey, taskDefinitionKey)
+            .eq(BpmTaskAssignRule::getProcessDefinitionId, processDefinitionId));
   }
 
   default BpmTaskAssignRule selectListByModelIdAndTaskDefinitionKey(

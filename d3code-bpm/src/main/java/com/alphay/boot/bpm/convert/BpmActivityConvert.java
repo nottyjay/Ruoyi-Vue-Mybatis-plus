@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.convert;
 
-import com.alphay.boot.bpm.model.vo.BpmActivityResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmActivityResponseVo;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

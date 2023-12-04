@@ -7,6 +7,7 @@
       :with-header="false"
       size="400px"
       @closed="cancel"
+      append-to-body
     >
       <div style="padding: 20px">
         <el-upload
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import { getToken } from '../../utils/auth'
+import {getToken} from '../../utils/auth'
 
 export default {
   props: {

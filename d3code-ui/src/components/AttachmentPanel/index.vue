@@ -17,7 +17,16 @@
     </el-form>
     <!-- 附件列表-->
     <div class="attachment-panelList">
-      <slot></slot>
+      <el-button
+        type="primary"
+        plain
+        icon="el-icon-plus"
+        size="mini"
+        @click="handleAdd"
+        v-hasPermi="['attachment:attachment:add']"
+      >新增
+      </el-button>
+
       <!-- 所有文件-->
       <div style="width: 100%;box-shadow: 0 0 5px 6px rgba(141,141,141,0.2) inset;margin-top: 20px;padding: 15px;"
            v-loading="loading"
@@ -32,7 +41,7 @@
                            :is-file-checked="checkFileSelected(item)"
                            @checked="handleItemChecked"
                            @unchecked="handleItemUncheck"
-                           @on-fileDelete="handleDeleteFile"
+                           @on-fileDelete="handleDeleteFile(index)"
                            @on-filePreview="handlePreviewFile(item)"
                            @on-lookFile="fileInformation(item)"
           />
@@ -57,14 +66,17 @@
         <img :src="previewImg" alt="" style="width: 100%;height: 100%;">
       </el-dialog>
     </div>
+
+    <!-- 添加或修改文件管理对话框-->
+    <attachment-upload :visible.sync="open" @on-success="handleUploadSuccess"/>
   </div>
 </template>
 
 <script>
-import AttachmentItem from './AttachmentItem/index.vue'
-import { getEnabledEngineConfig } from '../../api/attachment/oss/oss_config'
-import { delAttachment, listAttachment } from '../../api/attachment/attachment'
-import { cleanLogininfor } from '../../api/monitor/logininfor'
+import AttachmentItem from '../AttachmentSelector/AttachmentItem/index.vue'
+import {getEnabledEngineConfig} from '../../api/attachment/oss/oss_config'
+import {listAttachment} from '../../api/attachment/attachment'
+import AttachmentUpload from "@/components/AttachmentUpload/index.vue";
 
 export default {
   props: {
@@ -76,7 +88,7 @@ export default {
       default: () => []
     }
   },
-  components: { AttachmentItem },
+  components: {AttachmentUpload, AttachmentItem},
   data() {
     return {
       // 遮罩层
@@ -86,6 +98,8 @@ export default {
       attachmentList: [],
       // 总条数
       total: 0,
+      // 是否显示弹出层
+      open: false,
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -121,7 +135,7 @@ export default {
   },
   watch: {
     selectedAttachmentList: {
-      handler: function() {
+      handler: function () {
         this.$emit('selectedFileList', this.selectedAttachmentList)
       }
     }
@@ -143,7 +157,34 @@ export default {
         this.loading = false
       })
     },
-    // 被选中的附件
+    // 表单重置
+    reset() {
+      this.form = {
+        id: null,
+        createTime: null,
+        createBy: null,
+        updateTime: null,
+        updateBy: null,
+        deleted: null,
+        name: null,
+        storageType: null,
+        path: null,
+        remark: null
+      }
+      this.resetForm('form')
+    },
+    /** 新增按钮操作 */
+    handleAdd() {
+      this.reset()
+      this.open = true
+      this.title = '添加文件管理'
+    },
+    // 上传成功的回调
+    handleUploadSuccess(fileList) {
+      this.$modal.msgSuccess('添加成功')
+      this.open = false
+      this.getList()
+    },
     checkFileSelected(item) {
       const index = this.selectedAttachmentList.findIndex((attachment) => {
         return attachment.id === item.id
@@ -155,11 +196,11 @@ export default {
       this.$emit('askFileInformation', item)
     },
     // 删除文件
-    handleDeleteFile(id) {
-      this.$modal.confirm('是否确认删除此文件？').then(function() {
+    handleDeleteFile(index) {
+      this.$modal.confirm('是否确认删除此文件？').then(function () {
         return ''
       }).then(() => {
-        delAttachment(id)
+        this.attachmentList.splice(index, 1)
         this.getList()
         this.$modal.msgSuccess('删除成功')
       }).catch(() => {

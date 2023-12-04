@@ -36,4 +36,9 @@ public class SysAttachmentServiceImpl extends ServiceImplX<SysAttachmentMapper, 
             .likeIfPresent(SysAttachment::getName, sysAttachment.getName())
             .eqIfPresent(SysAttachment::getStorageType, sysAttachment.getStorageType()));
   }
+
+  @Override
+  public List<SysAttachment> selectSysAttachmentListByIds(List<Long> ids) {
+    return this.list(this.lambdaQueryWrapperX().inIfPresent(SysAttachment::getId, ids));
+  }
 }

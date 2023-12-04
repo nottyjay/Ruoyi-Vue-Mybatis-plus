@@ -9,14 +9,7 @@ import com.alphay.boot.attachment.api.service.IAttachmentUploadService;
 import com.alphay.boot.attachment.utils.StorageEngineUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.alphay.boot.common.annotation.Log;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
@@ -48,6 +41,13 @@ public class SysAttachmentController extends BaseController {
     List<SysAttachment> list =
         sysAttachmentService.selectSysAttachmentList(sysAttachment, startPage());
     return getDataTable(list);
+  }
+
+  @PreAuthorize("@ss.hasPermi('attachment:attachment:list')")
+  @GetMapping("/listByIds")
+  public AjaxResult list(@RequestParam List<Long> ids) {
+    List<SysAttachment> list = sysAttachmentService.selectSysAttachmentListByIds(ids);
+    return success(list);
   }
 
   /** 导出文件管理列表 */

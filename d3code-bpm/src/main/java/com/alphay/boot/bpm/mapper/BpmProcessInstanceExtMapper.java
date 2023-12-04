@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.mapper;
 
-import com.alphay.boot.bpm.domain.BpmProcessInstanceExt;
+import com.alphay.boot.bpm.api.domain.BpmProcessInstanceExt;
 import com.alphay.boot.common.mybatis.mapper.BaseMapperX;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.baomidou.mybatisplus.core.metadata.IPage;

@@ -1,12 +1,12 @@
 package com.alphay.boot.bpm.convert;
 
 import cn.hutool.core.util.NumberUtil;
-import com.alphay.boot.bpm.domain.BpmProcessDefinitionExt;
-import com.alphay.boot.bpm.domain.BpmProcessInstanceExt;
-import com.alphay.boot.bpm.framework.event.BpmProcessInstanceResultEvent;
-import com.alphay.boot.bpm.model.dto.BpmMessageSendWhenProcessInstanceCheckRequestDTO;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceResponseVo;
+import com.alphay.boot.bpm.api.domain.BpmProcessDefinitionExt;
+import com.alphay.boot.bpm.api.domain.BpmProcessInstanceExt;
+import com.alphay.boot.bpm.api.framework.event.BpmProcessInstanceResultEvent;
+import com.alphay.boot.bpm.api.model.dto.BpmMessageSendWhenProcessInstanceCheckRequestDTO;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceResponseVo;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import org.flowable.engine.history.HistoricProcessInstance;

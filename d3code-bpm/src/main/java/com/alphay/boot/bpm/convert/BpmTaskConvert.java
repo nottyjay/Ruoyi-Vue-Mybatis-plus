@@ -1,11 +1,11 @@
 package com.alphay.boot.bpm.convert;
 
 import cn.hutool.core.util.NumberUtil;
-import com.alphay.boot.bpm.domain.BpmTaskExt;
-import com.alphay.boot.bpm.model.dto.BpmMessageSendWhenTaskCreatedRequestDTO;
-import com.alphay.boot.bpm.model.vo.BpmTaskDoneItemResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskResponseVo;
-import com.alphay.boot.bpm.model.vo.BpmTaskTodoItemResponseVo;
+import com.alphay.boot.bpm.api.domain.BpmTaskExt;
+import com.alphay.boot.bpm.api.model.dto.BpmMessageSendWhenTaskCreatedRequestDTO;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskDoneItemResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmTaskTodoItemResponseVo;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysUser;
 import com.alphay.boot.common.utils.collection.CollectionUtil;

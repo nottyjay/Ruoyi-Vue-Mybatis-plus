@@ -1,11 +1,11 @@
 package com.alphay.boot.bpm.convert;
 
 import cn.hutool.core.date.DateUtil;
-import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionPageItemResponseVo;
-import com.alphay.boot.bpm.domain.BpmForm;
-import com.alphay.boot.bpm.domain.BpmProcessDefinitionExt;
-import com.alphay.boot.bpm.model.dto.BpmProcessDefinitionCreateRequestDTO;
-import com.alphay.boot.bpm.model.vo.BpmProcessDefinitionResponseVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessDefinitionPageItemResponseVo;
+import com.alphay.boot.bpm.api.domain.BpmForm;
+import com.alphay.boot.bpm.api.domain.BpmProcessDefinitionExt;
+import com.alphay.boot.bpm.api.model.dto.BpmProcessDefinitionCreateRequestDTO;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessDefinitionResponseVo;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import org.flowable.common.engine.impl.db.SuspensionState;
 import org.flowable.engine.repository.Deployment;

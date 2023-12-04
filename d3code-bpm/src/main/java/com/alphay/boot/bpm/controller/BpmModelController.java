@@ -1,10 +1,9 @@
 package com.alphay.boot.bpm.controller;
 
 import cn.hutool.core.io.IoUtil;
-import com.alphay.boot.bpm.model.vo.*;
-import com.alphay.boot.bpm.service.IBpmModelService;
+import com.alphay.boot.bpm.api.model.vo.*;
+import com.alphay.boot.bpm.api.service.IBpmModelService;
 import com.alphay.boot.bpm.convert.BpmModelConvert;
-import com.alphay.boot.bpm.model.vo.*;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.page.TableDataInfo;

@@ -1,7 +1,7 @@
 package com.alphay.boot.bpm.framework.config;
 
 import cn.hutool.core.collection.ListUtil;
-import com.alphay.boot.bpm.service.IBpmTaskAssignRuleService;
+import com.alphay.boot.bpm.api.service.IBpmTaskAssignRuleService;
 import com.alphay.boot.bpm.framework.core.BpmActivityBehaviorFactory;
 import org.flowable.common.engine.api.delegate.event.FlowableEventListener;
 import org.flowable.spring.SpringProcessEngineConfiguration;

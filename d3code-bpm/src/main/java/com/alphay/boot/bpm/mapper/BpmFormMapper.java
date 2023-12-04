@@ -2,7 +2,7 @@ package com.alphay.boot.bpm.mapper;
 
 import java.util.List;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.alphay.boot.bpm.domain.BpmForm;
+import com.alphay.boot.bpm.api.domain.BpmForm;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Param;
 

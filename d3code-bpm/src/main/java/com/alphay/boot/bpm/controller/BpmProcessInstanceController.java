@@ -1,9 +1,9 @@
 package com.alphay.boot.bpm.controller;
 
-import com.alphay.boot.bpm.domain.BpmProcessInstanceExt;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceCancelRequestVo;
-import com.alphay.boot.bpm.model.vo.BpmProcessInstanceItemResponseVo;
-import com.alphay.boot.bpm.service.IBpmProcessInstanceService;
+import com.alphay.boot.bpm.api.domain.BpmProcessInstanceExt;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceCancelRequestVo;
+import com.alphay.boot.bpm.api.model.vo.BpmProcessInstanceItemResponseVo;
+import com.alphay.boot.bpm.api.service.IBpmProcessInstanceService;
 import com.alphay.boot.common.core.controller.BaseController;
 import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.core.page.TableDataInfo;
