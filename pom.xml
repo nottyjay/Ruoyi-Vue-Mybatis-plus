@@ -6,14 +6,14 @@
 
     <groupId>com.alphay.boot</groupId>
     <artifactId>d3code</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <name>d3code</name>
     <url>http://www.alphay-tech.com</url>
     <description>D3Code管理系统</description>
 
     <properties>
-        <d3code.version>1.0.3</d3code.version>
+        <d3code.version>1.0.4</d3code.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
