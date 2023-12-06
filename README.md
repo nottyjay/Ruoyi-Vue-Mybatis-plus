@@ -1,7 +1,7 @@
 <p align="center">
 	<img alt="logo" src="https://default-1319610221.cos.ap-shanghai.myqcloud.com/logo.png" width="200" height="200">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">D3Code v1.0.3</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">D3Code v1.0.4</h1>
 <h4 align="center">基于[Ruoyi-Vue]拓展的Java快速开发框架</h4>
 <p align="center">
 	<a href="https://gitee.com/anhui-infomation/d3code/stargazers">

@@ -13,7 +13,6 @@ const port = process.env.port || process.env.npm_config_port || 80 // 端口
 
 const targetHost = process.env.VUE_AMDIN_HOST || 'http://localhost:8080'
 
-console.log(targetHost)
 // vue.config.js 配置说明
 //官方vue.config.js 参考文档 https://cli.vuejs.org/zh/config/#css-loaderoptions
 // 这里只列一部分，具体配置参考文档
