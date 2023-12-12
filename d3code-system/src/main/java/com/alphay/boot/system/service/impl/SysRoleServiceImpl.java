@@ -254,7 +254,7 @@ public class SysRoleServiceImpl extends ServiceImplX<SysRoleMapper, SysRole>
   @Transactional
   public int authDataScope(SysRole role) {
     // 修改角色信息
-    this.updateById(role);
+    super.updateById(role);
     // 删除角色与部门关联
     roleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
     // 新增角色和部门信息（数据权限）

@@ -32,6 +32,12 @@
             <groupId>org.flowable</groupId>
             <artifactId>flowable-spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

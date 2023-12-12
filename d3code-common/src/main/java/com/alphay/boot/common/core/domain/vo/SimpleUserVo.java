@@ -8,4 +8,5 @@ public class SimpleUserVo {
 
   private Long userId;
   private String nickName;
+  private String userName;
 }

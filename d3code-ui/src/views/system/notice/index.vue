@@ -110,6 +110,14 @@
           <el-button
             size="mini"
             type="text"
+            icon="el-icon-search"
+            @click="handleDetail(scope.row)"
+            v-has-permi="['system:notice:query', 'teacher:notice:query']"
+          >查看
+          </el-button>
+          <el-button
+            size="mini"
+            type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['system:notice:remove']"
@@ -242,7 +250,6 @@ export default {
     cancel() {
       this.open = false
       this.reset()
-      console.log(this.form.attachmentList)
     },
     // 表单重置
     reset() {
@@ -318,6 +325,9 @@ export default {
         this.$modal.msgSuccess('删除成功')
       }).catch(() => {
       })
+    },
+    handleDetail(row) {
+      this.$router.push({ path: `/notice/info/${row.noticeId}` })
     }
   }
 }

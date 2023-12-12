@@ -28,8 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 #if($table.sub)
     <select id="select${subClassName}By${subTableFkClassName}" parameterType="${pkColumn.javaType}" resultMap="${subClassName}Result">
-        select#foreach($column in $subTable.columns) $column.columnName#if($velocityCount != $subTable.columns.size()),#end#end
-
+        select
+        #foreach($column in $subTable.columns)
+            $column.columnName as sub_$column.columnName#if($foreach.count != $subTable.columns.size()),#end
+        #end
         from ${subTableName}
             where ${subTableFkName} = #{${pkColumn.javaField}}
     </select>

@@ -26,6 +26,13 @@ export function getUser(userId) {
   })
 }
 
+export function getSimpleUser(userId) {
+  return request({
+    url: '/system/user/simple/' + parseStrEmpty(userId),
+    method: 'get'
+  })
+}
+
 // 新增用户
 export function addUser(data) {
   return request({

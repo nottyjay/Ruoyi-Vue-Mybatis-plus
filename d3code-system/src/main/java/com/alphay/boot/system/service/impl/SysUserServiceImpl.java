@@ -81,8 +81,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
     List<SysUser> result =
         baseMapper.selectList(
             new LambdaQueryWrapperX<SysUser>()
+                .likeIfPresent(SysUser::getNickName, user.getNickName())
                 .eqIfPresent(SysUser::getDeptId, user.getDeptId())
-                .select(SysUser::getUserId, SysUser::getDeptId, SysUser::getNickName));
+                .select(
+                    SysUser::getUserId,
+                    SysUser::getDeptId,
+                    SysUser::getUserName,
+                    SysUser::getNickName));
     return SysUserConvert.INSTANCE.convertList(result);
   }
 

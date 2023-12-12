@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">D3Code后台管理系统</h3>
+      <h3 class="title">{{ title }}</h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -71,8 +71,9 @@ export default {
   data() {
     return {
       codeUrl: '',
+      title: process.env.VUE_APP_TITLE,
       loginForm: {
-        username: 'admin',
+        username: process.env.NODE_ENV === 'production' ? '' : 'admin',
         password: process.env.NODE_ENV === 'production' ? '' : 'admin123',
         rememberMe: false,
         code: '',

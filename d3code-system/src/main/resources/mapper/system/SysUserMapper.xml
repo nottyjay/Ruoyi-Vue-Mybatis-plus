@@ -102,6 +102,9 @@
         <if test="sysUser.userName != null and sysUser.userName != ''">
             AND u.user_name like concat('%', #{sysUser.userName}, '%')
         </if>
+        <if test="sysUser.nickName != null and sysUser.nickName != ''">
+            AND u.nick_name like concat('%', #{sysUser.nickName}, '%')
+        </if>
         <if test="sysUser.status != null and sysUser.status != ''">
             AND u.status = #{sysUser.status}
         </if>

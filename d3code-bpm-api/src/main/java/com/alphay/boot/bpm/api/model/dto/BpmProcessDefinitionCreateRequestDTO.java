@@ -2,7 +2,7 @@ package com.alphay.boot.bpm.api.model.dto;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.alphay.boot.bpm.enums.BpmModelFormTypeEnum;
+import com.alphay.boot.bpm.api.enums.BpmModelFormTypeEnum;
 import lombok.Data;
 
 import javax.validation.constraints.AssertTrue;

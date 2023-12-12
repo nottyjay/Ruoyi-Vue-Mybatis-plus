@@ -46,7 +46,7 @@
 
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
-      <el-table-column label="流程标识" align="center" prop="key"/>
+      <el-table-column label="流程标识" align="center" prop="key" width="250"/>
       <el-table-column label="流程名称" align="center" prop="name" width="200">
         <template v-slot="scope">
           <el-button type="text" @click="handleBpmnDetail(scope.row)">
@@ -59,7 +59,7 @@
           <dict-tag :options="dict.type.bpm_model_category" :value="scope.row.category"/>
         </template>
       </el-table-column>
-      <el-table-column label="表单信息" align="center" prop="formType" width="200">
+      <el-table-column label="表单信息" align="left" header-align="center" prop="formType">
         <template v-slot="scope">
           <el-button v-if="scope.row.formId" type="text" @click="handleFormDetail(scope.row)">
             <span>{{ scope.row.formName }}</span>

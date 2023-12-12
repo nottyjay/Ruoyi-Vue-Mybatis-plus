@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.api.domain;
 
-import com.alphay.boot.bpm.enums.BpmModelFormTypeEnum;
+import com.alphay.boot.bpm.api.enums.BpmModelFormTypeEnum;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

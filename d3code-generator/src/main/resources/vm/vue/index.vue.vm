@@ -205,6 +205,10 @@
         <el-form-item label="${comment}" prop="${field}">
           <file-upload v-model="form.${field}"/>
         </el-form-item>
+#elseif($column.htmlType == "attachmentSelector")
+        <el-form-item label="${comment}" prop="${field}">
+          <attachment-selector v-model="form.${field}"/>
+        </el-form-item>
 #elseif($column.htmlType == "editor")
         <el-form-item label="${comment}">
           <editor v-model="form.${field}" :min-height="192"/>

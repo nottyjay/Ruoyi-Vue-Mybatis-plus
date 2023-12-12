@@ -32,9 +32,10 @@ export default {
   // 关闭指定tab页签
   closePage(obj) {
     if (obj === undefined) {
-      return store.dispatch('tagsView/delView', router.currentRoute).then(({ lastPath }) => {
-        return router.push(lastPath || '/');
-      });
+      return store.dispatch('tagsView/delView', router.currentRoute).then(({ visitedViews }) => {
+        const latestView = visitedViews.slice(-1)[0]
+        return router.push(latestView.fullPath)
+      })
     }
     return store.dispatch('tagsView/delView', obj);
   },

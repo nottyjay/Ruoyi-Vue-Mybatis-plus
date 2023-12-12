@@ -1,9 +1,8 @@
 package com.alphay.boot.bpm.api.framework.event;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.context.ApplicationEvent;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * 流程实例的结果发生变化的Event

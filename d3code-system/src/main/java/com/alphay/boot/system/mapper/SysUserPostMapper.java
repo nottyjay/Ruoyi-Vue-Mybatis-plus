@@ -34,7 +34,7 @@ public interface SysUserPostMapper extends BaseMapperX<SysUserPost> {
    * @param ids 需要删除的数据ID
    * @return 结果
    */
-  public int deleteUserPost(Collection<Long> ids);
+  public int deleteUserPost(List<Long> ids);
 
   /**
    * 批量新增用户岗位信息

@@ -1,7 +1,7 @@
 package com.alphay.boot.bpm.api.domain;
 
-import com.alphay.boot.bpm.enums.BpmProcessInstanceResultEnum;
-import com.alphay.boot.bpm.enums.BpmProcessInstanceStatusEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceResultEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceStatusEnum;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

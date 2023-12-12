@@ -1,6 +1,6 @@
 package com.alphay.boot.bpm.api.domain;
 
-import com.alphay.boot.bpm.enums.BpmProcessInstanceResultEnum;
+import com.alphay.boot.bpm.api.enums.BpmProcessInstanceResultEnum;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

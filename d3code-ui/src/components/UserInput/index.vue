@@ -4,7 +4,8 @@
     <el-autocomplete v-else v-model="name" :value-key="labelKey"
                      :fetch-suggestions="querySearchAsync"
                      :placeholder="placeholder"
-                     @select="handleSelect">
+                     @select="handleSelect"
+    >
       <template v-slot="scope">
         {{ scope.item.nickName }} [{{ scope.item.userName }}]
       </template>
@@ -13,7 +14,8 @@
 </template>
 
 <script>
-import {getUser, listUser} from "@/api/system/user";
+import { getSimpleUser, getUser, listSimpleUser, listUser } from '@/api/system/user'
+import { parseStrEmpty } from '@/utils/ruoyi'
 
 export default {
   props: {
@@ -42,8 +44,8 @@ export default {
   },
   watch: {
     value: {
-      handle(newVal) {
-        if (this.selectUser === null && this.selectUser.id !== newVal) {
+      handler(newVal) {
+        if ((parseStrEmpty(newVal) !== '') && (this.selectUser === null || this.selectUser.id !== newVal)) {
           this.getUser()
         }
       },
@@ -52,13 +54,20 @@ export default {
   },
   methods: {
     getUser() {
-      getUser(this.value).then(response => {
+      getSimpleUser(this.value).then(response => {
         this.selectUser = response.data
+        this.name = this.selectUser.nickName
       })
     },
-    querySearchAsync(name, cb) {
-      listUser({nickName: name, pageSize: 20, pageNum: 1}).then(response => {
-        this.userList = response.rows
+    querySearchAsync(query, cb) {
+      let queryParams = {
+        pageSize: 20,
+        pageNum: 1
+      }
+      queryParams['nickName'] = query
+
+      listSimpleUser(queryParams).then(response => {
+        this.userList = response.data
         cb(this.userList)
       })
     },
