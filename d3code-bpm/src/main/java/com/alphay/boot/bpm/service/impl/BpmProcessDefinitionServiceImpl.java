@@ -268,6 +268,7 @@ public class BpmProcessDefinitionServiceImpl implements IBpmProcessDefinitionSer
           query.listPage(
               ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
               ((Long) page.getSize()).intValue());
+      page.setTotal(query.count());
     } else {
       processDefinitions = query.list();
     }

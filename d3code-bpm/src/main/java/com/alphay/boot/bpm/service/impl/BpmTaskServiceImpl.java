@@ -84,6 +84,7 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
           taskQuery.listPage(
               ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
               ((Long) page.getSize()).intValue());
+      page.setTotal(taskQuery.count());
     } else {
       tasks = taskQuery.list();
     }
@@ -136,6 +137,7 @@ public class BpmTaskServiceImpl implements IBpmTaskService {
           taskQuery.listPage(
               ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
               ((Long) page.getSize()).intValue());
+      page.setTotal(taskQuery.count());
     } else {
       tasks = taskQuery.list();
     }

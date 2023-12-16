@@ -73,6 +73,7 @@ public class BpmModelServiceImpl implements IBpmModelService {
           modelQuery.listPage(
               ((Long) ((page.getCurrent() - 1) * page.getSize())).intValue(),
               ((Long) page.getSize()).intValue());
+      page.setTotal(modelQuery.count());
     }
 
     Set<Long> formIds =
