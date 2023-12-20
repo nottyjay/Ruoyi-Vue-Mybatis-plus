@@ -2,8 +2,8 @@
   <div @click="handleClickItem" :class="checked === true ? 'selected attachment-icon' : 'attachment-icon' ">
     <div class="fileIconAll">
       <el-image
-          v-if="isImage"
-          :src="item.url" style="width: 120px;height: 120px"
+        v-if="isImage"
+        :src="item.url" style="width: 120px;height: 120px"
       >
         <div slot="error" class="image-slot">
           <i class="el-icon-picture-outline"></i>
@@ -98,11 +98,11 @@ export default {
     },
     // 删除文件
     handleDeleteFile() {
-      this.$emit('on-fileDelete', this.item.id)
+      this.$emit('on-fileDelete', this.index)
     },
     // 下载按钮
     handleDownloadFile() {
-      window.open(this.item.url)
+      this.$download.downloadAttachment(this.item.id)
     },
     // 点击查看详情
     handleClickItem() {

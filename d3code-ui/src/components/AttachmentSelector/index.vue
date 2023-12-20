@@ -8,7 +8,11 @@
            :key="index"
       >
         <div class="selectedAttachItemName">{{ item.name }}</div>
-        <el-button size="small" type="text" @click="preview(item)" v-if="readonly">预览</el-button>
+        <template v-if="readonly">
+          <el-button size="small" type="text" @click="preview(item)">预览</el-button>
+          <el-button size="small" type="text" @click="download(item)">下载</el-button>
+        </template>
+
         <i class="el-icon-close closed" @click="removeAttachment(index)" v-else></i>
       </div>
     </div>
@@ -28,9 +32,9 @@
 </template>
 
 <script>
-import {getEnabledEngineConfig} from '../../api/attachment/oss/oss_config'
-import {listAttachment, listAttachmentByIds} from '../../api/attachment/attachment'
-import AttachmentPanel from '../AttachmentPanel/index.vue'
+import { getEnabledEngineConfig } from '@/api/attachment/oss/oss_config'
+import { listAttachment, listAttachmentByIds } from '@/api/attachment/attachment'
+import AttachmentPanel from '@/components/AttachmentPanel/index.vue'
 
 export default {
   props: {
@@ -67,7 +71,7 @@ export default {
   },
   watch: {
     value: {
-      handler: function (n) {
+      handler: function(n) {
         if (n) {
           // 判断是否是数组，不是则变成数组
           let isArray = n instanceof Array
@@ -148,6 +152,9 @@ export default {
     },
     preview(item) {
       window.open(item.url, '_blank')
+    },
+    download(item) {
+      this.$download.downloadAttachment(item.id)
     }
   }
 }

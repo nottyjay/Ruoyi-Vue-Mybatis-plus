@@ -73,9 +73,9 @@
 </template>
 
 <script>
-import AttachmentItem from '../AttachmentSelector/AttachmentItem/index.vue'
-import {getEnabledEngineConfig} from '../../api/attachment/oss/oss_config'
-import {listAttachment} from '../../api/attachment/attachment'
+import AttachmentItem from './AttachmentItem/index.vue'
+import {getEnabledEngineConfig} from '@/api/attachment/oss/oss_config'
+import {listAttachment} from '@/api/attachment/attachment'
 import AttachmentUpload from "@/components/AttachmentUpload/index.vue";
 
 export default {

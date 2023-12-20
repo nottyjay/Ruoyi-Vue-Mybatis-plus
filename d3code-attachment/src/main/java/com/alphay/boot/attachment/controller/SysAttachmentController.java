@@ -1,5 +1,6 @@
 package com.alphay.boot.attachment.controller;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Resource;
@@ -7,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alphay.boot.attachment.api.service.IAttachmentUploadService;
 import com.alphay.boot.attachment.utils.StorageEngineUtil;
+import com.alphay.boot.common.config.D3codeConfig;
+import com.alphay.boot.common.utils.file.FileUtils;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +20,6 @@ import com.alphay.boot.common.core.domain.AjaxResult;
 import com.alphay.boot.common.enums.BusinessType;
 import com.alphay.boot.attachment.api.domain.SysAttachment;
 import com.alphay.boot.attachment.api.service.ISysAttachmentService;
-import com.alphay.boot.common.utils.poi.ExcelUtil;
 import com.alphay.boot.common.core.page.TableDataInfo;
 
 /**
@@ -50,16 +53,16 @@ public class SysAttachmentController extends BaseController {
     return success(list);
   }
 
-  /** 导出文件管理列表 */
-  @PreAuthorize("@ss.hasPermi('attachment:attachment:export')")
-  @Log(title = "文件管理", businessType = BusinessType.EXPORT)
-  @PostMapping("/export")
-  public void export(HttpServletResponse response, SysAttachment sysAttachment) {
-    List<SysAttachment> list = sysAttachmentService.selectSysAttachmentList(sysAttachment);
-    ExcelUtil<SysAttachment> util = new ExcelUtil<SysAttachment>(SysAttachment.class);
-    util.exportExcel(response, list, "文件管理数据");
+  @GetMapping("/download")
+  public void download(HttpServletResponse response, SysAttachment sysAttachment)
+          throws IOException {
+    SysAttachment attachment = sysAttachmentService.getById(sysAttachment.getId());
+    String filePath = D3codeConfig.getProfile() + attachment.getPath().replace("/profile", "");
+    response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+    FileUtils.setAttachmentResponseHeader(
+            response, attachment.getName() + "." + attachment.getExtension());
+    FileUtils.writeBytes(filePath, response.getOutputStream());
   }
-
   /** 获取文件管理详细信息 */
   @PreAuthorize("@ss.hasPermi('attachment:attachment:query')")
   @GetMapping(value = "/{id}")
