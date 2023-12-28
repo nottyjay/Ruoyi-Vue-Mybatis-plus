@@ -5,16 +5,23 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjUtil;
+import com.alphay.boot.common.constant.UserConstants;
 import com.alphay.boot.common.core.domain.entity.SysDictData;
+import com.alphay.boot.common.core.text.Convert;
 import com.alphay.boot.common.exception.ServiceException;
 import com.alphay.boot.common.mybatis.query.LambdaQueryWrapperX;
 import com.alphay.boot.common.mybatis.service.ServiceImplX;
+import com.alphay.boot.common.utils.ObjectUtil;
+import com.alphay.boot.common.utils.StringUtils;
 import com.alphay.boot.common.utils.collection.CollectionUtil;
 import com.alphay.boot.common.enums.SystemStatusEnum;
 import com.alphay.boot.system.common.service.ISysDictDataService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alphay.boot.common.utils.DictUtils;
@@ -37,13 +44,18 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
    */
   @Override
   public List<SysDictData> selectDictDataList(SysDictData dictData, IPage page) {
-    return this.list(
-        page,
+    LambdaQueryWrapper<SysDictData> query =
         this.lambdaQueryWrapperX()
             .eqIfPresent(SysDictData::getDictType, dictData.getDictType())
             .likeIfPresent(SysDictData::getDictLabel, dictData.getDictLabel())
             .eqIfPresent(SysDictData::getStatus, dictData.getStatus())
-            .orderByAsc(SysDictData::getDictSort));
+            .orderByAsc(SysDictData::getDictSort);
+    if (dictData.getParentDictCode() != null) {
+      query.eq(SysDictData::getParentDictCode, dictData.getParentDictCode());
+    } else {
+      query.isNull(SysDictData::getParentDictCode);
+    }
+    return this.list(page, query);
   }
 
   /**
@@ -107,6 +119,21 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
    */
   @Override
   public boolean save(SysDictData data) {
+    if (data.getParentDictCode() != null) {
+      SysDictData info = this.getById(data.getParentDictCode());
+      if (ObjUtil.isNull(info)) {
+        throw new ServiceException("找不到对应的上级字典");
+      }
+      // 如果父节点不为正常状态，则不允许新增子节点
+      if (!UserConstants.DICT_NORMAL.equals(info.getStatus())) {
+        throw new ServiceException("字段已停用，不允许新增");
+      }
+      data.setFullPathDictCode(info.getFullPathDictCode() + "," + data.getParentDictCode());
+      data.setFullPathDictValue(info.getFullPathDictValue() + "," + data.getDictValue());
+    } else {
+      data.setFullPathDictCode("0");
+      data.setFullPathDictValue(data.getDictValue());
+    }
     boolean result = super.save(data);
     if (result) {
       refreshDictData(data.getDictType());
@@ -122,11 +149,39 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
    */
   @Override
   public boolean updateById(SysDictData data) {
+    SysDictData newParentData = this.getById(data.getParentDictCode());
+    SysDictData oldPersistent = this.getById(data.getDictCode());
+    if (ObjUtil.isNotNull(newParentData) && ObjUtil.isNotNull(oldPersistent)) {
+      String newFullPathCode =
+          newParentData.getFullPathDictCode() + "," + newParentData.getDictCode();
+      String oldFullPathCode = oldPersistent.getFullPathDictCode();
+      data.setFullPathDictCode(newFullPathCode);
+
+      String newFullPathValue = newParentData.getFullPathDictValue() + "," + data.getDictValue();
+      String oldFullPathValue = oldPersistent.getFullPathDictValue();
+      data.setFullPathDictValue(newFullPathValue);
+      this.updateDictDataChildren(
+          data.getDictCode(), newFullPathCode, oldFullPathCode, newFullPathValue, oldFullPathValue);
+    }
     boolean result = super.updateById(data);
     if (result) {
+      if (UserConstants.DICT_NORMAL.equals(data.getStatus())
+          && StringUtils.isNotEmpty(data.getFullPathDictCode())
+          && !StringUtils.equals("0", data.getFullPathDictCode())) {
+        this.updateParentDictDataStatusNormal(data);
+      }
       refreshDictData(data.getDictType());
     }
     return result;
+  }
+
+  private void updateParentDictDataStatusNormal(SysDictData data) {
+    String ancestors = data.getFullPathDictCode();
+    Long[] dataCodes = Convert.toLongArray(ancestors);
+    this.update(
+        Wrappers.<SysDictData>lambdaUpdate()
+            .set(SysDictData::getStatus, "0")
+            .in(SysDictData::getDictCode, dataCodes));
   }
 
   @Override
@@ -165,5 +220,23 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
             throw new ServiceException("字典数据(" + dictData.getDictLabel() + ")不处于开启状态，不允许选择");
           }
         });
+  }
+
+  private void updateDictDataChildren(
+      Long dictCode,
+      String newFullPathCode,
+      String oldFullPathCode,
+      String newFullPathValue,
+      String oldFullPathValue) {
+    List<SysDictData> children = baseMapper.selectDictDataChildrenListByCode(dictCode);
+    if (CollUtil.isNotEmpty(children)) {
+      for (SysDictData child : children) {
+        child.setFullPathDictCode(
+            child.getFullPathDictCode().replaceFirst(oldFullPathCode, newFullPathCode));
+        child.setFullPathDictValue(
+            child.getFullPathDictValue().replaceFirst(oldFullPathValue, newFullPathValue));
+      }
+      this.updateBatchById(children);
+    }
   }
 }

@@ -51,6 +51,10 @@
         </where>
         order by dict_sort asc
     </select>
+    <select id="selectDictDataChildrenListByCode" resultMap="SysDictDataResult">
+        select * from sys_dict_data
+        where find_in_set(#{dictCode}, full_path_dict_code)
+    </select>
 
     <update id="updateDictDataType" parameterType="String">
         update sys_dict_data

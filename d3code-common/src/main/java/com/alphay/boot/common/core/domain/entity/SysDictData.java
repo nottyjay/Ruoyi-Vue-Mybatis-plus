@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -11,6 +12,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.alphay.boot.common.annotation.Excel;
 import com.alphay.boot.common.annotation.Excel.ColumnType;
 import com.alphay.boot.common.core.domain.BaseEntity;
+
+import java.util.List;
 
 /**
  * 字典数据表 sys_dict_data
@@ -42,6 +45,18 @@ public class SysDictData extends BaseEntity {
   @Excel(name = "字典键值")
   private String dictValue;
 
+  /** 字典父节点 */
+  @Excel(name = "上级字典编码", cellType = ColumnType.NUMERIC)
+  private Long parentDictCode;
+
+  /** 字典节点路径(值) */
+  @Excel(name = "节点路径(值)")
+  private String fullPathDictValue;
+
+  /** 字典节点路径(编码) */
+  @Excel(name = "节点路径(编码)")
+  private String fullPathDictCode;
+
   /** 字典类型 */
   @NotBlank(message = "字典类型不能为空")
   @Size(min = 0, max = 100, message = "字典类型长度不能超过100个字符")
@@ -62,6 +77,11 @@ public class SysDictData extends BaseEntity {
   /** 状态（0正常 1停用） */
   @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
   private String status;
+
+  @TableField(exist = false)
+  private SysDictData parentDictData;
+  @TableField(exist = false)
+  private List<SysDictData> children;
 
   @Override
   public String toString() {

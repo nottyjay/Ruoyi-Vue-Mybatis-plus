@@ -44,4 +44,6 @@ public interface SysDictDataMapper extends BaseMapperX<SysDictData> {
             .eq(SysDictData::getDictType, dictType)
             .in(SysDictData::getDictValue, values));
   }
+
+  List<SysDictData> selectDictDataChildrenListByCode(Long dictCode);
 }
