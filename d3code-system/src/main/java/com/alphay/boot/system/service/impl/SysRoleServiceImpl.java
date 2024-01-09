@@ -49,7 +49,7 @@ public class SysRoleServiceImpl extends ServiceImplX<SysRoleMapper, SysRole>
    * @return 角色数据集合信息
    */
   @Override
-  @DataScope(deptAlias = "d")
+  @DataScope(deptAlias = "d.dept_id")
   public List<SysRole> selectRoleList(SysRole role, IPage page) {
     return this.baseMapper.selectRoleList(role, page);
   }

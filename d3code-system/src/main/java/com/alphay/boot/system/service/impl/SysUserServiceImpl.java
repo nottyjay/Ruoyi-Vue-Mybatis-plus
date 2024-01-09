@@ -70,7 +70,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    * @return 用户信息集合信息
    */
   @Override
-  @DataScope(deptAlias = "d", userAlias = "u")
+  @DataScope(deptAlias = "d.dept_id", userAlias = "u.user_id")
   public List<SysUser> selectUserList(SysUser user, IPage page) {
     List<SysUser> users = userMapper.selectUserList(user, page);
     return users;
@@ -98,7 +98,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    * @return 用户信息集合信息
    */
   @Override
-  @DataScope(deptAlias = "d", userAlias = "u")
+  @DataScope(deptAlias = "d.dept_id", userAlias = "u.user_id")
   public List<SysUser> selectAllocatedList(SysUser user, IPage page) {
     return userMapper.selectAllocatedList(user, page);
   }
@@ -110,7 +110,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser>
    * @return 用户信息集合信息
    */
   @Override
-  @DataScope(deptAlias = "d", userAlias = "u")
+  @DataScope(deptAlias = "d.dept_id", userAlias = "u.user_id")
   public List<SysUser> selectUnallocatedList(SysUser user, IPage page) {
     return userMapper.selectUnallocatedList(user, page);
   }
