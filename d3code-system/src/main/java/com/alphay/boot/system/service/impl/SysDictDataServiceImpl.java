@@ -192,7 +192,7 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
   @Override
   public void refreshDictData(String dictType) {
     List<SysDictData> dictDatas = selectDictDataByType(dictType);
-    // TODO 整理DictData信息
+    // 整理DictData信息
     dictDatas = evalChildrenDictDatas(dictDatas);
     DictUtils.setDictCache(dictType, dictDatas);
   }
