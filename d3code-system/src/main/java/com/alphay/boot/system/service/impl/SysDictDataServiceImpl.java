@@ -193,8 +193,7 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
   public void refreshDictData(String dictType) {
     List<SysDictData> dictDatas = selectDictDataByType(dictType);
     // 整理DictData信息
-    dictDatas = evalChildrenDictDatas(dictDatas);
-    DictUtils.setDictCache(dictType, dictDatas);
+    DictUtils.setDictCache(dictType, evalChildrenDictDatas(dictDatas));
   }
 
   private List<SysDictData> evalChildrenDictDatas(List<SysDictData> dictDatas) {
@@ -212,7 +211,8 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
     if (CollUtil.isEmpty(list)) {
       return list;
     }
-    for (int index = 0; index < list.size(); index++) {
+    for (int index = list.size() - 1; index > 0; index--) {
+
       SysDictData data = list.get(index);
       //    for (SysDictData data : list) {
       if (data.getParentDictCode() != null
@@ -222,6 +222,7 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
         }
         dictData.getChildren().add(data);
         list.remove(data);
+        index--;
         recursionFn(list, data);
       }
     }
