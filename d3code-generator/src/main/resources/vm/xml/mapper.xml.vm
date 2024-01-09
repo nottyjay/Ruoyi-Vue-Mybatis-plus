@@ -53,5 +53,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             (#foreach($column in $subTable.columns) #{item.$column.javaField}#if($foreach.count != $subTable.columns.size()),#end#end)
         </foreach>
     </insert>
+#elseif($table.tree)
+    <select id="selectChildrenListByTreeId" parameterType="${pkColumn.javaType}" resultMap="${ClassName}Result">
+        select *
+        from ${tableName}
+        where find_in_set(#{${pkColumn.javaField}}, ancestors)
+    </select>
 #end
 </mapper>

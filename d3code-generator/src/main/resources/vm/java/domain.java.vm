@@ -6,16 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.alphay.boot.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import com.baomidou.mybatisplus.annotation.TableField;
 #foreach ($import in $importList)
 import ${import};
 #end
 import com.alphay.boot.common.annotation.Excel;
 #if($table.crud || $table.sub)
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.alphay.boot.common.core.domain.BaseEntity;
 #elseif($table.tree)
+import com.alphay.boot.common.core.domain.TreeEntity;
 #end
 
 /**
