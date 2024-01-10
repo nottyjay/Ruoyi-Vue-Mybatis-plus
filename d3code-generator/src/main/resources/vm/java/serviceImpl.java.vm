@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.alphay.boot.common.mybatis.service.ServiceImplX;
-#if($table.sub)
+#if($table.tree)
+import cn.hutool.core.util.ObjUtil;
+import cn.hutool.core.collection.CollUtil;
+import com.alphay.boot.common.exception.ServiceException;
+#elseif($table.sub)
 import java.util.ArrayList;
 import com.alphay.boot.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,13 +32,42 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
 #if($table.tree)
     @Override
     public boolean save(${ClassName} entity) {
-        ${ClassName} info = baseMapper.selectById(entity.getParentId());
-        // 如果父节点不为正常状态，则不允许新增子节点
-        if (info == null) {
-            throw new ServiceException("${functionName}停用，不允许新增");
+        if(entity.getParentId() != null && entity.getParentId() != 0L){
+            ${ClassName} info = this.getById(entity.getParentId());
+            // 如果父节点不为正常状态，则不允许新增子节点
+            if (info == null) {
+                throw new ServiceException("${functionName}停用，不允许新增");
+            }
+            entity.setAncestors(info.getAncestors() + "," + entity.getParentId());
+        }else {
+          entity.setAncestors("0");
         }
-        entity.setAncestors(info.getAncestors() + "," + entity.getParentId());
         return super.save(entity);
+    }
+
+    @Override
+    public boolean updateById(${ClassName} entity) {
+      ${ClassName} parentData = this.getById(entity.getParentId());
+      ${ClassName} persistentData = this.getById(entity.getId());
+      if (ObjUtil.isNotNull(parentData) && ObjUtil.isNotNull(persistentData)) {
+        String newAncestors =
+                  parentData.getAncestors() + "," + parentData.getId();
+        String oldAncestors = oldPersistent.getAncestors();
+        entity.setAncestors(newAncestors);
+        this.updateChildren(entity.getId(), newAncestors, oldAncestors);
+      }
+      return super.updateById(entity);
+    }
+
+    private void updateChildren(${pkColumn.javaType} ${pkColumn.javaField}, String newAncestors, String oldAncestors){
+      List<${ClassName}> children = baseMapper.selectChildrenListByTreeId(${pkColumn.javaField});
+      if (CollUtil.isNotEmpty(children)) {
+        for (${ClassName} child : children) {
+          child.setAncestors(
+              child.getAncestors().replaceFirst(oldAncestors, newAncestors));
+        }
+        this.updateBatchById(children);
+      }
     }
 #end
 
@@ -73,6 +106,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
 #end
 #end
 #end
+                  .last(${className}.getParamsDataScope())
                 );
     }
 

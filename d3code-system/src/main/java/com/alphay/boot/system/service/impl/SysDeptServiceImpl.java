@@ -43,7 +43,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept>
    * @return 部门信息集合
    */
   @Override
-  @DataScope(deptAlias = "d")
+  @DataScope(deptAlias = "d.dept_id")
   public List<SysDept> selectDeptList(SysDept dept) {
     return deptMapper.selectDeptList(dept);
   }

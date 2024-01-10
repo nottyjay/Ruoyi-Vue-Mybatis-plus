@@ -56,15 +56,15 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2022 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2018-2022 alphay-tech.com All Rights Reserved.</span>
     </div>
   </div>
 </template>
 
 <script>
-import { getCodeImg } from '@/api/login'
+import {getCodeImg} from '@/api/login'
 import Cookies from 'js-cookie'
-import { encrypt, decrypt } from '@/utils/jsencrypt'
+import {encrypt, decrypt} from '@/utils/jsencrypt'
 
 export default {
   name: 'Login',
@@ -81,12 +81,12 @@ export default {
       },
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', message: '请输入您的账号' }
+          {required: true, trigger: 'blur', message: '请输入您的账号'}
         ],
         password: [
-          { required: true, trigger: 'blur', message: '请输入您的密码' }
+          {required: true, trigger: 'blur', message: '请输入您的密码'}
         ],
-        code: [{ required: true, trigger: 'change', message: '请输入验证码' }]
+        code: [{required: true, trigger: 'change', message: '请输入验证码'}]
       },
       loading: false,
       // 验证码开关
@@ -98,7 +98,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function(route) {
+      handler: function (route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -133,16 +133,16 @@ export default {
         if (valid) {
           this.loading = true
           if (this.loginForm.rememberMe) {
-            Cookies.set('username', this.loginForm.username, { expires: 30 })
-            Cookies.set('password', encrypt(this.loginForm.password), { expires: 30 })
-            Cookies.set('rememberMe', this.loginForm.rememberMe, { expires: 30 })
+            Cookies.set('username', this.loginForm.username, {expires: 30})
+            Cookies.set('password', encrypt(this.loginForm.password), {expires: 30})
+            Cookies.set('rememberMe', this.loginForm.rememberMe, {expires: 30})
           } else {
             Cookies.remove('username')
             Cookies.remove('password')
             Cookies.remove('rememberMe')
           }
           this.$store.dispatch('Login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' }).catch(() => {
+            this.$router.push({path: this.redirect || '/'}).catch(() => {
             })
           }).catch(() => {
             this.loading = false

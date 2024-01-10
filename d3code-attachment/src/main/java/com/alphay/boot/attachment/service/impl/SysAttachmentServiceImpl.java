@@ -2,6 +2,7 @@ package com.alphay.boot.attachment.service.impl;
 
 import java.util.List;
 
+import com.alphay.boot.common.annotation.DataScope;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.alphay.boot.common.mybatis.service.ServiceImplX;
@@ -27,6 +28,7 @@ public class SysAttachmentServiceImpl extends ServiceImplX<SysAttachmentMapper, 
    * @return 文件管理
    */
   @Override
+  @DataScope(userAlias = "user_id")
   public List<SysAttachment> selectSysAttachmentList(SysAttachment sysAttachment, IPage page) {
     return this.list(
         page,
@@ -34,7 +36,8 @@ public class SysAttachmentServiceImpl extends ServiceImplX<SysAttachmentMapper, 
             .eqIfPresent(SysAttachment::getCreateBy, sysAttachment.getCreateBy())
             .eqIfPresent(SysAttachment::getConfigId, sysAttachment.getConfigId())
             .likeIfPresent(SysAttachment::getName, sysAttachment.getName())
-            .eqIfPresent(SysAttachment::getStorageType, sysAttachment.getStorageType()));
+            .eqIfPresent(SysAttachment::getStorageType, sysAttachment.getStorageType())
+            .last(sysAttachment.getParamsDataScope()));
   }
 
   @Override

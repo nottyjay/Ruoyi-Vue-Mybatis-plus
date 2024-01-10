@@ -1,8 +1,7 @@
 package com.alphay.boot.system.service.impl;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjUtil;
@@ -193,7 +192,41 @@ public class SysDictDataServiceImpl extends ServiceImplX<SysDictDataMapper, SysD
   @Override
   public void refreshDictData(String dictType) {
     List<SysDictData> dictDatas = selectDictDataByType(dictType);
-    DictUtils.setDictCache(dictType, dictDatas);
+    // 整理DictData信息
+    DictUtils.setDictCache(dictType, evalChildrenDictDatas(dictDatas));
+  }
+
+  private List<SysDictData> evalChildrenDictDatas(List<SysDictData> dictDatas) {
+    boolean hasChildren = dictDatas.stream().anyMatch(item -> item.getParentDictCode() != null);
+    if (hasChildren) {
+      for (int index = 0; index < dictDatas.size(); index++) {
+        SysDictData data = dictDatas.get(index);
+        recursionFn(dictDatas, data);
+      }
+    }
+    return dictDatas;
+  }
+
+  private List<SysDictData> recursionFn(List<SysDictData> list, SysDictData dictData) {
+    if (CollUtil.isEmpty(list)) {
+      return list;
+    }
+    for (int index = list.size() - 1; index > 0; index--) {
+
+      SysDictData data = list.get(index);
+      //    for (SysDictData data : list) {
+      if (data.getParentDictCode() != null
+          && dictData.getDictCode().longValue() == data.getParentDictCode().longValue()) {
+        if (CollUtil.isEmpty(dictData.getChildren())) {
+          dictData.setChildren(new ArrayList<>());
+        }
+        dictData.getChildren().add(data);
+        list.remove(data);
+        index--;
+        recursionFn(list, data);
+      }
+    }
+    return list;
   }
 
   @Override

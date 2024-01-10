@@ -19,49 +19,52 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  * @author d3code
  */
 @Data
-public class BaseEntity implements Serializable
-{
-    private static final long serialVersionUID = 1L;
+public class BaseEntity implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-    /** 搜索值 */
-    @TableField(exist = false)
-	  @JsonIgnore
-    private String searchValue;
+  /** 搜索值 */
+  @TableField(exist = false)
+  @JsonIgnore
+  private String searchValue;
 
-    /** 创建者 */
-    private String createBy;
+  /** 创建者 */
+  private String createBy;
 
-    /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+  /** 创建时间 */
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @TableField(fill = FieldFill.INSERT)
+  private Date createTime;
 
-    @TableField(fill = FieldFill.INSERT)
-    private Integer deleted;
+  @TableField(fill = FieldFill.INSERT)
+  private Integer deleted;
 
-    /** 更新者 */
-    private String updateBy;
+  /** 更新者 */
+  private String updateBy;
 
-    /** 更新时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @TableField(fill = FieldFill.UPDATE)
-    private Date updateTime;
+  /** 更新时间 */
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @TableField(fill = FieldFill.UPDATE)
+  private Date updateTime;
 
-    /** 备注 */
-    private String remark;
+  /** 备注 */
+  private String remark;
 
-    /** 请求参数 */
-    @TableField(exist = false)
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private Map<String, Object> params;
+  /** 请求参数 */
+  @TableField(exist = false)
+  @JsonInclude(JsonInclude.Include.NON_EMPTY)
+  private Map<String, Object> params;
 
-    public Map<String, Object> getParams()
-    {
-        if (params == null)
-        {
-            params = new HashMap<>();
-        }
-        return params;
+  public Map<String, Object> getParams() {
+    if (params == null) {
+      params = new HashMap<>();
     }
+    return params;
+  }
 
+  public String getParamsDataScope() {
+    if (params == null || !params.containsKey("dataScope")) {
+      return null;
+    }
+    return (String) params.get("dataScope");
+  }
 }
