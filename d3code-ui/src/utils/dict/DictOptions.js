@@ -17,6 +17,7 @@ export const options = {
       responseConverter,
       labelField: 'label',
       valueField: 'value',
+      children: 'children',
     },
   },
   /**
