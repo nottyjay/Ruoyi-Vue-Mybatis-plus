@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { getSimpleUser, getUser, listSimpleUser, listUser } from '@/api/system/user'
-import { parseStrEmpty } from '@/utils/ruoyi'
+import {getSimpleUser, listSimpleUser} from '@/api/system/user'
+import {parseStrEmpty} from '@/utils/ruoyi'
 
 export default {
   props: {
