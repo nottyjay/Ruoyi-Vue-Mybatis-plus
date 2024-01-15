@@ -99,7 +99,13 @@
           <el-tag v-else :type="scope.row.listClass == 'primary' ? '' : scope.row.listClass">{{scope.row.dictLabel}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="字典键值" align="center" prop="dictValue" />
+      <el-table-column label="字典键值" align="center" prop="dictValue" >
+        <template slot-scope="scope">
+          <router-link :to="`/system/dict-data/index/${dictId}/${dictUrl(scope.row)}`" class="link-type">
+            <span>{{ scope.row.dictType }}</span>
+          </router-link>
+        </template>
+      </el-table-column>
       <el-table-column label="字典排序" align="center" prop="dictSort" />
       <el-table-column label="状态" align="center" prop="status">
         <template slot-scope="scope">
@@ -253,7 +259,8 @@ export default {
         pageSize: 10,
         dictName: undefined,
         dictType: undefined,
-        status: undefined
+        status: undefined,
+        parentDictCode: undefined
       },
       // 表单参数
       form: {},
@@ -268,15 +275,32 @@ export default {
         dictSort: [
           { required: true, message: "数据顺序不能为空", trigger: "blur" }
         ]
-      }
+      },
+      dictId: null,
+      parentDictCode: null
     };
   },
   created() {
-    const dictId = this.$route.params && this.$route.params.dictId;
-    this.getType(dictId);
+    this.dictId = this.$route.params && this.$route.params.dictId;
+    const dictCodeStr = this.$route.params.dictCode
+    if(dictCodeStr) {
+      const dictCodeList = dictCodeStr.split(',')
+      // 用于查询当前ID数据
+      this.queryParams.parentDictCode = dictCodeList[dictCodeList.length - 1]
+      this.parentDictCode = dictCodeList[dictCodeList.length - 1]
+    }
+    this.getType(this.dictId);
     this.getTypeList();
   },
   methods: {
+    // 跳转路径的变量部分
+    dictUrl(row){
+      if(this.$route.params.dictCode){
+        return this.$route.params.dictCode + ',' + row.dictCode
+      }else{
+        return row.dictCode
+      }
+    },
     /** 查询字典类型详细 */
     getType(dictId) {
       getType(dictId).then(response => {
@@ -315,7 +339,8 @@ export default {
         listClass: 'default',
         dictSort: 0,
         status: "0",
-        remark: undefined
+        remark: undefined,
+        parentDictCode: undefined
       };
       this.resetForm("form");
     },
@@ -337,7 +362,7 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.reset();
+      this.form.parentDictCode = this.parentDictCode
       this.open = true;
       this.title = "添加字典数据";
       this.form.dictType = this.queryParams.dictType;
@@ -350,7 +375,7 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
-      this.reset();
+      this.form.parentDictCode = this.parentDictCode
       const dictCode = row.dictCode || this.ids
       getData(dictCode).then(response => {
         this.form = response.data;
@@ -367,6 +392,7 @@ export default {
               this.$store.dispatch('dict/removeDict', this.queryParams.dictType);
               this.$modal.msgSuccess("修改成功");
               this.open = false;
+              this.reset();
               this.getList();
             });
           } else {
@@ -374,6 +400,7 @@ export default {
               this.$store.dispatch('dict/removeDict', this.queryParams.dictType);
               this.$modal.msgSuccess("新增成功");
               this.open = false;
+              this.reset();
               this.getList();
             });
           }

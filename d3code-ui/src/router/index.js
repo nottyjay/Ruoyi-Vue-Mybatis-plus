@@ -137,6 +137,12 @@ export const dynamicRoutes = [
         component: () => import('@/views/system/dict/data'),
         name: 'Data',
         meta: { title: '字典数据', activeMenu: '/system/dict' }
+      },
+      {
+        path: 'index/:dictId(\\d+)/:dictCode',
+        component: () => import('@/views/system/dict/data'),
+        name: 'DataData',
+        meta: { title: '字典数据', activeMenu: '/system/dict' }
       }
     ]
   },
