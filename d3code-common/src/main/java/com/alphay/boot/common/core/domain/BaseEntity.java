@@ -63,7 +63,7 @@ public class BaseEntity implements Serializable {
 
   public String getParamsDataScope() {
     if (params == null || !params.containsKey("dataScope")) {
-      return null;
+      return "";
     }
     return (String) params.get("dataScope");
   }
