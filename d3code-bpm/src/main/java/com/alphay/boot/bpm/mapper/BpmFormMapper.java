@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * 业务流表单Mapper接口
  *
- * @author ruoyi
+ * @author d3code
  * @date 2023-04-07
  */
 public interface BpmFormMapper extends BaseMapper<BpmForm> {

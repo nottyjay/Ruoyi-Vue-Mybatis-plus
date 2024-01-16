@@ -49,7 +49,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        sassOptions: { outputStyle: 'expanded' }
+        sassOptions: {outputStyle: 'expanded'}
       }
     }
   },

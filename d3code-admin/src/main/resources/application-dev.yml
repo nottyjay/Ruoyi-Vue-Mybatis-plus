@@ -1,5 +1,5 @@
 d3code:
-  # 文件路径 示例（ Windows配置D:/ruoyi/uploadPath，Linux配置 /home/ruoyi/uploadPath）
+  # 文件路径 示例（ Windows配置D:/d3code/uploadPath，Linux配置 /home/d3code/uploadPath）。支持使用相对路径
   profile: ./uploadPath
 
 # 日志配置

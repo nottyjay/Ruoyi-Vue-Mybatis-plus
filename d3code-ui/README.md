@@ -5,7 +5,7 @@
 git clone https://gitee.com/anhui-infomation/d3code
 
 # 进入项目目录
-cd ruoyi-ui
+cd d3code-ui
 
 # 安装依赖
 npm install
