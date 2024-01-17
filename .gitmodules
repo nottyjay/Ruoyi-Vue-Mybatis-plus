@@ -1,0 +1,3 @@
+[submodule "d3code-ui"]
+	path = d3code-ui
+	url = git@gitee.com:anhui-infomation/d3code-ui.git
