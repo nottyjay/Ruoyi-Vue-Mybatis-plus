@@ -10,7 +10,7 @@
 	<a href="https://gitee.com/anhui-infomation/d3code">
       <img src="https://img.shields.io/badge/D3Code-v1.0.5-brightgreen.svg">
     </a>
-	<a href="https://gitee.com/anhui-infomation/ruoyi-vue-mybatis-plus/blob/master/LICENSE">
+	<a href="https://gitee.com/anhui-infomation/d3code/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/mashape/apistatus.svg">
     </a>
 </p>
@@ -18,6 +18,8 @@
 ## 平台简介
 
 D3Code是基于Ruoyi-Vue拓展开发而来的框架，同Ruoyi一样是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+
+前端项目地址：[d3code-ui](https://gitee.com/anhui-infomation/d3code-ui)
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。
@@ -54,6 +56,66 @@ D3Code是基于Ruoyi-Vue拓展开发而来的框架，同Ruoyi一样是一套全
 
 演示地址：http://demo.alphay-tech.com
 文档地址：http://doc.ruoyi.vip
+
+## 开发模式
+
+利用本框架开发项目，推荐使用Intellij Idea Idea编辑器，使用maven进行项目构建。  
+必要的软件：
+
+- JDK >= 1.8
+- Redis
+- MySQL >= 5.7
+
+首先克隆项目。因d3code-ui项目为默认子模块，需要一并克隆d3code-ui项目，执行以下命令：
+
+```bash
+git clone --recurse-submodules https://gitee.com/anhui-infomation/d3code.git
+```
+
+克隆项目后，进入d3code目录，修改`d3code-admin/src/main/resources/application-dev.yml`文件中Redis与数据库配置
+
+```yaml
+  redis:
+    # 地址
+    host: localhost
+    # 端口，默认为6379
+    port: 6379
+    # 密码
+    password:
+    # 连接超时时间
+    timeout: 10000
+    database: 1
+    lettuce:
+      pool:
+        # 连接池中的最小空闲连接
+        min-idle: 0
+        # 连接池中的最大空闲连接
+        max-idle: 8
+        # 连接池的最大数据库连接数
+        max-active: 8
+        # #连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        # 主库数据源
+        master:
+          url: jdbc:mysql://localhost:3306/d3code?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+          username: root
+          password: 123456
+          driverClassName: com.mysql.cj.jdbc.Driver
+        # 从库数据源
+        slave:
+          url:
+          username:
+          password:
+          driverClassName: com.mysql.cj.jdbc.Driver
+```
+
+配置完成后，运行`D3CodeApplication.java`启动项目。
 
 ## 演示图
 
