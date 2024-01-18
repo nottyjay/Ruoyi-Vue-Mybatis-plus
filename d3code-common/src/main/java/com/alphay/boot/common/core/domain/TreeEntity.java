@@ -1,5 +1,7 @@
 package com.alphay.boot.common.core.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class TreeEntity extends BaseEntity
     private String ancestors;
 
     /** 子部门 */
+    @TableField(exist = false)
     private List<?> children = new ArrayList<>();
 
     public String getParentName()
