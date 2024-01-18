@@ -52,7 +52,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
       if (ObjUtil.isNotNull(parentData) && ObjUtil.isNotNull(persistentData)) {
         String newAncestors =
                   parentData.getAncestors() + "," + parentData.getId();
-        String oldAncestors = oldPersistent.getAncestors();
+        String oldAncestors = persistentData.getAncestors();
         entity.setAncestors(newAncestors);
         this.updateChildren(entity.getId(), newAncestors, oldAncestors);
       }
