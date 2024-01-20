@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author d3code
  */
-public class TreeEntity<T> extends BaseEntity {
+public class TreeEntity<T extends TreeEntity> extends BaseEntity {
   private static final long serialVersionUID = 1L;
 
   /** 父菜单名称 */

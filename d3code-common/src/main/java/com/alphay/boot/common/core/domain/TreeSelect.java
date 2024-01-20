@@ -9,13 +9,14 @@ import java.util.stream.Collectors;
 import com.alphay.boot.common.core.domain.entity.SysDept;
 import com.alphay.boot.common.core.domain.entity.SysMenu;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.cglib.core.internal.Function;
 
 /**
  * Treeselect树结构实体类
  *
  * @author d3code
  */
-public class TreeSelect implements Serializable {
+public class TreeSelect<T extends TreeEntity> implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /** 节点ID */
@@ -29,6 +30,16 @@ public class TreeSelect implements Serializable {
   private List<TreeSelect> children;
 
   public TreeSelect() {}
+
+  public TreeSelect(T obj, Function<T, Long> idProp, Function<T, String> labelProp) {
+    this.id = idProp.apply(obj);
+    this.label = labelProp.apply(obj);
+    List<T> child = obj.getChildren();
+    this.children =
+        Optional.ofNullable(child).orElse(new ArrayList<T>()).stream()
+            .map(item -> new TreeSelect(item, idProp, labelProp))
+            .collect(Collectors.toList());
+  }
 
   public TreeSelect(SysDept dept) {
     this.id = dept.getDeptId();
