@@ -3,6 +3,7 @@ package ${packageName}.controller;
 import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import com.alphay.boot.common.core.domain.TreeSelect;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +55,12 @@ public class ${ClassName}Controller extends BaseController
     {
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
         return success(list);
+    }
+
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
+      @GetMapping("/getTree")
+    public AjaxResult getTreeList(${ClassName} ${className}) {
+      return success(${className}Service.select${ClassName}TreeList(${className}));
     }
 #end
 

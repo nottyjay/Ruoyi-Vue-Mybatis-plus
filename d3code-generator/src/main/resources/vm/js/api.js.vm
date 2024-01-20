@@ -42,3 +42,13 @@ export function del${BusinessName}(${pkColumn.javaField}) {
     method: 'delete'
   })
 }
+
+#if($table.tree)
+// 查询${functionName}树状菜单
+export function get${BusinessName}Tree() {
+  return request({
+    url: '/${moduleName}/${businessName}/getTree',
+    method: 'get'
+  })
+}
+#end

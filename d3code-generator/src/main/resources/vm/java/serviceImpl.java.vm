@@ -2,7 +2,7 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import com.alphay.boot.common.core.domain.TreeSelect;import com.alphay.boot.common.utils.tree.TreeUtil;import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.alphay.boot.common.mybatis.service.ServiceImplX;
 #if($table.tree)
@@ -30,6 +30,15 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
 {
 
 #if($table.tree)
+    @Override
+    public List<TreeSelect> select${ClassName}TreeList(${ClassName} ${className}) {
+      return TreeUtil.buildTreeSelect(
+              select${ClassName}List(${className}),
+              ${ClassName}::getId,
+              ${ClassName}::get${TreeName}
+      );
+    }
+
     @Override
     public boolean save(${ClassName} entity) {
         if(entity.getParentId() != null && entity.getParentId() != 0L){

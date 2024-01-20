@@ -41,6 +41,13 @@ public class SysDeptController extends BaseController {
     return success(depts);
   }
 
+  /** 获取部门树列表 */
+  @PreAuthorize("@ss.hasPermi('system:dept:list')")
+  @GetMapping("/deptTree")
+  public AjaxResult deptTree(SysDept dept) {
+    return success(deptService.selectDeptTreeList(dept));
+  }
+
   /** 查询部门列表（排除节点） */
   @PreAuthorize("@ss.hasPermi('system:dept:list')")
   @GetMapping("/list/exclude/{deptId}")

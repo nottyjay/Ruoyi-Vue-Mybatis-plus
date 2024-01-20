@@ -225,11 +225,4 @@ public class SysUserController extends BaseController {
     userService.insertUserAuth(userId, roleIds);
     return success();
   }
-
-  /** 获取部门树列表 */
-  @PreAuthorize("@ss.hasPermi('system:dept:list')")
-  @GetMapping("/deptTree")
-  public AjaxResult deptTree(SysDept dept) {
-    return success(deptService.selectDeptTreeList(dept));
-  }
 }
