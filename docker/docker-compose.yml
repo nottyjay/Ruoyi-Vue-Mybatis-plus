@@ -39,7 +39,7 @@ services:
   server:
     container_name: d3code-server
     build:
-      context: ./d3code-admin
+      context: ./server
     restart: unless-stopped
     ports:
       - "48080:8080"
@@ -76,11 +76,11 @@ services:
   admin:
     container_name: d3code-admin
     build:
-      context: ./d3code-ui
+      context: ./admin
       args:
         NODE_ENV:
           ENV=${NODE_ENV:-production}
-          VUE_APP_TITLE=${VUE_APP_TITLE:-飞学院教师年终考核系统}
+          VUE_APP_TITLE=${VUE_APP_TITLE:-D3code开发框架}
           VUE_APP_BASE_API=${VUE_APP_BASE_API:-/prod-api}
           VUE_APP_CAPTCHA_ENABLE=${VUE_APP_CAPTCHA_ENABLE:-true}
     restart: unless-stopped

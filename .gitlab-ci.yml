@@ -1,0 +1,44 @@
+stages:
+  - package
+  - deploy
+
+  #cache:
+  #paths:
+  #  maven下载三方依赖的缓存目录
+  #- .m2/repository/
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+  GIT_SUBMODULE_STRATEGY: recursive
+
+build-job:
+  stage: package
+  image: maven:3.6.3-jdk-8-openj9
+  script:
+    # MVN_SETTINGS_XML变量在GitLab的设置=>CI/CD=>变量中定义，值就是整个settings.xml的内容(文本)，变量类型设置成了"文件"
+    - mvn package -s ${MVN_SETTINGS_XML} ${MAVEN_OPTS} -DskipTests
+    - cp d3code-admin/target/d3code-admin.jar docker/server/
+    - cp d3code-admin/target/lib docker/server/
+    - cp d3code-admin/target/classes/application.yaml docker/server/config/
+    - cp d3code-admin/target/classes/application-prod.yaml docker/server/config/
+  only:
+    # 只对develop分支运行job
+    - develop
+  timeout: 30 min
+
+vue-build-job:
+  stage: package
+  script:
+    - cp d3code-ui/ docker/admin/
+  only:
+    # 只对develop分支运行job
+    - develop
+
+docker-deploy-job:
+  stage: deploy
+  script:
+    - cd docker
+    - docker-compose up -d
+  only:
+    # 只对develop分支运行job
+    - develop
