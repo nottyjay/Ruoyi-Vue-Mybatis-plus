@@ -1,6 +1,4 @@
-version: "3.4"
-
-name: d3code-system
+version: "3.3"
 
 services:
   mysql:

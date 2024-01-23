@@ -1,5 +1,6 @@
 stages:
-  - package
+  - mvn package
+  - node build
   - deploy
 
   #cache:
@@ -8,34 +9,66 @@ stages:
   #- .m2/repository/
 
 variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-  GIT_SUBMODULE_STRATEGY: recursive
+  MAVEN_OPTS: "-Dmaven.repo.local=/root/.m2/repository"
+
 
 build-job:
-  stage: package
-  image: maven:3.6.3-jdk-8-openj9
+  stage: mvn package
+  image: gitlab-maven
+  before_script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY"
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rm -rf d3code-ui && mkdir d3code-ui
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
   script:
     # MVN_SETTINGS_XML变量在GitLab的设置=>CI/CD=>变量中定义，值就是整个settings.xml的内容(文本)，变量类型设置成了"文件"
     - mvn package -s ${MVN_SETTINGS_XML} ${MAVEN_OPTS} -DskipTests
+    - mkdir -p docker/server/config
     - cp d3code-admin/target/d3code-admin.jar docker/server/
-    - cp d3code-admin/target/lib docker/server/
-    - cp d3code-admin/target/classes/application.yaml docker/server/config/
-    - cp d3code-admin/target/classes/application-prod.yaml docker/server/config/
+    - cp -r d3code-admin/target/lib docker/server/
+    - cp d3code-admin/target/classes/application.yml docker/server/config/
+    - cp d3code-admin/target/classes/application-prod.yml docker/server/config/
   only:
     # 只对develop分支运行job
     - develop
   timeout: 30 min
+  artifacts:
+    name: d3code-server
+    expire_in: 7 days
+    paths:
+      - docker/server
 
 vue-build-job:
-  stage: package
+  stage: node build
+  image: node:16.20.2-buster
+  before_script:
+    - npm config set registry https://registry.npmmirror.com
   script:
-    - cp d3code-ui/ docker/admin/
+    - cd d3code-ui
+    - npm install
+    - npm run build:prod
+    - cp -r dist ../docker/admin/
+    - cp nginx.conf ../docker/admin/
   only:
     # 只对develop分支运行job
     - develop
+  artifacts:
+    name: d3code-admin
+    expire_in: 7 days
+    paths:
+      - docker/admin
 
-docker-deploy-job:
+develop-d3code:
   stage: deploy
+  image: docker/compose
+  needs:
+    - job: build-job
+      artifacts: true
+    - job: vue-build-job
+      artifacts: true
   script:
     - cd docker
     - docker-compose up -d
