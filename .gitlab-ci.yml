@@ -15,6 +15,8 @@ variables:
 build-job:
   stage: mvn package
   image: gitlab-maven
+  tags:
+    - docker
   before_script:
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY"
@@ -44,6 +46,8 @@ build-job:
 vue-build-job:
   stage: node build
   image: node:16.20.2-buster
+  tags:
+    - docker
   before_script:
     - npm config set registry https://registry.npmmirror.com
   script:
@@ -64,6 +68,8 @@ vue-build-job:
 develop-d3code:
   stage: deploy
   image: docker/compose
+  tags:
+    - docker-compose
   needs:
     - job: build-job
       artifacts: true
