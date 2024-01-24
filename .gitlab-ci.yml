@@ -54,7 +54,7 @@ vue-build-job:
     - cd d3code-ui
     - npm install
     - npm run build:prod
-    - cp -r dist ../docker/admin/
+    - cp -r dist ../docker/admin/dist
     - cp nginx.conf ../docker/admin/
   only:
     # 只对develop分支运行job
