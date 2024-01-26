@@ -14,7 +14,7 @@ services:
     command: --lower_case_table_names=1
     volumes:
       - mysql:/var/lib/mysql/
-      - ./sql/appraisal.sql:/docker-entrypoint-initdb.d/d3code.sql:ro
+      - ./sql/d3code.sql:/docker-entrypoint-initdb.d/d3code.sql:ro
 
   redis:
     container_name: d3code-redis
@@ -75,12 +75,6 @@ services:
     container_name: d3code-admin
     build:
       context: ./admin
-      args:
-        NODE_ENV:
-          ENV=${NODE_ENV:-production}
-          VUE_APP_TITLE=${VUE_APP_TITLE:-D3code开发框架}
-          VUE_APP_BASE_API=${VUE_APP_BASE_API:-/prod-api}
-          VUE_APP_CAPTCHA_ENABLE=${VUE_APP_CAPTCHA_ENABLE:-true}
     restart: unless-stopped
     ports:
       - "8080:80"
