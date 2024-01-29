@@ -76,7 +76,10 @@ develop-d3code:
     - job: vue-build-job
       artifacts: true
   script:
+    - mkdir -p ./docker/sql
+    - cp ./sql/ ./docker/sql/
     - cd docker
+    - docker-compose down
     - docker-compose up -d
   only:
     # 只对develop分支运行job
