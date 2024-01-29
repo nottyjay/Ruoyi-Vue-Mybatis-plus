@@ -52,7 +52,7 @@ vue-build-job:
     - npm config set registry https://registry.npmmirror.com
   script:
     - cd d3code-ui
-    - npm install -g
+    - npm install
     - npm run build:prod
     - cp -r dist ../docker/admin/dist
     - cp nginx.conf ../docker/admin/
