@@ -1,7 +1,6 @@
 stages:
   - mvn package
   - node build
-  - mysql job
   - deploy
 
   #cache:
@@ -67,7 +66,7 @@ vue-build-job:
       - docker/admin
 
 mysql-job:
-  stage: mysql-job
+  stage: node build
   tags:
     - docker
   script:
