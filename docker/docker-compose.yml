@@ -15,6 +15,7 @@ services:
     volumes:
       - mysql:/var/lib/mysql/
       - ./sql/d3code.sql:/docker-entrypoint-initdb.d/d3code.sql:ro
+      - ./sql/quartz.sql:/docker-entrypoint-initdb.d/quartz.sql:ro
 
   redis:
     container_name: d3code-redis
@@ -29,6 +30,8 @@ services:
     container_name: d3code-phpmyadmin
     image: phpmyadmin
     restart: unless-stopped
+    environment:
+      PMA_HOST: d3code-mysql
     ports:
       - "40081:80"
     depends_on:
