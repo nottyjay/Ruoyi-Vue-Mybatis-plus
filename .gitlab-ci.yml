@@ -77,7 +77,7 @@ develop-d3code:
       artifacts: true
   script:
     - mkdir -p ./docker/sql
-    - cp ./sql/ ./docker/sql/
+    - cp -r ./sql ./docker/
     - cd docker
     - docker-compose down
     - docker-compose up -d

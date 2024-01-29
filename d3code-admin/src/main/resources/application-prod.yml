@@ -1,6 +1,6 @@
 d3code:
   # 文件路径 示例（ Windows配置D:/d3code/uploadPath，Linux配置 /home/d3code/uploadPath）。支持使用相对路径
-  profile: D:/d3code/uploadPath
+  profile: ./uploadPath
 
 # 日志配置
 logging:
