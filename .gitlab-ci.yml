@@ -1,6 +1,7 @@
 stages:
   - mvn package
   - node build
+  - mysql job
   - deploy
 
   #cache:
@@ -52,7 +53,7 @@ vue-build-job:
     - npm config set registry https://registry.npmmirror.com
   script:
     - cd d3code-ui
-    - npm install
+    - npm install -g
     - npm run build:prod
     - cp -r dist ../docker/admin/dist
     - cp nginx.conf ../docker/admin/
@@ -65,6 +66,20 @@ vue-build-job:
     paths:
       - docker/admin
 
+mysql-job:
+  stage: mysql-job
+  tags:
+    - docker
+  script:
+    - cp -r ./sql ./docker/
+  only:
+    - develop
+  artifacts:
+    name: d3code-mysql-sql
+    expire_in: 7 days
+    paths:
+      - docker/sql
+
 develop-d3code:
   stage: deploy
   image: docker/compose
@@ -75,9 +90,9 @@ develop-d3code:
       artifacts: true
     - job: vue-build-job
       artifacts: true
+    - job: mysql-job
+      artifacts: true
   script:
-    - mkdir -p ./docker/sql
-    - cp -r ./sql ./docker/
     - cd docker
     - docker-compose down
     - docker-compose up -d
