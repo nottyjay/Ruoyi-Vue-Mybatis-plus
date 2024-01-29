@@ -14,7 +14,7 @@ services:
     command: --lower_case_table_names=1
     volumes:
       - mysql:/var/lib/mysql/
-      - ./sql/d3code.sql:/docker-entrypoint-initdb.d/d3code.sql:ro
+      - ./sql:/docker-entrypoint-initdb.d
 
   redis:
     container_name: d3code-redis
