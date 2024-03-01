@@ -115,6 +115,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
 #end
 #end
 #end
+                  .orderByDesc(${ClassName}::getCreateTime)
                   .last(${className}.getParamsDataScope())
                 );
     }
