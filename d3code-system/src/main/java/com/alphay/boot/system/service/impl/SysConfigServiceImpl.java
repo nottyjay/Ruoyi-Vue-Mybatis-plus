@@ -174,7 +174,7 @@ public class SysConfigServiceImpl extends ServiceImplX<SysConfigMapper, SysConfi
 
   @Override
   public SysConfig getConfigByKey(String configKey) {
-    return this.getOne(this.lambdaQuery().eq(SysConfig::getConfigKey, configKey));
+    return this.getOne(this.lambdaQueryWrapperX().eq(SysConfig::getConfigKey, configKey));
   }
 
   /**
