@@ -1,5 +1,6 @@
 package com.alphay.boot.system.mybatis.config;
 
+import com.alphay.boot.common.mybatis.InsertBatchSqlInjector;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -23,5 +24,10 @@ public class MybatisConfig {
     MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
     interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
     return interceptor;
+  }
+
+  @Bean
+  public InsertBatchSqlInjector easySqlInjector() {
+    return new InsertBatchSqlInjector();
   }
 }

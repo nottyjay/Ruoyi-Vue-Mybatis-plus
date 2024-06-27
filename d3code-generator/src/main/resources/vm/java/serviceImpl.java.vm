@@ -2,7 +2,9 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 
-import com.alphay.boot.common.core.domain.TreeSelect;import com.alphay.boot.common.utils.tree.TreeUtil;import org.springframework.stereotype.Service;
+import com.alphay.boot.common.core.domain.TreeSelect;
+import com.alphay.boot.common.utils.tree.TreeUtil;
+import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.alphay.boot.common.mybatis.service.ServiceImplX;
 #if($table.tree)
@@ -47,9 +49,11 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
             if (info == null) {
                 throw new ServiceException("${functionName}停用，不允许新增");
             }
+			entity.setParentName(info.get${TreeName}());
             entity.setAncestors(info.getAncestors() + "," + entity.getParentId());
         }else {
           entity.setAncestors("0");
+		  entity.setParentName("");
         }
         return super.save(entity);
     }
@@ -64,7 +68,11 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
         String oldAncestors = persistentData.getAncestors();
         entity.setAncestors(newAncestors);
         this.updateChildren(entity.getId(), newAncestors, oldAncestors);
+		entity.setParentName(info.get${TreeName}());
+      }else {
+		entity.setParentName("");
       }
+
       return super.updateById(entity);
     }
 
