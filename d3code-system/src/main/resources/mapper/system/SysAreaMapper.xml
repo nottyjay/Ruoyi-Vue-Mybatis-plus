@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alphay.boot.system.mapper.SysAreaMapper">
+
+    <resultMap type="SysArea" id="SysAreaResult">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="deleted" column="deleted"/>
+        <result property="name" column="name"/>
+        <result property="level" column="level"/>
+        <result property="code" column="code"/>
+        <result property="parentName" column="parent_name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="ancestors" column="ancestors"/>
+        <result property="orderNum" column="order_num"/>
+        <result property="hasChildren" column="has_child"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectSysAreaVo">
+        select a.id,
+               a.create_time,
+               a.create_by,
+               a.update_time,
+               a.update_by,
+               a.deleted,
+               a.name,
+               a.level,
+               a.code,
+               a.parent_name,
+               a.parent_id,
+               a.parent_code,
+               a.ancestors,
+               a.order_num,
+               a.remark,
+               (select count(*) from sys_area where parent_id = a.id) as has_child
+        from sys_area a
+    </sql>
+
+    <select id="selectChildrenListByTreeId" parameterType="Long" resultMap="SysAreaResult">
+        select *
+        from sys_area
+        where find_in_set(#{id}, ancestors)
+    </select>
+
+    <select id="selectSysAreaList" resultMap="SysAreaResult">
+        <include refid="selectSysAreaVo"/>
+        <where>
+            <if test="area.name != null and area.name != ''">and a.name like concat('%', #{area.name}, '%')</if>
+            <if test="area.level != null">and a.`level` = #{area.level}</if>
+            <if test="area.code != null and area.code != ''">and a.code = #{area.code}</if>
+            <if test="area.parentId != null">and a.parent_id = #{area.parentId}</if>
+            <if test="area.parentCode != null and area.parentCode != ''">and a.parent_code = #{area.parentCode}</if>
+        </where>
+        order by a.order_num asc
+    </select>
+</mapper>
