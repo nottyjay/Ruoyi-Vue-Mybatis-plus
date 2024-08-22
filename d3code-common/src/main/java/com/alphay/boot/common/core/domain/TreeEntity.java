@@ -10,17 +10,8 @@ import java.util.List;
  *
  * @author d3code
  */
-public class TreeEntity<T extends TreeEntity> extends BaseEntity {
+public abstract class TreeEntity<T extends TreeEntity> extends BaseEntity {
   private static final long serialVersionUID = 1L;
-
-  /** 父菜单名称 */
-  private String parentName;
-
-  /** 父菜单ID */
-  private Long parentId;
-
-  /** 显示顺序 */
-  private Integer orderNum;
 
   /** 祖级列表 */
   private String ancestors;
@@ -29,29 +20,7 @@ public class TreeEntity<T extends TreeEntity> extends BaseEntity {
   @TableField(exist = false)
   private List<T> children = new ArrayList<>();
 
-  public String getParentName() {
-    return parentName;
-  }
-
-  public void setParentName(String parentName) {
-    this.parentName = parentName;
-  }
-
-  public Long getParentId() {
-    return parentId;
-  }
-
-  public void setParentId(Long parentId) {
-    this.parentId = parentId;
-  }
-
-  public Integer getOrderNum() {
-    return orderNum;
-  }
-
-  public void setOrderNum(Integer orderNum) {
-    this.orderNum = orderNum;
-  }
+  public abstract Object getParentPKCode();
 
   public String getAncestors() {
     return ancestors;

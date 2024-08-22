@@ -32,47 +32,49 @@ public class ${ClassName}ServiceImpl extends ServiceImplX<${ClassName}Mapper, ${
 {
 
 #if($table.tree)
+#foreach ($column in $columns)
+    #if($column.columnName == $table.treeCode)
+        #set($pkFieldColumn=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+    #end
+    #if($column.columnName == $table.treeParentCode)
+        #set($parentPkFieldCoumn=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+    #end
+#end
     @Override
     public List<TreeSelect> select${ClassName}TreeList(${ClassName} ${className}) {
       return TreeUtil.buildTreeSelect(
               select${ClassName}List(${className}),
-              ${ClassName}::getId,
+              ${ClassName}::get${pkFieldColumn},
               ${ClassName}::get${TreeName}
       );
     }
 
     @Override
     public boolean save(${ClassName} entity) {
-        if(entity.getParentId() != null && entity.getParentId() != 0L){
-            ${ClassName} info = this.getById(entity.getParentId());
+        if(entity.get${parentPkFieldCoumn}() != null && entity.get${parentPkFieldCoumn}() != 0L){
+            ${ClassName} info = this.getById(entity.get${parentPkFieldCoumn}());
             // 如果父节点不为正常状态，则不允许新增子节点
             if (info == null) {
                 throw new ServiceException("${functionName}停用，不允许新增");
             }
-			entity.setParentName(info.get${TreeName}());
-            entity.setAncestors(info.getAncestors() + "," + entity.getParentId());
+            entity.setAncestors(info.getAncestors() + "," + entity.get${parentPkFieldCoumn}());
         }else {
           entity.setAncestors("0");
-		  entity.setParentName("");
         }
         return super.save(entity);
     }
 
     @Override
     public boolean updateById(${ClassName} entity) {
-      ${ClassName} parentData = this.getById(entity.getParentId());
-      ${ClassName} persistentData = this.getById(entity.getId());
+      ${ClassName} parentData = this.getById(entity.get${parentPkFieldCoumn}());
+      ${ClassName} persistentData = this.getById(entity.get${pkFieldColumn}());
       if (ObjUtil.isNotNull(parentData) && ObjUtil.isNotNull(persistentData)) {
         String newAncestors =
-                  parentData.getAncestors() + "," + parentData.getId();
+                  parentData.getAncestors() + "," + parentData.get${pkFieldColumn}();
         String oldAncestors = persistentData.getAncestors();
         entity.setAncestors(newAncestors);
-        this.updateChildren(entity.getId(), newAncestors, oldAncestors);
-		entity.setParentName(info.get${TreeName}());
-      }else {
-		entity.setParentName("");
+        this.updateChildren(entity.get${pkFieldColumn}(), newAncestors, oldAncestors);
       }
-
       return super.updateById(entity);
     }
 

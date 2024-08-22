@@ -179,6 +179,7 @@ public class GenTableServiceImpl implements IGenTableService {
     Map<String, String> dataMap = new LinkedHashMap<>();
     // 查询表信息
     GenTable table = genTableMapper.selectGenTableById(tableId);
+    setTableFromOptions(table);
     // 设置主子表信息
     setSubTable(table);
     // 设置主键列信息
@@ -223,6 +224,7 @@ public class GenTableServiceImpl implements IGenTableService {
   public void generatorCode(String tableName) {
     // 查询表信息
     GenTable table = genTableMapper.selectGenTableByName(tableName);
+    setTableFromOptions(table);
     // 设置主子表信息
     setSubTable(table);
     // 设置主键列信息
@@ -328,6 +330,7 @@ public class GenTableServiceImpl implements IGenTableService {
   private void generatorCode(String tableName, ZipOutputStream zip) {
     // 查询表信息
     GenTable table = genTableMapper.selectGenTableByName(tableName);
+    setTableFromOptions(table);
     // 设置主子表信息
     setSubTable(table);
     // 设置主键列信息

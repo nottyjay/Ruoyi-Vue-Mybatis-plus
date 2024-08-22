@@ -1,7 +1,7 @@
 <p align="center">
 	<img alt="logo" src="https://default-1319610221.cos.ap-shanghai.myqcloud.com/logo.png" width="200" height="200">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">D3Code v1.0.7</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">D3Code v1.0.8</h1>
 <h4 align="center">基于[Ruoyi-Vue]拓展的Java快速开发框架</h4>
 <p align="center">
 	<a href="https://gitee.com/anhui-infomation/d3code/stargazers">
@@ -17,9 +17,8 @@
 
 ## 更新内容
 
-1. 添加地区管理模块
-2. 添加地区级联插件```AreaCascader```
-2. 修复树结构中```parentName```字段不能正常注入
+1. 动态识别表主键字段
+2. 允许树表自定义主键与父节点字段
 
 ## 平台简介
 

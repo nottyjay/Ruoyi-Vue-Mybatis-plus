@@ -2,6 +2,7 @@ package com.alphay.boot.common.utils.tree;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ListUtil;
+import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.ReflectUtil;
 import com.alphay.boot.common.core.domain.TreeEntity;
 import com.alphay.boot.common.core.domain.TreeSelect;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public class TreeUtil {
 
   public static <T extends TreeEntity> List<TreeSelect> buildTreeSelect(
-      List<T> treeEntityList, Function<T, Long> idProp, Function<T, String> labelProp) {
+      List<T> treeEntityList, Function<T, Object> idProp, Function<T, String> labelProp) {
     for (int index = 0; index < treeEntityList.size(); index++) {
       T data = treeEntityList.get(index);
       recursionFn(treeEntityList, idProp, data);
@@ -34,15 +35,15 @@ public class TreeUtil {
   }
 
   private static <T extends TreeEntity> List<T> recursionFn(
-      List<T> treeEntityList, Function<T, Long> idProp, T parent) {
+      List<T> treeEntityList, Function<T, Object> idProp, T parent) {
     if (CollUtil.isEmpty(treeEntityList)) {
       return treeEntityList;
     }
     for (int index = treeEntityList.size() - 1; index > 0; index--) {
 
       T data = treeEntityList.get(index);
-      if (data.getParentId() != null
-          && idProp.apply(parent).longValue() == data.getParentId().longValue()) {
+      if (data.getParentPKCode() != null &&
+              ObjUtil.equals(idProp.apply(parent), data.getParentPKCode()) ){
         if (CollUtil.isEmpty(parent.getChildren())) {
           parent.setChildren(new ArrayList<>());
         }

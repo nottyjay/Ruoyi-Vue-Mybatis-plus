@@ -41,8 +41,20 @@ public class SysArea extends TreeEntity<SysArea> {
   @Excel(name = "父地区行政区码")
   private String parentCode;
 
+  private Long parentId;
+
+  private String parentName;
+
+  @Excel(name = "排序")
+  private Integer orderNum;
+
   @TableField(exist = false)
   private Boolean hasChildren;
+
+  @Override
+  public Object getParentPKCode() {
+    return this.parentId;
+  }
 
   @Override
   public String toString() {

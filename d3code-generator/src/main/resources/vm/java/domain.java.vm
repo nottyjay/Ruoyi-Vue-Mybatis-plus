@@ -56,7 +56,7 @@ public class ${ClassName} extends ${Entity} {
     @Excel(name = "${comment}")
 #end
 #end
-#if($column.javaField == "id")
+#if($column.pk)
     @TableId(type = IdType.AUTO)
 #end
     private $column.javaType $column.javaField;
@@ -67,6 +67,17 @@ public class ${ClassName} extends ${Entity} {
     /** $table.subTable.functionName信息 */
     @TableField(exist = false)
     private List<${subClassName}> ${subclassName}List;
+#end
+
+#if($table.tree)
+    #foreach ($column in $columns)
+        #if($column.columnName == $table.treeParentCode)
+            #set($parentPkFieldCoumn=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+        #end
+    #end
+    public Object getParentPKCode(){
+        return this.get${parentPkFieldCoumn}();
+    }
 #end
 
     @Override
