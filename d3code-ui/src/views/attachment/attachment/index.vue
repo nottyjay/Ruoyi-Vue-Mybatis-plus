@@ -5,8 +5,7 @@
       <el-button
         type="primary"
         plain
-        icon="el-icon-plus"
-        size="mini"
+        icon="Plus"
         @click="handleAdd"
         v-hasPermi="['attachment:attachment:add']"
         >新增

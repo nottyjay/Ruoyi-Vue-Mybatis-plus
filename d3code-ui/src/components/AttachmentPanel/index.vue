@@ -1,7 +1,7 @@
 <template>
   <!-- 附件面板 -->
   <div class="attachment-panel">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="文件名称" prop="name">
         <el-input
           v-model="queryParams.name"
@@ -11,8 +11,8 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="Search"  @click="handleQuery">搜索</el-button>
+        <el-button icon="Refresh"  @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
     <!-- 附件列表-->
@@ -20,8 +20,7 @@
       <el-button
         type="primary"
         plain
-        icon="el-icon-plus"
-        size="mini"
+        icon="Plus"
         @click="handleAdd"
         v-hasPermi="['attachment:attachment:add']"
       >新增
@@ -59,7 +58,7 @@
 
       <!-- 预览对话框 -->
       <el-dialog
-        :visible.sync="showPreview"
+        v-model="showPreview"
         width="60%"
         center
       >
@@ -68,7 +67,7 @@
     </div>
 
     <!-- 添加或修改文件管理对话框-->
-    <attachment-upload :visible.sync="open" @on-success="handleUploadSuccess"/>
+    <attachment-upload v-model:visible="open" @on-success="handleUploadSuccess"/>
   </div>
 </template>
 
@@ -197,12 +196,14 @@ export default {
     },
     // 删除文件
     handleDeleteFile(index) {
+      const id = this.attachmentList[index].id
       this.$modal.confirm('是否确认删除此文件？').then(function () {
-        return delAttachment(this.attachmentList[index].id)
+        return delAttachment(id)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess('删除成功')
-      }).catch(() => {
+      }).catch((e) => {
+        console.log(e)
       })
     },
     // 预览文件

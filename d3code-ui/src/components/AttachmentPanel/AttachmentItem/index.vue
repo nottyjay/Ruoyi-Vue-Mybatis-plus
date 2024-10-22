@@ -13,13 +13,14 @@
                 style="width: 120px;height: 120px;"
       />
       <div class="maskingOut" v-if="isEdit === true">
-        <i class="el-icon-zoom-in" @click.stop="handlePreviewFile"></i>
-        <i class="el-icon-download" @click.stop="handleDownloadFile"></i>
-        <i class="el-icon-delete" @click.stop="handleDeleteFile"></i>
+        <el-icon @click.stop="handlePreviewFile" size="20px" color="#FFFFFF"><ZoomIn /></el-icon>
+        <el-icon @click.stop="handleDownloadFile" size="20px" color="#FFFFFF"><Download/></el-icon>
+        <el-icon @click.stop="handleDeleteFile" size="20px" color="#FFFFFF"><Delete /></el-icon>
       </div>
       <div :class="checked === true ? 'checkBox' : 'checkBoxNone' " v-else>
         <!--        <el-checkbox v-model="checked"></el-checkbox>-->
-        <i v-if="checked === true" class="el-icon-check check" v-model="checked"></i>
+<!--        <i v-if="checked === true" class="el-icon-check check" v-model="checked"></i>-->
+        <i v-if="checked === true" class="el-icon-check"></i>
       </div>
     </div>
     <div class="fileName">{{ item.name }}</div>

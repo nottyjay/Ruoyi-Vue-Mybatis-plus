@@ -3,7 +3,7 @@
   <div class="attachment-upload" v-loading="loading">
     <el-drawer
       title="附件上传"
-      v-model:visible="visible"
+      :model-value="visible"
       :with-header="false"
       size="400px"
       @closed="cancel"
@@ -24,7 +24,7 @@
           :on-error="handleUploadError"
           :on-success="handleUploadSuccess"
         >
-          <i class="el-icon-upload"></i>
+          <el-icon style="font-size: 67px;color: #C0C4CC;margin: 40px 0 16px;line-height: 50px;"><UploadFilled /></el-icon>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
         </el-upload>
       </div>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getToken } from '../../utils/auth'
+import { getToken } from '@/utils/auth.js'
 
 export default {
   props: {
@@ -50,6 +50,7 @@ export default {
       default: false
     }
   },
+  emits: ['update:visible','on-error', 'on-success'],
   data() {
     return {
       number: 0,
@@ -64,8 +65,7 @@ export default {
   methods: {
     cancel() {
       this.$refs.uploadFiles.clearFiles()
-      this.visible = false
-      this.$emit('update:visible', this.visible)
+      this.$emit('update:visible', false)
     },
     handleEnterUpload() {
       this.$refs.uploadFiles.submit()
