@@ -436,8 +436,8 @@ import {
   getUser,
   updateUser,
   addUser,
-  deptTreeSelect
 } from '@/api/system/user'
+import {deptTreeSelect} from '@/api/system/dept'
 
 const router = useRouter()
 const { proxy } = getCurrentInstance()

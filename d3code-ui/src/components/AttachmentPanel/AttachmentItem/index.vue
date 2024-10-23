@@ -6,7 +6,7 @@
         :src="item.url" style="width: 120px;height: 120px"
       >
         <div slot="error" class="image-slot">
-          <i class="el-icon-picture-outline"></i>
+          <el-icon><Picture /></el-icon>
         </div>
       </el-image>
       <svg-icon v-else :icon-class="iconSelect" class="fileIcon"
@@ -20,7 +20,7 @@
       <div :class="checked === true ? 'checkBox' : 'checkBoxNone' " v-else>
         <!--        <el-checkbox v-model="checked"></el-checkbox>-->
 <!--        <i v-if="checked === true" class="el-icon-check check" v-model="checked"></i>-->
-        <i v-if="checked === true" class="el-icon-check"></i>
+        <el-icon v-if="checked === true" v-model="checked"><Check /></el-icon>
       </div>
     </div>
     <div class="fileName">{{ item.name }}</div>
