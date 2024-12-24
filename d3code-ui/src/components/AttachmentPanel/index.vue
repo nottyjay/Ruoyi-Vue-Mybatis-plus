@@ -11,8 +11,8 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search"  @click="handleQuery">搜索</el-button>
-        <el-button icon="Refresh"  @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
     <!-- 附件列表-->
@@ -51,8 +51,8 @@
       <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
+        v-model:page="queryParams.pageNum"
+        v-model:limit="queryParams.pageSize"
         @pagination="getList"
       />
 
@@ -67,15 +67,15 @@
     </div>
 
     <!-- 添加或修改文件管理对话框-->
-    <attachment-upload v-model:visible="open" @on-success="handleUploadSuccess"/>
+    <attachment-upload v-model:visible="open" @on-success="handleUploadSuccess" />
   </div>
 </template>
 
 <script>
 import AttachmentItem from './AttachmentItem/index.vue'
-import {getEnabledEngineConfig} from '@/api/attachment/oss/oss_config'
-import {delAttachment, listAttachment} from '@/api/attachment/attachment'
-import AttachmentUpload from "@/components/AttachmentUpload/index.vue";
+import { getEnabledEngineConfig } from '@/api/attachment/oss/oss_config'
+import { delAttachment, listAttachment } from '@/api/attachment/attachment'
+import AttachmentUpload from '@/components/AttachmentUpload/index.vue'
 
 export default {
   props: {
@@ -87,7 +87,7 @@ export default {
       default: () => []
     }
   },
-  components: {AttachmentUpload, AttachmentItem},
+  components: { AttachmentUpload, AttachmentItem },
   data() {
     return {
       // 遮罩层
@@ -134,7 +134,7 @@ export default {
   },
   watch: {
     selectedAttachmentList: {
-      handler: function () {
+      handler: function() {
         this.$emit('selectedFileList', this.selectedAttachmentList)
       }
     }
@@ -197,7 +197,7 @@ export default {
     // 删除文件
     handleDeleteFile(index) {
       const id = this.attachmentList[index].id
-      this.$modal.confirm('是否确认删除此文件？').then(function () {
+      this.$modal.confirm('是否确认删除此文件？').then(function() {
         return delAttachment(id)
       }).then(() => {
         this.getList()

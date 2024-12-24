@@ -29,5 +29,10 @@
             <artifactId>cos_api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.huaweicloud</groupId>
+            <artifactId>esdk-obs-java-bundle</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

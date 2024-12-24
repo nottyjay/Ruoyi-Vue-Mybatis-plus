@@ -177,6 +177,23 @@
             <el-input v-model="config.bucketName" placeholder="请输入默认目录名称" />
           </el-form-item>
         </template>
+        <template v-else-if="form.ossType == 'huawei_cloud_obs'">
+          <el-form-item label="地域">
+            <el-input v-model="config.region" placeholder="请输入COS地域"/>
+          </el-form-item>
+          <el-form-item label="节点">
+            <el-input v-model="config.endPoint" placeholder="请输入OBS节点"/>
+          </el-form-item>
+          <el-form-item label="SecretID">
+            <el-input v-model="config.secretId" placeholder="请输入访问密钥ID"/>
+          </el-form-item>
+          <el-form-item label="SecretKey">
+            <el-input v-model="config.secretKey" placeholder="请输入访问密钥Key"/>
+          </el-form-item>
+          <el-form-item label="默认目录">
+            <el-input v-model="config.bucketName" placeholder="请输入默认目录名称"/>
+          </el-form-item>
+        </template>
         <el-form-item label="是否启用" prop="status">
           <el-radio-group v-model="ossConfigForm.status">
             <el-radio
