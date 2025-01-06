@@ -62,7 +62,7 @@ export default {
     })
   },
   zip(url, name) {
-    var url = baseURL + url
+    url = baseURL + url
     downloadLoadingInstance = ElLoading.service({
       text: '正在下载数据，请稍候',
       background: 'rgba(0, 0, 0, 0.7)'

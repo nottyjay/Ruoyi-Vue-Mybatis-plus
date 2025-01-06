@@ -110,7 +110,7 @@ const layouts = {
 
 const tags = {
   'el-button': (el) => {
-    const { tag, disabled } = attrBuilder(el)
+    const { disabled } = attrBuilder(el)
     const type = el.type ? `type="${el.type}"` : ''
     const icon = el.icon ? `icon="${el.icon}"` : ''
     const size = el.size ? `size="${el.size}"` : ''
@@ -244,7 +244,7 @@ const tags = {
   },
   'el-rate': (el) => {
     const { disabled, vModel } = attrBuilder(el)
-    const max = el.max ? `:max='${el.max}'` : ''
+    // const max = el.max ? `:max='${el.max}'` : ''
     const allowHalf = el['allow-half'] ? 'allow-half' : ''
     const showText = el['show-text'] ? 'show-text' : ''
     const showScore = el['show-score'] ? 'show-score' : ''
@@ -260,7 +260,7 @@ const tags = {
     return `<${el.tag} ${vModel} ${size} ${showAlpha} ${colorFormat} ${disabled}></${el.tag}>`
   },
   'el-upload': (el) => {
-    const disabled = el.disabled ? ":disabled='true'" : ''
+    const disabled = el.disabled ? ':disabled=\'true\'' : ''
     const action = el.action ? `:action="${el.vModel}Action"` : ''
     const multiple = el.multiple ? 'multiple' : ''
     const listType = el['list-type'] !== 'text' ? `list-type="${el['list-type']}"` : ''
@@ -283,7 +283,7 @@ function attrBuilder(el) {
     clearable: el.clearable ? 'clearable' : '',
     placeholder: el.placeholder ? `placeholder="${el.placeholder}"` : '',
     width: el.style && el.style.width ? ':style="{width: \'100%\'}"' : '',
-    disabled: el.disabled ? ":disabled='true'" : ''
+    disabled: el.disabled ? ':disabled=\'true\'' : ''
   }
 }
 
@@ -344,15 +344,18 @@ function buildElCheckboxGroupChild(conf) {
 
 function buildElUploadChild(conf) {
   const list = []
-  if (conf['list-type'] === 'picture-card') list.push('<i class="el-icon-plus"></i>')
-  else
+  if (conf['list-type'] === 'picture-card') {
+    list.push('<i class="el-icon-plus"></i>')
+  } else {
     list.push(
       `<el-button size="small" type="primary" icon="el-icon-upload">${conf.buttonText}</el-button>`
     )
-  if (conf.showTip)
+  }
+  if (conf.showTip) {
     list.push(
       `<div slot="tip" class="el-upload__tip">只能上传不超过 ${conf.fileSize}${conf.sizeUnit} 的${conf.accept}文件</div>`
     )
+  }
   return list.join('\n')
 }
 
